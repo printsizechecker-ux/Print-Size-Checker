@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>Resolution, DPI and PPI Explained: The Complete Guide | PrintSizeChecker</title>
+    <meta name="description" content="Master the difference between DPI and PPI. Learn how image resolution affects print quality, calculate print sizes, and understand viewing distance requirements.">
+    <link rel="canonical" href="https://printsizechecker.com/resolution-dpi-ppi.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Resolution, DPI and PPI Explained: The Complete Guide">
+    <meta property="og:description" content="Finally understand the difference between DPI and PPI. Learn how resolution affects print quality and how to calculate optimal print sizes from your images.">
+    <meta property="og:url" content="https://printsizechecker.com/resolution-dpi-ppi.html">
+    <meta property="og:site_name" content="PrintSizeChecker">
+    <meta property="og:image" content="https://img.youtube.com/vi/73o_UnmAeP0/maxresdefault.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Resolution, DPI and PPI Explained: The Complete Technical Guide",
+      "description": "A comprehensive guide explaining the critical differences between DPI and PPI, how image resolution affects print quality, and how to calculate optimal print sizes for any viewing distance.",
+      "image": "https://img.youtube.com/vi/73o_UnmAeP0/maxresdefault.jpg",
+      "author": {
+        "@type": "Organization",
+        "name": "PrintSizeChecker"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "PrintSizeChecker",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://printsizechecker.com/logo.png"
+        }
+      },
+      "datePublished": "2026-03-05",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://printsizechecker.com/resolution-dpi-ppi.html"
+      }
+    }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RNXTTK0Q6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3RNXTTK0Q6');
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-blue: #0798f9;
+            --dark-navy: #021731;
+            --text-gray: #4a5568;
+            --border-light: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0798f9 0%, #021731 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        .nav-header { display: flex; justify-content: space-between; align-items: center; padding: 30px 0; color: white; }
+        .logo { font-size: 1.8em; font-weight: 800; text-decoration: none; color: white; letter-spacing: -0.5px; }
+        .nav-menu { display: flex; gap: 25px; list-style: none; }
+        .nav-menu a { color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 500; font-size: 0.95em; }
+        .nav-menu a:hover { color: white; text-decoration: underline; }
+
+        .page-content {
+            background: white;
+            padding: 60px;
+            border-radius: 24px;
+            margin-bottom: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            gap: 45px;
+        }
+
+        .article-sidebar { flex: 0 0 280px; border-right: 1px solid var(--border-light); padding-right: 25px; }
+        .article-sidebar h2 { font-size: 0.95em; text-transform: uppercase; letter-spacing: 1px; color: var(--primary-blue); margin-bottom: 25px; }
+        .article-link-list { list-style: none; }
+        .article-link-list li { margin-bottom: 14px; line-height: 1.3; }
+        .article-link-list a { text-decoration: none; color: var(--dark-navy); font-size: 0.9em; font-weight: 500; }
+        .article-link-list a:hover { color: var(--primary-blue); }
+        .active-link { color: var(--primary-blue) !important; font-weight: 700 !important; }
+
+        .article-body { flex: 1; }
+        h1 { color: var(--dark-navy); font-size: 2.6em; line-height: 1.2; margin-bottom: 25px; }
+        h2 { color: var(--dark-navy); margin: 40px 0 15px; font-size: 1.7em; }
+        p { margin-bottom: 20px; color: var(--text-gray); font-size: 1.1em; }
+        ul.content-list { margin-bottom: 25px; padding-left: 20px; color: var(--text-gray); }
+        ul.content-list li { margin-bottom: 12px; }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            margin-bottom: 35px;
+            background-color: #000;
+            cursor: pointer;
+            background-image: url('https://img.youtube.com/vi/73o_UnmAeP0/maxresdefault.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .video-container::before {
+            content: '▶';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px; height: 80px;
+            background: rgba(7, 152, 249, 0.95);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            z-index: 2;
+            padding-left: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .video-container:hover::before {
+            background: var(--dark-navy);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; }
+
+        .cta-section {
+            background: #f0f9ff;
+            padding: 45px;
+            border-radius: 20px;
+            border: 2px solid var(--primary-blue);
+            text-align: center;
+            margin-top: 50px;
+        }
+        .cta-title { color: var(--dark-navy); font-size: 1.7em; font-weight: 800; margin-bottom: 10px; }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-navy) 100%);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-top: 25px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(7, 152, 249, 0.3);
+        }
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(7, 152, 249, 0.4); }
+
+        footer { text-align: center; padding-bottom: 60px; color: rgba(255,255,255,0.7); font-size: 0.95em; }
+
+        .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 1.8em; cursor: pointer; }
+
+        @media (max-width: 900px) {
+            .page-content { flex-direction: column; padding: 30px; }
+            .article-sidebar { flex: none; border-right: none; border-bottom: 1px solid var(--border-light); padding-bottom: 30px; margin-bottom: 30px; }
+            h1 { font-size: 2em; }
+            .nav-menu { display: none; }
+            .mobile-menu-btn { display: block; }
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <nav class="nav-header">
+                <a href="index.html" class="logo">PrintSizeChecker.com</a>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle Menu">☰</button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="articles.html">Articles</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="page-content">
+            <aside class="article-sidebar">
+                <h2>Browse All Guides</h2>
+                <ul class="article-link-list">
+                    <li><a href="resolution-dpi-ppi.html" class="active-link">Resolution, DPI and PPI explained</a></li>
+                    <li><a href="prepare-photos-printing.html">How to Prepare Your Photos for Printing</a></li>
+                    <li><a href="print-home-vs-print-shop.html">Print Your Photos at Home vs a Print Shop</a></li>
+                    <li><a href="stop-paying-adobe-affinity-photo-free.html">Stop Paying Adobe: Affinity Photo Free</a></li>
+                    <li><a href="i-quit-adobe-30-days.html">I Quit Adobe For 30 Days</a></li>
+                    <li><a href="affinity-vs-photoshop.html">Affinity vs Photoshop</a></li>
+                    <li><a href="im-done-with-adobe-one-year-later.html">I'm DONE with Adobe…</a></li>
+                    <li><a href="how-many-ppi-for-large-prints.html">How many PPI do you need to make large prints?</a></li>
+                    <li><a href="pushing-12mp-raw-to-poster-size.html">Pushing 12MP RAW to Poster Size</a></li>
+                    <li><a href="iphone-17-pro-vs-pro-mirrorless-cameras.html">iPhone 17 Pro vs Pro Mirrorless Cameras</a></li>
+                    <li><a href="color-spaces-srgb-adobe-rgb.html">Color Spaces: sRGB vs. Adobe RGB</a></li>
+                    <li><a href="choosing-paper-lustre-glossy-matte.html">Choosing Paper: Lustre, Glossy, Matte</a></li>
+                    <li><a href="how-to-calibrate-your-monitor.html">How to Calibrate Your Monitor</a></li>
+                    <li><a href="ai-upscaling-print-small-files-large.html">AI Upscaling: Print Small Files Large</a></li>
+                    <li><a href="aspect-ratios-why-photos-get-cropped.html">Aspect Ratios: Why Photos Get Cropped</a></li>
+                    <li><a href="best-professional-photo-labs.html">Best Professional Photo Labs</a></li>
+                    <li><a href="how-to-backup-your-photos.html">How to Backup Your Photos</a></li>
+                    <li><a href="darktable-vs-gimp-free-alternatives.html">Darktable vs. GIMP: Free Alternatives</a></li>
+                    <li><a href="metal-vs-acrylic-prints.html">Metal vs. Acrylic Prints</a></li>
+                    <li><a href="reasons-your-prints-are-too-dark.html">5 Reasons Your Prints Are Too Dark</a></li>
+                </ul>
+            </aside>
+
+            <article class="article-body">
+                <h1>Resolution, DPI and PPI Explained: The Complete Technical Guide</h1>
+
+                <div class="video-container" id="videoWrapper" onclick="loadVideo()"></div>
+
+                <p>If you have ever prepared images for professional printing, you have encountered the terms DPI and PPI. These acronyms are frequently used interchangeably—even by experienced designers and print shops—but they describe fundamentally different concepts. Understanding the distinction is not academic pedantry; it is the difference between crisp, gallery-quality prints and disappointing, muddy reproductions that waste time, money, and creative energy.</p>
+
+                <p>The technical breakdown in the video guide above clarifies these critical differences. This comprehensive guide expands on those concepts, providing you with the mathematical tools, practical workflows, and decision-making frameworks necessary to optimize any image for any output medium.</p>
+
+                <h2>1. PPI: Pixels Per Inch (The Digital Domain)</h2>
+                <p>PPI stands for <strong>Pixels Per Inch</strong>. It is a purely digital measurement describing how many pixels from your image file are assigned to each linear inch of printed output. PPI exists only in the realm of digital files—it has no meaning once ink hits paper, and it absolutely does not affect how images appear on screens.</p>
+                <p>Think of PPI as a <strong>density instruction</strong>. When you set an image to 300 PPI, you are telling the software: "Pack 300 pixels from my digital file into every inch of the final print." If your image contains 3000 x 2000 pixels and you print at 300 PPI, the physical result will be exactly 10 inches by 6.67 inches. Change that PPI to 150 without resampling, and the same pixel data now spreads across 20 x 13.3 inches—larger physical size, but lower density and potentially softer detail.</p>
+                <p><strong>Key Insight:</strong> PPI does not change the total number of pixels in your file (unless you resample). It only changes how densely those pixels are arranged on paper. This is why the "Resample" checkbox in Photoshop's Image Size dialog is so critical—uncheck it to change print size without altering pixel count; check it to add or remove pixels.</p>
+
+                <h2>2. DPI: Dots Per Inch (The Physical Output)</h2>
+                <p>DPI stands for <strong>Dots Per Inch</strong>. It describes the physical resolution of a printer—the density of ink dots sprayed onto paper to create the final image. DPI is a hardware property, not a file property. Your digital image has PPI; your Epson, Canon, or HP printer has DPI.</p>
+                <p>Modern inkjet printers operate at remarkably high DPI values—typically 720, 1440, 2880, or even 5760 dots per inch. This seems to contradict the 300 PPI "rule," but here is the critical distinction: printers use <strong>multiple dots</strong> to render each pixel. Through a process called <strong>dithering</strong>, the printer lays down patterns of cyan, magenta, yellow, and black dots to simulate the continuous tones of your photograph. A 1440 DPI printer might use 4–16 physical dots to represent one pixel from your 300 PPI file.</p>
+                <p><strong>The Golden Rule:</strong> As a photographer or designer, you generally do not set DPI. You set PPI. The printer handles DPI automatically. Your responsibility is ensuring your PPI provides sufficient data for the printer to work with.</p>
+
+                <h2>3. The 300 PPI Standard: Origins and Reality</h2>
+                <p>The 300 PPI recommendation has dominated print workflows for decades, but its origins reveal important nuances. The standard emerged from <strong>halftone printing</strong>—the process magazines and books use to convert continuous-tone photographs into printable patterns of dots. For quality halftone reproduction, image resolution should be 1.5–2 times the halftone screen frequency (measured in lines per inch, or LPI). A typical 150 LPI magazine screen therefore requires 225–300 PPI images for optimal reproduction.</p>
+                <p>However, modern inkjet printing operates differently than halftone screening. While 300 PPI remains an excellent target for close-viewed prints (handheld photos, fine art reproductions), it is often overkill for large-format work. The human eye's resolving power decreases with viewing distance, allowing lower PPI values for wall-mounted pieces:</p>
+                <ul class="content-list">
+                    <li><strong>Handheld (Books, 4x6 prints, photo albums):</strong> 300 PPI—viewed from 10–12 inches, the eye can resolve individual pixels below this density.</li>
+                    <li><strong>Wall Art (Viewed from 3–5 feet):</strong> 150–200 PPI—often indistinguishable from 300 PPI at normal viewing distance.</li>
+                    <li><strong>Large Posters (Viewed from 6–10 feet):</strong> 100–150 PPI—perfectly acceptable for most observers.</li>
+                    <li><strong>Billboards (Viewed from 20+ feet):</strong> 15–50 PPI—dots the size of peppercorns blend into continuous tones from across the street.</li>
+                </ul>
+
+                <h2>4. The Math: Calculating Print Sizes from Pixel Dimensions</h2>
+                <p>Understanding the relationship between pixels, PPI, and physical size empowers you to evaluate any image for any print application. The formulas are straightforward:</p>
+                <ul class="content-list">
+                    <li><strong>Print Size = Pixel Dimensions ÷ PPI</strong><br>
+                    Example: 6000 × 4000 pixels at 300 PPI = 20″ × 13.33″ print</li>
+                    <li><strong>Required Pixels = Print Size × PPI</strong><br>
+                    Example: 16″ × 20″ print at 300 PPI requires 4800 × 6000 pixels</li>
+                    <li><strong>Maximum PPI = Pixel Dimensions ÷ Desired Print Size</strong><br>
+                    Example: 3000 × 2000 pixels for 10″ × 8″ print = 300 PPI (long edge), 250 PPI (short edge)</li>
+                </ul>
+                <p>When the calculated PPI falls below your quality threshold, you face three options: accept lower resolution (acceptable for distant viewing), resample/upscale the image (using AI tools or Photoshop's Preserve Details), or choose a smaller print size.</p>
+
+                <h2>5. Resampling: When and How to Change Pixel Count</h2>
+                <p>Resampling (changing pixel dimensions) is destructive and permanent—always work on a copy, never your master file. There are two types:</p>
+                <ul class="content-list">
+                    <li><strong>Downsampling (Reduction):</strong> Throwing away pixels to reduce file size. This is safe and often improves perceived sharpness by eliminating redundant data. Use "Bicubic Sharper" in Photoshop for best results.</li>
+                    <li><strong>Upsampling (Enlargement):</strong> Adding pixels that did not exist in the original capture. Traditionally this produced soft, artificial-looking results. Modern AI-powered tools (Topaz Gigapixel, Photoshop's Super Resolution) analyze patterns to generate plausible new pixels, enabling 2–4x enlargements with surprising quality.</li>
+                </ul>
+                <p><strong>Best Practice:</strong> In Lightroom or Photoshop, uncheck "Resample" first to see your image's "natural" size at 300 PPI. If insufficient, enable resampling and enlarge in small increments (110% at a time) rather than one giant leap. This "step interpolation" maintains better edge definition than aggressive single-pass upsampling.</p>
+
+                <h2>6. The "72 PPI Myth" and Digital Display</h2>
+                <p>For decades, 72 PPI persisted as a web standard—a relic from 1980s Macintosh displays. This is now completely irrelevant. Web browsers and mobile apps display images based on <strong>pixel dimensions only</strong>, ignoring PPI metadata entirely. A 1200 × 800 pixel image displays at the same size on your phone whether tagged as 1 PPI or 1000 PPI.</p>
+                <p>What actually matters for digital display:
+                    <ul class="content-list">
+                        <li><strong>Pixel Dimensions:</strong> The absolute count of pixels (width × height)</li>
+                        <li><strong>Device Pixel Ratio:</strong> Modern "Retina" and high-DPI screens use 2× or 3× physical pixels per CSS pixel</li>
+                        <li><strong>Compression Quality:</strong> JPEG artifacts and file size affect loading speed and visual quality</li>
+                    </ul>
+                </p>
+                <p>For web work, export at the exact pixel dimensions needed (e.g., 1200px wide for content images) at 72–90% JPEG quality. The PPI field in your export dialog is meaningless for screen display—set it to 72, 300, or 1000; the result looks identical.</p>
+
+                <h2>7. Practical Workflow: From Camera to Print</h2>
+                <p>Applying these concepts to real-world workflows:</p>
+                <p><strong>Step 1: Capture at Maximum Resolution</strong><br>
+                Set your camera to the highest native resolution. A 24MP camera produces 6000 × 4000 pixel images—enough for crisp 20″ × 13″ prints at 300 PPI, or much larger at lower densities. You can always downsample; you cannot recover detail never captured.</p>
+                <p><strong>Step 2: Edit at Full Resolution</strong><br>
+                Maintain maximum pixel data through your editing workflow. Work in 16-bit color if possible, preserving tonal gradations for heavy adjustments.</p>
+                <p><strong>Step 3: Determine Output Requirements</strong><br>
+                Calculate your needed PPI based on viewing distance. For a 30″ × 20″ gallery print viewed from 5 feet, 180 PPI provides excellent quality—requiring only 5400 × 3600 pixels, easily achievable from modern cameras.</p>
+                <p><strong>Step 4: Size Appropriately</strong><br>
+                In Photoshop or Lightroom, set your output dimensions and PPI. If your file exceeds requirements (common with modern high-MP cameras), downsample to reduce file size and sharpen appropriately.</p>
+                <p><strong>Step 5: Sharpen for Output</strong><br>
+                Apply output sharpening matched to your print size and paper type. Glossy papers and smaller prints need aggressive sharpening; canvas and large prints require gentler treatment.</p>
+
+                <h2>8. Common Pitfalls and Misconceptions</h2>
+                <p><strong>Misconception 1: "I need to send 300 DPI files to my printer."</strong><br>
+                Correction: You send files with sufficient PPI (usually 300). The printer's DPI is hardware-specific and handled automatically.</p>
+                <p><strong>Misconception 2: "My file is 72 PPI, so it's low quality."</strong><br>
+                Correction: A 6000 × 4000 pixel file at 72 PPI contains exactly the same data as the same file at 300 PPI. The PPI tag is just metadata—what matters is total pixel count and how large you intend to print.</p>
+                <p><strong>Misconception 3: "Higher PPI always means better quality."</strong><br>
+                Correction: Beyond 300 PPI for close viewing, human eyes cannot resolve additional detail. Extremely high PPI (600+) creates unnecessarily large files with no visible benefit, slowing processing and wasting storage.</p>
+                <p><strong>Misconception 4: "I can fix a low-resolution image by changing the PPI in Photoshop."</strong><br>
+                Correction: Simply typing "300" in the PPI field without resampling only changes the print size, not the quality. To actually increase resolution, you must resample (add pixels), which has limits and quality tradeoffs.</p>
+
+                <h2>9. Resolution Requirements by Print Medium</h2>
+                <p>Different output technologies have different optimal inputs:</p>
+                <ul class="content-list">
+                    <li><strong>Photo Inkjet (Epson, Canon, HP):</strong> 240–360 PPI. These printers excel with continuous-tone data and can produce excellent results from moderate-resolution files.</li>
+                    <li><strong>Offset Lithography (Magazines, Books):</strong> 300 PPI at 1.5–2× the halftone screen frequency (typically 150 LPI). Requires 225–300 PPI for quality reproduction.</li>
+                    <li><strong>Dye-Sublimation (Metal Prints, Photo Gifts):</strong> 300 PPI recommended. These continuous-tone processes benefit from high-resolution input.</li>
+                    <li><strong>Large Format (Banners, Signage):</strong> 72–150 PPI depending on viewing distance. Often printed at much lower resolution than fine art photographs.</li>
+                    <li><strong>Canvas and Textured Media:</strong> 150–200 PPI sufficient. The physical texture of the substrate masks fine detail, making ultra-high resolution unnecessary.</li>
+                </ul>
+
+                <h2>10. Summary: Key Takeaways for Photographers</h2>
+                <p>Mastering resolution requires understanding three distinct domains:</p>
+                <ul class="content-list">
+                    <li><strong>PPI (Pixels Per Inch):</strong> Your control variable. Determines how large your digital file will print at a given quality level. Set this based on viewing distance: 300 for close inspection, 150–200 for wall art, lower for billboards.</li>
+                    <li><strong>DPI (Dots Per Inch):</strong> The printer's domain. Describes hardware capability, not file quality. Modern photo printers operate at 1440–5760 DPI, using multiple dots per pixel.</li>
+                    <li><strong>Pixel Count:</strong> The absolute limit. Your camera captures a fixed number of pixels. You can downsample (discard data) or upsample (add data with quality loss), but you cannot exceed the information originally captured without AI assistance.</li>
+                </ul>
+                <p>The next time a client, lab, or colleague asks for a "300 DPI file," you can gently correct them: files have PPI; printers have DPI. What they actually need is a file with sufficient pixel dimensions for the intended print size at the desired quality level—whether that is 300 PPI for a coffee table book or 100 PPI for a gallery poster.</p>
+
+                <section class="cta-section">
+                    <div class="cta-title">Calculate your print resolution instantly</div>
+                    <p>Enter your image dimensions and desired print size to see exactly what PPI you'll achieve—before you commit to printing.</p>
+                    <a href="index.html" class="cta-button">🚀 Check My Resolution Now</a>
+                </section>
+            </article>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 PrintSizeChecker.com</p>
+            <p style="margin-top: 10px; font-size: 0.8em;">Professional Printing Guides & DPI Calculators</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('navMenu');
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+                menu.style.flexDirection = 'column';
+                menu.style.position = 'absolute';
+                menu.style.top = '80px';
+                menu.style.left = '0';
+                menu.style.right = '0';
+                menu.style.background = '#021731';
+                menu.style.padding = '20px';
+                menu.style.zIndex = '100';
+                menu.style.borderRadius = '12px';
+            }
+        }
+
+        function loadVideo() {
+            const wrapper = document.getElementById('videoWrapper');
+            wrapper.innerHTML = '<iframe src="https://www.youtube.com/embed/73o_UnmAeP0?autoplay=1&rel=0" title="Resolution, DPI and PPI Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+            wrapper.style.cursor = 'default';
+        }
+    </script>
+</body>
+</html>

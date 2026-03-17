@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>How to Prepare Your Photos for Printing: Complete Workflow Guide | PrintSizeChecker</title>
+    <meta name="description" content="Master the complete workflow for preparing photos for professional printing. Learn Lightroom/Photoshop techniques, sharpening, color management, and export settings.">
+    <link rel="canonical" href="https://printsizechecker.com/prepare-photos-printing.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to Prepare Your Photos for Printing: Complete Workflow Guide">
+    <meta property="og:description" content="Step-by-step guide to preparing digital images for professional printing. Covers Lightroom, Photoshop, sharpening, color spaces, and file preparation.">
+    <meta property="og:url" content="https://printsizechecker.com/prepare-photos-printing.html">
+    <meta property="og:site_name" content="PrintSizeChecker">
+    <meta property="og:image" content="https://img.youtube.com/vi/KRDFceqICDU/maxresdefault.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "How to Prepare Your Photos for Printing: The Complete Workflow Guide",
+      "description": "A comprehensive technical guide to preparing digital images for professional printing, covering software workflows, sharpening, color management, and file optimization.",
+      "image": "https://img.youtube.com/vi/KRDFceqICDU/maxresdefault.jpg",
+      "author": {
+        "@type": "Organization",
+        "name": "PrintSizeChecker"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "PrintSizeChecker",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://printsizechecker.com/logo.png"
+        }
+      },
+      "datePublished": "2026-03-05",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://printsizechecker.com/prepare-photos-printing.html"
+      }
+    }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RNXTTK0Q6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3RNXTTK0Q6');
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-blue: #0798f9;
+            --dark-navy: #021731;
+            --text-gray: #4a5568;
+            --border-light: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0798f9 0%, #021731 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        .nav-header { display: flex; justify-content: space-between; align-items: center; padding: 30px 0; color: white; }
+        .logo { font-size: 1.8em; font-weight: 800; text-decoration: none; color: white; letter-spacing: -0.5px; }
+        .nav-menu { display: flex; gap: 25px; list-style: none; }
+        .nav-menu a { color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 500; font-size: 0.95em; }
+        .nav-menu a:hover { color: white; text-decoration: underline; }
+
+        .page-content {
+            background: white;
+            padding: 60px;
+            border-radius: 24px;
+            margin-bottom: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            gap: 45px;
+        }
+
+        .article-sidebar { flex: 0 0 280px; border-right: 1px solid var(--border-light); padding-right: 25px; }
+        .article-sidebar h2 { font-size: 0.95em; text-transform: uppercase; letter-spacing: 1px; color: var(--primary-blue); margin-bottom: 25px; }
+        .article-link-list { list-style: none; }
+        .article-link-list li { margin-bottom: 14px; line-height: 1.3; }
+        .article-link-list a { text-decoration: none; color: var(--dark-navy); font-size: 0.9em; font-weight: 500; }
+        .article-link-list a:hover { color: var(--primary-blue); }
+        .active-link { color: var(--primary-blue) !important; font-weight: 700 !important; }
+
+        .article-body { flex: 1; }
+        h1 { color: var(--dark-navy); font-size: 2.6em; line-height: 1.2; margin-bottom: 25px; }
+        h2 { color: var(--dark-navy); margin: 40px 0 15px; font-size: 1.7em; }
+        p { margin-bottom: 20px; color: var(--text-gray); font-size: 1.1em; }
+        ul.content-list { margin-bottom: 25px; padding-left: 20px; color: var(--text-gray); }
+        ul.content-list li { margin-bottom: 12px; }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            margin-bottom: 35px;
+            background-color: #000;
+            cursor: pointer;
+            background-image: url('https://img.youtube.com/vi/KRDFceqICDU/maxresdefault.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .video-container::before {
+            content: '▶';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px; height: 80px;
+            background: rgba(7, 152, 249, 0.95);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            z-index: 2;
+            padding-left: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .video-container:hover::before {
+            background: var(--dark-navy);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; }
+
+        .cta-section {
+            background: #f0f9ff;
+            padding: 45px;
+            border-radius: 20px;
+            border: 2px solid var(--primary-blue);
+            text-align: center;
+            margin-top: 50px;
+        }
+        .cta-title { color: var(--dark-navy); font-size: 1.7em; font-weight: 800; margin-bottom: 10px; }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-navy) 100%);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-top: 25px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(7, 152, 249, 0.3);
+        }
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(7, 152, 249, 0.4); }
+
+        footer { text-align: center; padding-bottom: 60px; color: rgba(255,255,255,0.7); font-size: 0.95em; }
+
+        .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 1.8em; cursor: pointer; }
+
+        @media (max-width: 900px) {
+            .page-content { flex-direction: column; padding: 30px; }
+            .article-sidebar { flex: none; border-right: none; border-bottom: 1px solid var(--border-light); padding-bottom: 30px; margin-bottom: 30px; }
+            h1 { font-size: 2em; }
+            .nav-menu { display: none; }
+            .mobile-menu-btn { display: block; }
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <nav class="nav-header">
+                <a href="index.html" class="logo">PrintSizeChecker.com</a>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle Menu">☰</button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="articles.html">Articles</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="page-content">
+            <aside class="article-sidebar">
+                <h2>Browse All Guides</h2>
+                <ul class="article-link-list">
+                    <li><a href="resolution-dpi-ppi.html">Resolution, DPI and PPI explained</a></li>
+                    <li><a href="prepare-photos-printing.html" class="active-link">How to Prepare Your Photos for Printing</a></li>
+                    <li><a href="print-home-vs-print-shop.html">Print Your Photos at Home vs a Print Shop</a></li>
+                    <li><a href="stop-paying-adobe-affinity-photo-free.html">Stop Paying Adobe: Affinity Photo Free</a></li>
+                    <li><a href="i-quit-adobe-30-days.html">I Quit Adobe For 30 Days</a></li>
+                    <li><a href="affinity-vs-photoshop.html">Affinity vs Photoshop</a></li>
+                    <li><a href="im-done-with-adobe-one-year-later.html">I'm DONE with Adobe…</a></li>
+                    <li><a href="how-many-ppi-for-large-prints.html">How many PPI do you need to make large prints?</a></li>
+                    <li><a href="pushing-12mp-raw-to-poster-size.html">Pushing 12MP RAW to Poster Size</a></li>
+                    <li><a href="iphone-17-pro-vs-pro-mirrorless-cameras.html">iPhone 17 Pro vs Pro Mirrorless Cameras</a></li>
+                    <li><a href="color-spaces-srgb-adobe-rgb.html">Color Spaces: sRGB vs. Adobe RGB</a></li>
+                    <li><a href="choosing-paper-lustre-glossy-matte.html">Choosing Paper: Lustre, Glossy, Matte</a></li>
+                    <li><a href="how-to-calibrate-your-monitor.html">How to Calibrate Your Monitor</a></li>
+                    <li><a href="ai-upscaling-print-small-files-large.html">AI Upscaling: Print Small Files Large</a></li>
+                    <li><a href="aspect-ratios-why-photos-get-cropped.html">Aspect Ratios: Why Photos Get Cropped</a></li>
+                    <li><a href="best-professional-photo-labs.html">Best Professional Photo Labs</a></li>
+                    <li><a href="how-to-backup-your-photos.html">How to Backup Your Photos</a></li>
+                    <li><a href="darktable-vs-gimp-free-alternatives.html">Darktable vs. GIMP: Free Alternatives</a></li>
+                    <li><a href="metal-vs-acrylic-prints.html">Metal vs. Acrylic Prints</a></li>
+                    <li><a href="reasons-your-prints-are-too-dark.html">5 Reasons Your Prints Are Too Dark</a></li>
+                </ul>
+            </aside>
+
+            <article class="article-body">
+                <h1>How to Prepare Your Photos for Printing: The Complete Workflow Guide</h1>
+
+                <div class="video-container" id="videoWrapper" onclick="loadVideo()"></div>
+
+                <p>Preparing a digital image for physical printing requires more than simply hitting "print." The transition from screen to paper involves fundamental technical considerations: resolution requirements, color space conversions, output sharpening, and file format selection. Each decision point affects the final quality of your print, determining whether you achieve gallery-worthy results or disappointing, muddy reproductions.</p>
+
+                <p>The comprehensive workflow demonstrated in the video guide above walks through the essential preparation steps used by professional photographers and print labs. Whether you are printing at home or sending files to a professional service, mastering these techniques ensures your prints match your creative vision with precision and consistency.</p>
+
+                <h2>1. Understanding the Fundamentals: Screen vs. Print</h2>
+                <p>Digital screens emit light; paper reflects it. This fundamental difference means prints naturally appear darker than their on-screen counterparts. Your monitor displays images using transmitted light at approximately 100–150 nits brightness, while paper can only reflect ambient light—typically resulting in a 10–20% perceived brightness reduction.</p>
+                <p>Additionally, screens display RGB color using additive primaries (red, green, blue light combined), while printers use subtractive CMYK processes (cyan, magenta, yellow, and black ink). This color model difference requires careful color management to prevent unwanted color shifts, particularly in saturated blues and greens that exceed printer gamut capabilities.</p>
+
+                <h2>2. Image Resolution and Sizing</h2>
+                <p>Resolution determines how large you can print while maintaining sharp detail. Professional printing typically requires 300 pixels per inch (PPI) for standard viewing distances. Calculate your maximum print size by dividing your image dimensions by 300:</p>
+                <ul class="content-list">
+                    <li><strong>Example:</strong> A 6000 x 4000 pixel image yields a 20" x 13.3" print at 300 PPI</li>
+                    <li><strong>Large Format:</strong> For wall art viewed from 3+ feet, 150–200 PPI often suffices</li>
+                    <li><strong>Billboards:</strong> Viewed from 20+ feet, 72–100 PPI is acceptable</li>
+                </ul>
+                <p>When resizing in Lightroom or Photoshop, use "Resize to Fit" with the long edge specified, maintaining original aspect ratio. For upsampling (enlarging beyond native resolution), use Lightroom's optimized interpolation or Photoshop's Preserve Details 2.0 algorithm, available in the Image Size dialog with Resample checked.</p>
+
+                <h2>3. The Three-Stage Sharpening Workflow</h2>
+                <p>Professional printing requires purpose-built sharpening at three distinct stages:</p>
+                <ul class="content-list">
+                    <li><strong>Capture Sharpening:</strong> Applied in Lightroom/Camera Raw to compensate for anti-aliasing filters and lens softness. Use the Detail panel's Sharpening sliders: Amount (40–70), Radius (0.8–1.2), Detail (25–50), and Masking (hold Alt/Option to visualize edge detection).</li>
+                    <li><strong>Creative Sharpening:</strong> Selective sharpening applied in Photoshop for specific image elements. Use the Adjustment Brush in Lightroom or layer masks with High Pass filters in Photoshop to enhance eyes, textures, or key details without affecting smooth areas like skies.</li>
+                    <li><strong>Output Sharpening:</strong> Final sharpening tailored to print size and paper type. In Lightroom's Print module, select Standard, Low, or High based on your previous sharpening intensity. Glossy papers require less aggressive sharpening than matte or canvas textures.</li>
+                </ul>
+
+                <h2>4. Soft Proofing: Previewing the Print</h2>
+                <p>Soft proofing simulates how your image will appear on specific paper types using ICC printer profiles. This critical step prevents costly reprints and disappointment.</p>
+                <p><strong>Lightroom Soft Proofing:</strong> Press S in the Develop module or select Soft Proofing from the toolbar. Choose your printer-paper profile from the Profile dropdown (e.g., "Epson Premium Glossy"). Enable "Simulate Paper & Ink" to see the full effect. Create a virtual copy (recommended) to preserve your original edit while making print-specific adjustments.</p>
+                <p><strong>Photoshop Soft Proofing:</strong> Navigate to View > Proof Setup > Custom. Select your device profile and enable "Simulate Paper Color" and "Simulate Black Ink." The on-screen appearance will shift—typically showing reduced contrast and saturation. Adjust using Curves or Levels to compensate, watching for out-of-gamut colors (enable View > Gamut Warning to see Shift+Ctrl+U/Shift+Command+U highlights).</p>
+
+                <h2>5. Color Space and Profile Management</h2>
+                <p>Color spaces define the range of reproducible colors (gamut). For printing, you must navigate three distinct spaces:</p>
+                <ul class="content-list">
+                    <li><strong>ProPhoto RGB:</strong> Largest space, ideal for editing but exceeds most printer capabilities. Use only if your workflow maintains 16-bit files and you understand gamut conversion.</li>
+                    <li><strong>Adobe RGB (1998):</strong> Wider than sRGB, preferred by many professional labs for its extended cyan and green gamut. Excellent for landscape and nature photography.</li>
+                    <li><strong>sRGB:</strong> Narrowest space but universal standard. Required by most consumer labs (Mpix, Shutterfly) to prevent color shifts from unmanaged conversions.</li>
+                </ul>
+                <p>When printing through a lab, export files in sRGB unless specifically instructed otherwise. For home printing with ICC profiles, maintain Adobe RGB or ProPhoto RGB through your editing workflow, converting only at the final output stage using perceptual or relative colorimetric rendering intent.</p>
+
+                <h2>6. Preparing Files for Professional Labs</h2>
+                <p>When outsourcing printing, preparation requirements differ from home workflows:</p>
+                <ul class="content-list">
+                    <li><strong>File Format:</strong> Export as JPEG Quality 10–12 (85–100%) for manageable file sizes, or TIFF for maximum quality on large prints. Most labs prefer JPEG for online upload efficiency.</li>
+                    <li><strong>Color Space:</strong> Convert to sRGB in Lightroom's Export dialog or Photoshop's Save for Web dialog. Labs without color management will produce unpredictable results with Adobe RGB or ProPhoto files.</li>
+                    <li><strong>Sizing:</strong> Uncheck "Resize to Fit" in Lightroom Export to deliver full-resolution files. This gives the lab maximum data for any requested print size, though it requires you to verify resolution adequacy beforehand.</li>
+                    <li><strong>Sharpening:</strong> Apply output sharpening for the specific paper type you will order (Glossy or Matte). Labs do not apply additional sharpening—what you send is what prints.</li>
+                </ul>
+
+                <h2>7. Aspect Ratio and Cropping Considerations</h2>
+                <p>Standard print sizes use different aspect ratios than camera sensors. A full-frame DSLR produces 2:3 images (4x6, 8x12, 16x24), but common frame sizes use 4:5 (8x10, 16x20) or 5:7 ratios. This mismatch inevitably requires cropping.</p>
+                <p>When composing shots intended for print, visualize the final crop. Leave adequate headroom around subjects to accommodate different aspect ratios. In post-processing, use Lightroom's Crop tool with Aspect Ratio presets (2:3, 4:5, 5:7, 1:1) to preview how the image will frame. For client work, consider delivering multiple crops or using an intermediate aspect ratio (like 11:15) that requires minimal cropping for both 2:3 and 4:5 prints.</p>
+
+                <h2>8. The Lightroom Print Module Workflow</h2>
+                <p>For home printing from Lightroom, the Print module provides comprehensive control:</p>
+                <ul class="content-list">
+                    <li><strong>Layout Style:</strong> Choose Single Image/Contact Sheet for individual prints, Picture Package for multiple sizes of one image (portrait studios), or Custom Package for mixed layouts.</li>
+                    <li><strong>Page Setup:</strong> Select your printer and paper dimensions. Avoid borderless printing if possible—manually trim prints to prevent paper handling issues.</li>
+                    <li><strong>Image Settings:</strong> Enable "Zoom to Fill" to crop to the cell size, or disable to show full image with potential white space. Use "Rotate to Fit" for efficient paper usage with mixed orientations.</li>
+                    <li><strong>Print Job Panel:</strong> Set Print Resolution to 360 PPI for Epson printers, 300 PPI for Canon/HP. Select appropriate media type (Glossy vs. Matte) for output sharpening. Under Color Management, choose "Managed by Printer" for driver-based profiles or select specific ICC profiles for advanced workflows.</li>
+                </ul>
+
+                <h2>9. Photoshop Print Settings Deep Dive</h2>
+                <p>Photoshop offers granular control through the Print Settings dialog:</p>
+                <ul class="content-list">
+                    <li><strong>Color Handling:</strong> Select "Photoshop Manages Colors" to use ICC profiles, or "Printer Manages Colors" for driver-based conversion (required for some black-and-white modes).</li>
+                    <li><strong>Printer Profile:</strong> Choose the specific profile for your printer-paper combination. Download profiles from paper manufacturers (Hahnemühle, Ilford, Canson) for third-party media.</li>
+                    <li><strong>Rendering Intent:</strong> Relative Colorimetric preserves in-gamut colors accurately, shifting out-of-gamut colors to the closest reproducible hue. Perceptual compresses the entire gamut, maintaining relationships but potentially altering all colors. Use Relative Colorimetric for most photographic work with Black Point Compensation enabled.</li>
+                    <li><strong>Position and Size:</strong> Center the image and scale to fit media, or specify exact dimensions. Enable "Border" to add white space for handling and framing.</li>
+                </ul>
+
+                <h2>10. Final Checklist Before Printing</h2>
+                <p>Before committing ink to paper or sending files to a lab, verify these critical elements:</p>
+                <ul class="content-list">
+                    <li><strong>Monitor Calibration:</strong> Is your display profiled with a hardware calibrator (X-Rite, Datacolor) within the last month?</li>
+                    <li><strong>Brightness Compensation:</strong> Have you boosted exposure 10–15% or used print adjustment sliders to compensate for backlight absence?</li>
+                    <li><strong>Sharpening Appropriateness:</strong> Is output sharpening matched to your final print size and paper texture?</li>
+                    <li><strong>Color Space Verification:</strong> Does the file use the color space your lab expects (usually sRGB)?</li>
+                    <li><strong>Gamut Check:</strong> Have you identified and addressed out-of-gamut colors using soft proofing?</li>
+                    <li><strong>Resolution Audit:</strong> Will your file produce at least 150 PPI at the intended print size?</li>
+                    <li><strong>Test Prints:</strong> For critical work, order a small test print or proof before committing to large-format output.</li>
+                </ul>
+
+                <section class="cta-section">
+                    <div class="cta-title">Ready to print with confidence?</div>
+                    <p>Verify your image resolution, dimensions, and print readiness before sending files to the lab or your printer.</p>
+                    <a href="index.html" class="cta-button">🚀 Check My Print Readiness Now</a>
+                </section>
+            </article>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 PrintSizeChecker.com</p>
+            <p style="margin-top: 10px; font-size: 0.8em;">Professional Printing Guides & DPI Calculators</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('navMenu');
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+                menu.style.flexDirection = 'column';
+                menu.style.position = 'absolute';
+                menu.style.top = '80px';
+                menu.style.left = '0';
+                menu.style.right = '0';
+                menu.style.background = '#021731';
+                menu.style.padding = '20px';
+                menu.style.zIndex = '100';
+                menu.style.borderRadius = '12px';
+            }
+        }
+
+        function loadVideo() {
+            const wrapper = document.getElementById('videoWrapper');
+            wrapper.innerHTML = '<iframe src="https://www.youtube.com/embed/KRDFceqICDU?autoplay=1&rel=0" title="How to Prepare Your Photos for Printing" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+            wrapper.style.cursor = 'default';
+        }
+    </script>
+</body>
+</html>

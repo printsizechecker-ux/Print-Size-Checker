@@ -1,0 +1,2419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>How Big Can I Print My Photo? Free DPI & Print Size Calculator</title>
+    <link rel="canonical" href="https://printsizechecker.com/">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3RNXTTK0Q6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-3RNXTTK0Q6');
+</script>
+    <meta name="description" content="Calculate exactly how big you can print your photo without losing quality. Free DPI calculator checks image resolution, shows print size limits, and creates print-ready files instantly.">
+
+    <!-- Software Application Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "PrintSizeChecker",
+        "operatingSystem": "All",
+        "applicationCategory": "DesignApplication",
+        "description": "Professional DPI calculator and print quality verification tool.",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <!-- FAQ Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How big can I print my photo without it getting blurry?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The maximum print size depends on your image resolution. At standard quality (300 DPI), divide your image's pixel width by 300 to get the maximum width in inches. For example, a 3000x2000 pixel image can print at 10x6.7 inches at 300 DPI. For larger prints, you can use 200 DPI for posters viewed from a distance, or 150 DPI for very large wall prints."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How big can I print an iPhone photo?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Modern iPhones (12MP camera) produce 4032x3024 pixel images. At 300 DPI (photo quality), you can print up to 13x10 inches. At 200 DPI (poster quality), up to 20x15 inches. iPhone 14 Pro and 15 Pro (48MP) can print up to 26x20 inches at 300 DPI."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is DPI and why does it matter for printing?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "DPI stands for Dots Per Inch - the number of ink dots a printer places in one inch. 300 DPI is the standard for sharp photo prints viewed up close. 200 DPI works for posters viewed from 3+ feet away. Lower DPI means larger prints but less sharpness. Higher DPI (400+) is used for fine art prints and gallery exhibitions."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I print a low resolution image larger?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, but with limitations. You can print low resolution images larger by reducing the DPI (accepting lower sharpness) or using AI upscaling software. For best results: social media screenshots (1080px wide) max out at 3.5 inches wide at 300 DPI. For larger prints, use 150 DPI and view from distance, or use dedicated upscaling tools like Topaz Gigapixel before printing."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What size can I print from different megapixels?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "At 300 DPI photo quality: 12MP = 13x10 inches, 24MP = 20x13 inches, 36MP = 24x16 inches, 45MP = 27x18 inches. At 200 DPI poster quality: 12MP = 20x15 inches, 24MP = 30x20 inches. These assume standard 3:2 camera aspect ratios."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0798f9 0%, #021731 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+        /* Navigation */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            color: white;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            font-size: 0.95em;
+        }
+
+        .nav-menu a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            z-index: 1002;
+            position: relative;
+        }
+
+        /* SEO Content Section - Above the fold */
+        .seo-hero-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 20px 0 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #021731;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .seo-intro {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .quick-answer-box {
+            background: linear-gradient(135deg, #e6f3ff 0%, #f0f8ff 100%);
+            border-left: 5px solid #0798f9;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .quick-answer-box h2 {
+            color: #021731;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .quick-answer-box ul {
+            margin-left: 20px;
+            color: #444;
+        }
+
+        .quick-answer-box li {
+            margin-bottom: 8px;
+        }
+
+        .seo-content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .seo-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            border-top: 4px solid #0798f9;
+        }
+
+        .seo-card h3 {
+            color: #021731;
+            font-size: 1.2em;
+            margin-bottom: 12px;
+        }
+
+        .seo-card p, .seo-card ul {
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .seo-card ul {
+            margin-left: 18px;
+        }
+
+        .seo-card li {
+            margin-bottom: 6px;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #856404;
+        }
+
+        /* Audience Section - Compact */
+        .audience-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px 30px;
+            margin: 20px 0 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .audience-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .audience-header h2 {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 5px;
+            opacity: 0.95;
+        }
+
+        .audience-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 10px 30px;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 0.9em;
+        }
+
+        .audience-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .audience-bullet {
+            color: #00d084;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        /* App Container */
+        .app-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .upload-section {
+            padding: 40px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .upload-area {
+            border: 3px dashed #0798f9;
+            border-radius: 16px;
+            padding: 60px 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: white;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: #021731;
+            background: #f0f8ff;
+        }
+
+        .file-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-icon { 
+            font-size: 64px; 
+            margin-bottom: 20px; 
+            display: block;
+        }
+        .upload-text { font-size: 1.5em; color: #555; margin-bottom: 10px; }
+        .upload-hint { color: #888; font-size: 0.9em; }
+
+        .controls-section { padding: 40px; display: none; }
+        .controls-section.active { display: block; }
+
+        .image-info {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .info-card {
+            flex: 1;
+            min-width: 200px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #0798f9;
+        }
+
+        .info-card.warning {
+            border-left-color: #ef476f;
+            background: #fff5f5;
+        }
+
+        .info-card.success {
+            border-left-color: #00d084;
+            background: #f0fff4;
+        }
+
+        .info-label {
+            font-size: 0.85em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .size-controls {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+        }
+
+        .control-row {
+            display: flex;
+            gap: 20px;
+            align-items: end;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .input-group { flex: 1; min-width: 150px; }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .unit-toggle, .dpi-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .unit-btn, .dpi-btn {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .unit-btn.active, .dpi-btn.active {
+            background: #0798f9;
+            color: white;
+            border-color: #0798f9;
+        }
+
+        .preset-sizes, .pixel-presets {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .pixel-presets { display: none; }
+        .pixel-presets.active { display: flex; }
+
+        .preset-btn {
+            padding: 8px 16px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.2s;
+        }
+
+        .preset-btn:hover { background: #0798f9; color: white; border-color: #0798f9; }
+
+        .custom-size-toggle {
+            margin-top: 15px;
+            padding: 10px;
+            background: #e6f3ff;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            color: #0798f9;
+            transition: all 0.2s;
+        }
+
+        .custom-size-toggle:hover { background: #d0e8ff; }
+
+        .custom-size-section {
+            display: none;
+            margin-top: 15px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 2px dashed #0798f9;
+        }
+
+        .custom-size-section.active { display: block; }
+
+        .results-panel {
+            background: linear-gradient(135deg, #0798f9 0%, #021731 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+        }
+
+        .quality-meter {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .quality-label {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .quality-value {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .quality-bar {
+            width: 100%;
+            height: 30px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .quality-fill {
+            height: 100%;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: width 0.3s ease;
+        }
+
+        .quality-excellent { background: #00d084; }
+        .quality-good { background: #ffd166; color: #333; }
+        .quality-fair { background: #ff9e44; }
+        .quality-poor { background: #ef476f; }
+
+        .dpi-display {
+            font-size: 1.5em;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .dpi-number {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .gold-standard {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 215, 0, 0.2);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 15px;
+        }
+
+        .print-size-display {
+            background: #021731;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .print-size-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .print-size-value {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .preview-section { margin-top: 30px; }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .preview-title {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .preview-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .zoom-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: #0798f9;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.2s;
+        }
+
+        .zoom-btn:hover { background: #021731; }
+
+        .fullscreen-btn {
+            padding: 10px 20px;
+            border: none;
+            background: #021731;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.2s;
+        }
+
+        .fullscreen-btn:hover { background: #0798f9; }
+
+        .preview-instructions {
+            background: #e6f3ff;
+            border-left: 4px solid #0798f9;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .preview-instructions-icon {
+            font-size: 1.5em;
+        }
+
+        .preview-instructions-text {
+            flex: 1;
+            color: #333;
+            font-size: 0.95em;
+        }
+
+        .preview-instructions-text strong {
+            color: #021731;
+        }
+
+        .center-btn {
+            padding: 8px 16px;
+            background: #0798f9;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.2s;
+        }
+
+        .center-btn:hover { background: #021731; }
+
+        .preview-frame-container {
+            background: #f5f5f0;
+            border-radius: 12px;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 800px;
+        }
+
+        .preview-wrapper {
+            position: relative;
+            overflow: visible;
+        }
+
+        .preview-frame {
+            position: relative;
+            background: #333;
+            border: 4px solid #0798f9;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            cursor: grab;
+            z-index: 2;
+            transition: border-color 0.3s;
+        }
+
+        .preview-frame:active, .preview-frame.dragging { cursor: grabbing; }
+
+        .preview-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .frame-info-below {
+            background: #021731;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            text-align: center;
+            margin-top: 20px;
+            font-family: monospace;
+        }
+
+        .download-btn {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto 0;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #0798f9 0%, #021731 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(7, 152, 249, 0.4);
+        }
+
+        .download-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .reset-btn {
+            background: #ef476f;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.2s;
+        }
+
+        .reset-btn:hover { background: #d63a5e; }
+
+        .info-box {
+            background: #e6f3ff;
+            border-left: 4px solid #0798f9;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .feature-section {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border-left: 4px solid #0798f9;
+        }
+
+        .feature-section h3 {
+            color: #021731;
+            margin-bottom: 15px;
+        }
+
+        .feature-section ul {
+            color: #555;
+            line-height: 1.8;
+            margin-left: 20px;
+        }
+
+        .feature-section li {
+            margin-bottom: 8px;
+        }
+
+        /* DPI Visual Comparison Section */
+        .dpi-visual-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 40px;
+            border-radius: 16px;
+            margin: 40px 0;
+            border: 2px solid #dee2e6;
+        }
+
+        .dpi-visual-section h2 {
+            color: #021731;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+        }
+
+        .dpi-comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .dpi-example {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .dpi-example-image {
+            width: 100%;
+            height: 150px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dpi-300 {
+            background: linear-gradient(45deg, #0798f9 25%, #00d084 25%, #00d084 50%, #0798f9 50%, #0798f9 75%, #00d084 75%);
+            background-size: 20px 20px;
+        }
+
+        .dpi-200 {
+            background: linear-gradient(45deg, #ffd166 25%, #ff9e44 25%, #ff9e44 50%, #ffd166 50%, #ffd166 75%, #ff9e44 75%);
+            background-size: 40px 40px;
+        }
+
+        .dpi-72 {
+            background: linear-gradient(45deg, #ef476f 25%, #c9184a 25%, #c9184a 50%, #ef476f 50%, #ef476f 75%, #c9184a 75%);
+            background-size: 80px 80px;
+        }
+
+        .dpi-label {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #021731;
+            margin-bottom: 8px;
+        }
+
+        .dpi-desc {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .dpi-use-case {
+            display: inline-block;
+            background: #e6f3ff;
+            color: #0798f9;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        /* Long-form SEO Content Section */
+        .seo-content-section {
+            background: white;
+            border-radius: 20px;
+            padding: 50px 40px;
+            margin: 40px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .seo-content-section h2 {
+            color: #021731;
+            font-size: 1.8em;
+            margin: 35px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #0798f9;
+        }
+
+        .seo-content-section h2:first-child {
+            margin-top: 0;
+        }
+
+        .seo-content-section h3 {
+            color: #0798f9;
+            font-size: 1.3em;
+            margin: 25px 0 15px;
+        }
+
+        .seo-content-section p {
+            color: #444;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .seo-content-section ul, .seo-content-section ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+            color: #444;
+            line-height: 1.8;
+        }
+
+        .seo-content-section li {
+            margin-bottom: 10px;
+        }
+
+        .megapixel-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95em;
+        }
+
+        .megapixel-table th, .megapixel-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .megapixel-table th {
+            background: #0798f9;
+            color: white;
+            font-weight: 600;
+        }
+
+        .megapixel-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .megapixel-table tr:hover {
+            background: #e6f3ff;
+        }
+
+        .tips-section {
+            padding: 40px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            margin-top: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tip-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .tip-card:hover { transform: translateY(-5px); }
+
+        .tip-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .tip-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .tip-text {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        /* Footer Styles - Enhanced for AdSense */
+        .main-footer {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-brand {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .footer-tagline {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 25px 0;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer-legal {
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.6);
+            margin-top: 20px;
+        }
+
+        .footer-legal a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+
+        .footer-features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.7);
+            flex-wrap: wrap;
+        }
+
+        .spinner {
+            display: none;
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #0798f9;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #fee;
+            border: 2px solid #c00;
+            color: #c00;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            display: none;
+        }
+
+        .error-message.show { display: block; }
+
+        .preview-section.fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            background: #1a1a1a;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8em; }
+            .seo-hero-section { padding: 25px; }
+            .seo-content-section { padding: 30px 20px; }
+            .upload-section, .controls-section { padding: 20px; }
+            .image-info { flex-direction: column; gap: 15px; }
+            .preview-section { margin-top: 20px; }
+            .preview-frame-container { 
+                padding: 15px; 
+                min-height: 250px; 
+                max-height: 65vh;
+                overflow: hidden;
+            }
+            .preview-wrapper {
+                max-width: 100%;
+                max-height: 60vh;
+            }
+            .preview-frame {
+                max-height: 55vh !important;
+                max-width: 95vw !important;
+                margin: 0 auto;
+            }
+            .preview-instructions {
+                margin-bottom: 15px;
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+            .preview-header {
+                margin-bottom: 15px;
+            }
+            .quality-value { font-size: 2em; }
+
+            /* Mobile Logo Fix - Smaller size and spacing */
+            .logo {
+                font-size: 1.4em;
+                padding-right: 10px;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: #021731;
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                z-index: 1001;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                border-radius: 0 0 16px 16px;
+                margin: 0 20px;
+                width: calc(100% - 40px);
+            }
+
+            .nav-menu.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .nav-header { position: relative; padding: 15px 0; }
+
+            .audience-section { padding: 20px; }
+            .audience-list { grid-template-columns: 1fr; }
+
+            .tips-section { margin-top: 20px; }
+
+            .megapixel-table { font-size: 0.85em; }
+            .megapixel-table th, .megapixel-table td { padding: 8px; }
+
+            .dpi-comparison-grid { grid-template-columns: 1fr; }
+
+            .footer-links { flex-direction: column; gap: 10px; }
+            .footer-features { flex-direction: column; gap: 10px; align-items: center; }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="nav-header">
+            <a href="index.html" class="logo">PrintSizeChecker.com</a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="about.html">About</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="terms.html">Terms of Use</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+            </ul>
+        </nav>
+
+        <!-- SEO Hero Section - Streamlined for Mobile -->
+        <section class="seo-hero-section">
+            <h1>How Big Can I Print My Photo? Free DPI & Print Size Calculator</h1>
+
+            <p class="seo-intro">
+                Wondering how large you can print your digital photos without losing quality? Use our free print size calculator to instantly check your image resolution, calculate maximum print dimensions, and download perfectly sized files ready for any print lab.
+            </p>
+        </section>
+
+        <!-- Additional SEO Content -->
+        <section class="seo-hero-section" style="margin-top: 0;">
+            <div class="quick-answer-box">
+                <h2>Quick Answer: How to Calculate Your Max Print Size</h2>
+                <ul>
+                    <li><strong>Find your image dimensions:</strong> Right-click your photo → Properties → Details (Windows) or Get Info (Mac)</li>
+                    <li><strong>For photo quality (300 DPI):</strong> Divide pixel width by 300 = max width in inches</li>
+                    <li><strong>For poster quality (200 DPI):</strong> Divide pixel width by 200 = max width in inches</li>
+                    <li><strong>iPhone 12MP example:</strong> 4032 pixels ÷ 300 = <span class="highlight">13.4 inches max width at photo quality</span></li>
+                </ul>
+            </div>
+
+            <div class="seo-content-grid">
+                <div class="seo-card">
+                    <h3>What Is DPI?</h3>
+                    <p>DPI (Dots Per Inch) measures how many ink dots a printer places in one inch. <strong>300 DPI</strong> is the gold standard for sharp photo prints. <strong>200 DPI</strong> works for posters viewed from 3+ feet away. Lower DPI = larger prints but softer detail.</p>
+                </div>
+
+                <div class="seo-card">
+                    <h3>Why Megapixels Matter</h3>
+                    <p>More megapixels = more pixels = larger possible prints. A 12MP camera produces 4000x3000 pixel images. A 45MP professional camera produces 8000x6000 pixels, allowing prints twice as large at the same sharpness.</p>
+                </div>
+
+                <div class="seo-card">
+                    <h3>Viewing Distance Rule</h3>
+                    <p>The further away you view a print, the lower the DPI you can use. A billboard viewed from 50 feet only needs 15 DPI. A photo held in your hands needs 300 DPI. Match your DPI to your viewing distance for optimal results.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Audience Section - Compact -->
+        <div class="audience-section">
+            <div class="audience-header">
+                <h2>Who Is This For?</h2>
+                <p>Instant print quality checks & perfect file preparation — no Photoshop, no signup, no hassle</p>
+            </div>
+            <div class="audience-list">
+                <div class="audience-item">
+                    <span class="audience-bullet">✓</span>
+                    <span class="audience-text-compact"><strong>Everyday Users:</strong> Check how large you can print without technical knowledge. <span class="audience-highlight">Zero expertise required.</span></span>
+                </div>
+                <div class="audience-item">
+                    <span class="audience-bullet">✓</span>
+                    <span class="audience-text-compact"><strong>Photographers:</strong> Verify file quality & resize without heavy software. <span class="audience-highlight">Print-ready in seconds.</span></span>
+                </div>
+                <div class="audience-item">
+                    <span class="audience-bullet">✓</span>
+                    <span class="audience-text-compact"><strong>Designers:</strong> Get exact pixel dimensions & DPI for any project. <span class="audience-highlight">Pixel-perfect exports.</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- The App Tool -->
+        <div class="app-container">
+            <div class="upload-section" id="uploadSection">
+                <div class="upload-area" id="uploadArea">
+                    <img src="File Uploader Icon.png" alt="Upload icon" class="upload-icon" style="width: 64px; height: 64px; margin: 0 auto 20px;">
+                    <div class="upload-text">Upload your image to check resolution, DPI, and print size before printing</div>
+                    <div class="upload-hint">Supports JPG, PNG, GIF, WebP (Max 20MB)  Free  No signup required</div>
+                    <input type="file" id="fileInput" class="file-input" accept="image/*" aria-label="Upload image to check print size and resolution">
+                </div>
+                <div class="error-message" id="errorMessage"></div>
+                <div class="spinner" id="spinner"></div>
+            </div>
+
+            <div class="controls-section" id="controlsSection">
+                <div class="image-info">
+                    <div class="info-card">
+                        <div class="info-label">Original Dimensions</div>
+                        <div class="info-value" id="imgDimensions">-</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">File Size</div>
+                        <div class="info-value" id="fileSize">-</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Aspect Ratio</div>
+                        <div class="info-value" id="aspectRatio">-</div>
+                    </div>
+                    <div class="info-card" id="requiredPixelsCard">
+                        <div class="info-label">Required Pixels</div>
+                        <div class="info-value" id="requiredPixels">-</div>
+                    </div>
+                </div>
+
+                <div class="size-controls">
+                    <label>Select Print Resolution (DPI)</label>
+                    <div class="dpi-toggle" id="dpiToggle">
+                        <button class="dpi-btn active" data-dpi="300">300 DPI</button>
+                        <button class="dpi-btn" data-dpi="200">200 DPI</button>
+                        <button class="dpi-btn" data-dpi="400">400 DPI</button>
+                    </div>
+
+                    <hr style="border: none; border-top: 1px solid #ddd; margin: 25px 0;">
+
+                    <label>Print Dimensions</label>
+
+                    <div class="unit-toggle">
+                        <button class="unit-btn active" data-unit="in">Inches</button>
+                        <button class="unit-btn" data-unit="cm">Centimeters</button>
+                        <button class="unit-btn" data-unit="mm">Millimeters</button>
+                        <button class="unit-btn" data-unit="px">Pixels</button>
+                    </div>
+
+                    <div class="preset-sizes" id="presetSizes">
+                        <span style="color:#666; margin-right:10px;">Quick select:</span>
+                        <button class="preset-btn" data-w="4" data-h="6">4x6"</button>
+                        <button class="preset-btn" data-w="5" data-h="7">5x7"</button>
+                        <button class="preset-btn" data-w="8" data-h="10">8x10"</button>
+                        <button class="preset-btn" data-w="8" data-h="12">8x12"</button>
+                        <button class="preset-btn" data-w="11" data-h="14">11x14"</button>
+                        <button class="preset-btn" data-w="12" data-h="18">12x18"</button>
+                        <button class="preset-btn" data-w="16" data-h="20">16x20"</button>
+                        <button class="preset-btn" data-w="20" data-h="30">20x30"</button>
+                        <button class="preset-btn" data-w="8.27" data-h="11.69">A4</button>
+                        <button class="preset-btn" data-w="11.69" data-h="16.54">A3</button>
+                        <button class="preset-btn" data-w="16.54" data-h="23.39">A2</button>
+                        <button class="preset-btn" data-w="23.39" data-h="33.11">A1</button>
+                        <button class="preset-btn" data-w="33.11" data-h="46.81">A0</button>
+                    </div>
+
+                    <div class="pixel-presets" id="pixelPresets">
+                        <span style="color:#666; margin-right:10px;">Common pixel sizes:</span>
+                        <button class="preset-btn" data-w="1920" data-h="1080">HD (1920×1080)</button>
+                        <button class="preset-btn" data-w="1080" data-h="1080">Instagram (1080×1080)</button>
+                        <button class="preset-btn" data-w="1200" data-h="628">Facebook (1200×628)</button>
+                        <button class="preset-btn" data-w="1080" data-h="1920">Stories (1080×1920)</button>
+                        <button class="preset-btn" data-w="2560" data-h="1440">2K (2560×1440)</button>
+                        <button class="preset-btn" data-w="3840" data-h="2160">4K (3840×2160)</button>
+                        <button class="preset-btn" data-w="512" data-h="512">Icon (512×512)</button>
+                        <button class="preset-btn" data-w="2400" data-h="3000">Print 8×10"@300</button>
+                        <button class="preset-btn" data-w="3600" data-h="5400">Print 12×18"@300</button>
+                    </div>
+
+                    <div class="custom-size-toggle" id="customSizeToggle">
+                        + Enter Custom Dimensions
+                    </div>
+
+                    <div class="custom-size-section" id="customSizeSection">
+                        <div class="control-row">
+                            <div class="input-group">
+                                <label for="widthInput">Width</label>
+                                <input type="number" id="widthInput" value="8" min="0.1" step="0.01">
+                            </div>
+                            <div class="input-group">
+                                <label for="heightInput">Height</label>
+                                <input type="number" id="heightInput" value="10" min="0.1" step="0.01">
+                            </div>
+                            <div class="input-group">
+                                <label>&nbsp;</label>
+                                <button class="reset-btn" id="swapBtn" style="margin-top:0; background:#0798f9;">Swap</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <strong>How this works:</strong> <strong>Step 1:</strong> Enter your desired print size and select DPI (300 is standard). <strong>Step 2:</strong> Preview shows exactly how your image will look when printed. Drag to position the perfect crop. <strong>Step 3:</strong> Click "Download This Preview" to get a print-ready file at exact dimensions and DPI your lab needs. No more rejected files!
+                    </div>
+                </div>
+
+                <div class="results-panel">
+                    <div class="quality-meter">
+                        <div class="quality-label">Print Quality at <span id="selectedDPI">300</span> DPI</div>
+                        <div class="quality-value" id="qualityText">-</div>
+                        <div class="quality-bar">
+                            <div class="quality-fill" id="qualityBar" style="width: 0%">-</div>
+                        </div>
+                        <div class="gold-standard" id="goldStandardBadge">
+                            <span>🏆 Industry Standard</span>
+                        </div>
+                    </div>
+                    <div class="dpi-display">
+                        Your file: <span class="dpi-number" id="actualDPI">-</span> effective DPI
+                        <div style="font-size: 0.6em; margin-top: 10px;">
+                            Target: <span id="targetDPI">300</span> DPI | 
+                            <span id="scalingInfo">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="print-size-display">
+                    <div class="print-size-label">Preview shows your image at print size:</div>
+                    <div class="print-size-value" id="printSizeDisplay">8" x 10" at 300 DPI</div>
+                </div>
+
+                <div class="preview-section" id="previewSection">
+                    <div class="preview-header">
+                        <div class="preview-title">Step 2: Preview & Position Your Crop</div>
+                        <div class="preview-controls">
+                            <button class="zoom-btn" id="zoomOut">-</button>
+                            <span id="zoomLevel">100%</span>
+                            <button class="zoom-btn" id="zoomIn">+</button>
+                            <button class="fullscreen-btn" id="fullscreenBtn">⛶ Fullscreen</button>
+                        </div>
+                    </div>
+
+                    <div class="preview-instructions">
+                        <span class="preview-instructions-icon">👆</span>
+                        <div class="preview-instructions-text">
+                            <strong>Drag to move</strong> your image within the frame to position the perfect crop. 
+                            The image is locked to fit the shortest dimension and can only move along that axis.
+                        </div>
+                        <button class="center-btn" onclick="resetPosition()">Center Image</button>
+                    </div>
+
+                    <div class="preview-frame-container">
+                        <div class="preview-wrapper" id="previewWrapper">
+                            <div class="preview-frame" id="previewFrame">
+                                <canvas class="preview-canvas" id="previewCanvas"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="frame-info-below" id="frameInfo">Frame: - | Image: - | Quality: - | -</div>
+                    <button class="download-btn" id="downloadBtn">📥 Step 3: Download Print-Ready File</button>
+                </div>
+
+                <div class="feature-section">
+                    <h3>🎯 Stop Getting Rejected Print Files</h3>
+                    <p style="color: #333; line-height: 1.6; margin-bottom: 15px;">
+                        Print labs reject files that are the wrong size, wrong DPI, or poor quality. Other tools only <em>tell</em> you there's a problem—<strong>we fix it for you</strong>.
+                    </p>
+                    <ul>
+                        <li>✅ <strong>Quality Check:</strong> See if your image will print sharp or pixelated <em>before</em> you order</li>
+                        <li>✅ <strong>Perfect Sizing:</strong> Download files at exact pixel dimensions any lab accepts</li>
+                        <li>✅ <strong>Position Control:</strong> Drag to crop exactly how you want—no guessing</li>
+                        <li>✅ <strong>Multiple DPI Options:</strong> 200 for posters, 300 for photos, 400 for fine art</li>
+                    </ul>
+                    <p style="color: #0798f9; font-weight: 600; margin-top: 15px;">
+                        One tool. Three steps. Print-ready files. Every time.
+                    </p>
+                </div>
+
+                <button class="reset-btn" id="resetBtn">Check Another Image</button>
+            </div>
+        </div>
+
+        <!-- DPI Visual Comparison Section -->
+        <section class="dpi-visual-section">
+            <h2>What Does DPI Look Like? Visual Comparison</h2>
+            <p style="text-align: center; color: #555; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Understanding DPI is easier when you see the difference. These examples show how the same image appears at different resolutions when printed.
+            </p>
+
+            <div class="dpi-comparison-grid">
+                <div class="dpi-example">
+                    <div class="dpi-example-image dpi-300">📷</div>
+                    <div class="dpi-label">300 DPI</div>
+                    <div class="dpi-desc">Professional photo quality. Individual pixels are invisible when viewed at arm's length. Sharp details, smooth gradients.</div>
+                    <span class="dpi-use-case">Best for: Framed photos, albums, galleries</span>
+                </div>
+
+                <div class="dpi-example">
+                    <div class="dpi-example-image dpi-200">📊</div>
+                    <div class="dpi-label">200 DPI</div>
+                    <div class="dpi-desc">Good quality for posters and wall art viewed from 3+ feet away. 50% larger prints possible than 300 DPI with acceptable sharpness.</div>
+                    <span class="dpi-use-case">Best for: Canvas prints, large posters, wall art</span>
+                </div>
+
+                <div class="dpi-example">
+                    <div class="dpi-example-image dpi-72">📱</div>
+                    <div class="dpi-label">72 DPI</div>
+                    <div class="dpi-desc">Web standard. Very blocky and pixelated when printed. Only suitable for large banners viewed from 10+ feet.</div>
+                    <span class="dpi-use-case">Best for: Billboards, building wraps</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Long-form SEO Content Section -->
+        <section class="seo-content-section">
+            <h2>Understanding Print Size and Image Resolution</h2>
+
+            <p>
+                When you want to print a digital photo, the most common question is: <strong>"How big can I print this without it looking blurry or pixelated?"</strong> The answer depends on understanding the relationship between your image's pixel dimensions, the print resolution (DPI), and the intended viewing distance.
+            </p>
+
+            <h3>What Determines How Big You Can Print?</h3>
+            <p>
+                Three factors control your maximum print size:
+            </p>
+            <ol>
+                <li><strong>Image Resolution:</strong> The total number of pixels in your image (width × height)</li>
+                <li><strong>Print DPI (Dots Per Inch):</strong> How densely the pixels are packed when printed</li>
+                <li><strong>Viewing Distance:</strong> How far away people will stand to look at the print</li>
+            </ol>
+
+            <h2>Print Size Chart by Megapixels</h2>
+            <p>
+                Use this table to quickly find your maximum print size based on your camera's megapixels. These calculations assume a standard 3:2 aspect ratio (common in DSLR and mirrorless cameras).
+            </p>
+
+            <table class="megapixel-table">
+                <thead>
+                    <tr>
+                        <th>Camera/Megapixels</th>
+                        <th>Pixel Dimensions</th>
+                        <th>Max Size at 300 DPI (Photo Quality)</th>
+                        <th>Max Size at 200 DPI (Poster Quality)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>iPhone (12MP)</td>
+                        <td>4032 × 3024</td>
+                        <td>13" × 10"</td>
+                        <td>20" × 15"</td>
+                    </tr>
+                    <tr>
+                        <td>iPhone 14/15 Pro (48MP)</td>
+                        <td>8064 × 6048</td>
+                        <td>27" × 20"</td>
+                        <td>40" × 30"</td>
+                    </tr>
+                    <tr>
+                        <td>Entry DSLR (24MP)</td>
+                        <td>6000 × 4000</td>
+                        <td>20" × 13"</td>
+                        <td>30" × 20"</td>
+                    </tr>
+                    <tr>
+                        <td>Professional (45MP)</td>
+                        <td>8256 × 5504</td>
+                        <td>27" × 18"</td>
+                        <td>41" × 28"</td>
+                    </tr>
+                    <tr>
+                        <td>Medium Format (100MP)</td>
+                        <td>11648 × 8742</td>
+                        <td>39" × 29"</td>
+                        <td>58" × 44"</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>300 DPI vs 240 DPI vs 200 DPI: What's the Difference?</h2>
+
+            <p>
+                <strong>300 DPI</strong> has been the professional standard for photographic prints for decades. At this resolution, individual pixels are invisible to the naked eye when viewed at arm's length (approximately 12-18 inches). This is what you want for:
+            </p>
+            <ul>
+                <li>Framed photos viewed up close</li>
+                <li>Photo albums and books</li>
+                <li>Gallery prints and fine art</li>
+                <li>Professional portfolios</li>
+            </ul>
+
+            <p>
+                <strong>240 DPI</strong> is often used by professional print labs as a minimum standard. The difference between 240 and 300 DPI is nearly invisible to most viewers, but it allows for 25% larger prints from the same file.
+            </p>
+
+            <p>
+                <strong>200 DPI</strong> is perfect for posters, large canvas prints, and wall art viewed from 3 feet or more. From this distance, the human eye cannot distinguish individual dots, making 200 DPI indistinguishable from 300 DPI while allowing significantly larger prints.
+            </p>
+
+            <h2>How Big Can I Print an iPhone Photo?</h2>
+
+            <p>
+                Modern iPhones have excellent cameras, but they have limitations for large prints:
+            </p>
+
+            <ul>
+                <li><strong>Standard iPhone (12MP):</strong> Max 13×10 inches at photo quality, or 20×15 inches at poster quality</li>
+                <li><strong>iPhone 14 Pro / 15 Pro (48MP):</strong> Max 27×20 inches at photo quality, or 40×30 inches at poster quality</li>
+                <li><strong>iPhone 15 Pro Max (48MP):</strong> Same as above, with slightly better lens quality</li>
+            </ul>
+
+            <p>
+                <strong>Pro tip:</strong> iPhones use computational photography that can actually upscale images better than traditional cameras. For best results with older iPhones, use the "Print-Ready File" download feature in our calculator rather than just sending the original file to a print lab.
+            </p>
+
+            <h2>The Viewing Distance Rule Explained</h2>
+
+            <p>
+                Here's a secret professional photographers know: <strong>you don't always need 300 DPI.</strong> The required resolution depends entirely on how far away viewers will stand.
+            </p>
+
+            <ul>
+                <li><strong>Hand-held photos (12-18 inches):</strong> 300 DPI required</li>
+                <li><strong>Wall prints viewed from 3-4 feet:</strong> 200 DPI is sufficient</li>
+                <li><strong>Large banners viewed from 6+ feet:</strong> 150 DPI works perfectly</li>
+                <li><strong>Billboards viewed from 50+ feet:</strong> 15-30 DPI is standard</li>
+            </ul>
+
+            <p>
+                This is why a 12MP iPhone photo can produce a stunning 20×30 inch canvas print even though the math says it should only work at 13×10 inches. When hung on a wall and viewed from 4 feet away, the lower DPI is completely invisible.
+            </p>
+
+            <h2>How to Check Your Image Resolution</h2>
+
+            <p>
+                Before using our calculator, you need to know your image's pixel dimensions:
+            </p>
+
+            <h3>On Windows:</h3>
+            <ol>
+                <li>Right-click the image file</li>
+                <li>Select "Properties"</li>
+                <li>Click the "Details" tab</li>
+                <li>Look for "Dimensions" (shows width × height in pixels)</li>
+            </ol>
+
+            <h3>On Mac:</h3>
+            <ol>
+                <li>Right-click (or Control+click) the image file</li>
+                <li>Select "Get Info"</li>
+                <li>Look for "More Info" section</li>
+                <li>Dimensions are listed as width × height</li>
+            </ol>
+
+            <h3>In Photoshop:</h3>
+            <ol>
+                <li>Open the image</li>
+                <li>Click Image → Image Size</li>
+                <li>Pixel Dimensions shows your width and height</li>
+            </ol>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <h3>Can I print a low resolution image larger?</h3>
+            <p>
+                Yes, but with caveats. You have three options:
+            </p>
+            <ol>
+                <li><strong>Reduce the DPI:</strong> Accept lower sharpness for larger size (best for wall art)</li>
+                <li><strong>Use AI upscaling:</strong> Tools like Topaz Gigapixel AI or Photoshop's Super Resolution can intelligently add pixels</li>
+                <li><strong>Embrace the pixel look:</strong> Some artistic styles intentionally use visible pixels</li>
+            </ol>
+
+            <h3>Why do my prints look different than they do on screen?</h3>
+            <p>
+                Monitors display images at 72-96 PPI (pixels per inch), while prints use 200-300 DPI. This means a photo that fills your screen might only print at a few inches wide at photo quality. Always check the actual pixel dimensions rather than judging by screen size.
+            </p>
+
+            <h3>What's the difference between DPI and PPI?</h3>
+            <p>
+                <strong>PPI (Pixels Per Inch)</strong> refers to digital images - how many pixels are in each inch of the digital file. <strong>DPI (Dots Per Inch)</strong> refers to physical printing - how many ink dots the printer places in each inch. They're often used interchangeably, but technically DPI is the print term and PPI is the digital term.
+            </p>
+
+            <h3>Can I increase the resolution of my image?</h3>
+            <p>
+                You cannot add real detail that wasn't captured by the camera, but you can increase pixel dimensions through upscaling. Modern AI upscaling tools analyze the image and intelligently add pixels that match the surrounding areas. This works well for moderate upscaling (2x) but cannot create infinite detail from low-res sources.
+            </p>
+        </section>
+
+        <div class="tips-section">
+            <h2 style="text-align: center; margin-bottom: 10px;">What Makes This Tool Different?</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Unlike basic calculators, we don't just tell you if your image will work—we help you create the exact file your print lab needs, perfectly sized and positioned.
+            </p>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">✅</div>
+                    <div class="tip-title">Step 1: Check Quality</div>
+                    <div class="tip-text">Instantly see if your image has enough resolution for your desired print size at your chosen DPI. No more guessing if it will look pixelated!</div>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🎯</div>
+                    <div class="tip-title">Step 2: Perfect Your Crop</div>
+                    <div class="tip-text">See exactly how your image fits the print dimensions. Drag to position the perfect crop. Zoom in to check fine details. Double-click to reset.</div>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">📥</div>
+                    <div class="tip-title">Step 3: Download & Print</div>
+                    <div class="tip-text">Get a print-ready JPG file at the exact pixel dimensions and DPI your lab requires. Just upload this file to your print service—no adjustments needed!</div>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🏪</div>
+                    <div class="tip-title">Works With All Labs</div>
+                    <div class="tip-text">MPix, Bay Photo, WHCC, Shutterfly, Costco, local print shops—wherever you print, your file will meet their exact specifications. No more rejected orders!</div>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🔒</div>
+                    <div class="tip-title">Private & Secure</div>
+                    <div class="tip-text">All processing happens in your browser. Your images are never uploaded to any server. Your files stay on your computer until you download them.</div>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">💰</div>
+                    <div class="tip-title">Save Money & Time</div>
+                    <div class="tip-text">No more ordering test prints that come back pixelated. No more paying for Photoshop subscriptions just to resize images. One tool does it all, 100% free.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Footer -->
+        <footer class="main-footer">
+            <div class="footer-content">
+                <div class="footer-brand">PrintSizeChecker.com</div>
+                <div class="footer-tagline">The only tool you need to check print quality AND prepare files for any print lab.</div>
+
+                <div class="footer-links">
+                    <a href="about.html">About Us</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="articles.html">Articles</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                </div>
+
+                <div class="footer-features">
+                    <span>✓ 100% Free</span>
+                    <span>✓ No Signup Required</span>
+                    <span>✓ No Watermarks</span>
+                    <span>✓ Private & Secure (Client-Side Processing)</span>
+                </div>
+
+                <div class="footer-legal">
+                    <p>&copy; 2026 PrintSizeChecker.com. All rights reserved.</p>
+                    <p style="margin-top: 10px;">
+                        <a href="privacy.html">Privacy Policy</a>  | 
+                        <a href="terms.html">Terms of Use</a>  | 
+                        <a href="mailto:printsizechecker@gmail.com">Contact: printsizechecker@gmail.com</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Global variables
+        var currentImage = null;
+        var currentUnit = 'in';
+        var zoomLevel = 1;
+        var imgWidth = 0;
+        var imgHeight = 0;
+        var selectedDPI = 300;
+        var panX = 0;
+        var panY = 0;
+        var isDragging = false;
+        var startX, startY;
+        var initialTouchX, initialTouchY;
+        var dragDirectionDetermined = false;
+        var constrainAxis = 'y'; // 'x' = horizontal pan, 'y' = vertical pan
+
+        // DOM elements
+        var fileInput = document.getElementById('fileInput');
+        var uploadSection = document.getElementById('uploadSection');
+        var controlsSection = document.getElementById('controlsSection');
+        var previewFrame = document.getElementById('previewFrame');
+        var previewCanvas = document.getElementById('previewCanvas');
+        var previewWrapper = document.getElementById('previewWrapper');
+        var spinner = document.getElementById('spinner');
+        var errorMessage = document.getElementById('errorMessage');
+
+        function toggleMobileMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initEventListeners();
+        });
+
+        function initEventListeners() {
+            // File upload
+            fileInput.addEventListener('change', function(e) {
+                if (this.files && this.files.length > 0) {
+                    handleFile(this.files[0]);
+                }
+            });
+
+            // DPI buttons
+            document.querySelectorAll('.dpi-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.dpi-btn').forEach(function(b) { b.classList.remove('active'); });
+                    this.classList.add('active');
+                    selectedDPI = parseInt(this.getAttribute('data-dpi'));
+                    updateDPIDescription();
+                    calculate();
+                });
+            });
+
+            // Unit buttons
+            document.querySelectorAll('.unit-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.unit-btn').forEach(function(b) { b.classList.remove('active'); });
+                    this.classList.add('active');
+                    convertUnits(this.getAttribute('data-unit'));
+                });
+            });
+
+            // Preset buttons
+            document.querySelectorAll('.preset-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    document.getElementById('widthInput').value = this.getAttribute('data-w');
+                    document.getElementById('heightInput').value = this.getAttribute('data-h');
+                    document.getElementById('customSizeSection').classList.add('active');
+                    calculate();
+                });
+            });
+
+            // Custom size toggle
+            document.getElementById('customSizeToggle').addEventListener('click', function() {
+                var section = document.getElementById('customSizeSection');
+                section.classList.toggle('active');
+                this.textContent = section.classList.contains('active') ? '- Hide Custom Dimensions' : '+ Enter Custom Dimensions';
+            });
+
+            // Input changes
+            document.getElementById('widthInput').addEventListener('input', calculate);
+            document.getElementById('heightInput').addEventListener('input', calculate);
+
+            // Swap button
+            document.getElementById('swapBtn').addEventListener('click', function() {
+                var w = document.getElementById('widthInput');
+                var h = document.getElementById('heightInput');
+                var temp = w.value;
+                w.value = h.value;
+                h.value = temp;
+                calculate();
+            });
+
+            // Zoom controls
+            document.getElementById('zoomIn').addEventListener('click', function() {
+                zoomLevel = Math.min(zoomLevel * 1.25, 5);
+                updateZoom();
+            });
+
+            document.getElementById('zoomOut').addEventListener('click', function() {
+                zoomLevel = Math.max(zoomLevel / 1.25, 0.25);
+                updateZoom();
+            });
+
+            // Reset button
+            document.getElementById('resetBtn').addEventListener('click', function() {
+                location.reload();
+            });
+
+            // Fullscreen button
+            document.getElementById('fullscreenBtn').addEventListener('click', function() {
+                var section = document.getElementById('previewSection');
+                section.classList.toggle('fullscreen');
+                this.innerHTML = section.classList.contains('fullscreen') ? '<span>✕</span> Exit' : '<span>⛶</span> Fullscreen';
+                setTimeout(calculate, 100);
+            });
+
+            // Download button
+            document.getElementById('downloadBtn').addEventListener('click', downloadPreview);
+
+            // Drag events
+            previewFrame.addEventListener('mousedown', startDrag);
+            previewFrame.addEventListener('touchstart', startDrag, {passive: false});
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag, {passive: false});
+            document.addEventListener('mouseup', endDrag);
+            document.addEventListener('touchend', endDrag);
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    var section = document.getElementById('previewSection');
+                    if (section.classList.contains('fullscreen')) {
+                        section.classList.remove('fullscreen');
+                        document.getElementById('fullscreenBtn').innerHTML = '<span>⛶</span> Fullscreen';
+                        setTimeout(calculate, 100);
+                    }
+                }
+            });
+
+            // Window resize
+            window.addEventListener('resize', function() {
+                if (currentImage) calculate();
+            });
+        }
+
+        function updateDPIDescription() {
+            var badge = document.getElementById('goldStandardBadge');
+            if (selectedDPI === 300) {
+                badge.style.display = 'inline-flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function startDrag(e) {
+            if (!currentImage) return;
+            isDragging = true;
+            dragDirectionDetermined = false;
+            previewFrame.classList.add('dragging');
+            var clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            var clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+            startX = clientX - panX;
+            startY = clientY - panY;
+            initialTouchX = clientX;
+            initialTouchY = clientY;
+            e.preventDefault();
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+            var clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            var clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
+            // Mobile scroll detection: Determine if user is trying to scroll page vs pan image
+            if (!dragDirectionDetermined && e.type.includes('touch')) {
+                var deltaX = Math.abs(clientX - initialTouchX);
+                var deltaY = Math.abs(clientY - initialTouchY);
+                var minMovement = 10; // pixels
+
+                if (deltaX > minMovement || deltaY > minMovement) {
+                    dragDirectionDetermined = true;
+
+                    // If constrained to X (horizontal pan), but user is scrolling vertically
+                    if (constrainAxis === 'x' && deltaY > deltaX) {
+                        // This is a page scroll, not a pan
+                        isDragging = false;
+                        previewFrame.classList.remove('dragging');
+                        return; // Don't prevent default - allow page scroll
+                    }
+
+                    // If constrained to Y (vertical pan), but user is scrolling horizontally
+                    if (constrainAxis === 'y' && deltaX > deltaY) {
+                        // This is likely a page scroll or horizontal swipe
+                        isDragging = false;
+                        previewFrame.classList.remove('dragging');
+                        return; // Don't prevent default
+                    }
+
+                    // Otherwise, we're panning in the allowed direction
+                }
+            }
+
+            var newPanX = clientX - startX;
+            var newPanY = clientY - startY;
+
+            // Constrain panning to one axis based on image vs frame ratio
+            if (constrainAxis === 'x') {
+                // Image is wider than frame, allow horizontal pan only
+                panX = newPanX;
+                panY = 0;
+            } else {
+                // Image is taller than frame, allow vertical pan only
+                panX = 0;
+                panY = newPanY;
+            }
+
+            updatePreviewCanvas();
+            e.preventDefault();
+        }
+
+        function endDrag() {
+            isDragging = false;
+            previewFrame.classList.remove('dragging');
+        }
+
+        function resetPosition() {
+            panX = 0;
+            panY = 0;
+            updatePreviewCanvas();
+            previewFrame.style.transition = 'border-color 0.3s';
+            previewFrame.style.borderColor = '#00d084';
+            setTimeout(function() {
+                previewFrame.style.borderColor = '#0798f9';
+            }, 300);
+        }
+
+        function handleFile(file) {
+            errorMessage.classList.remove('show');
+            if (!file.type.match('image.*')) {
+                showError('Please upload an image file');
+                return;
+            }
+            if (file.size > 20 * 1024 * 1024) {
+                showError('File size too large. Maximum 20MB allowed.');
+                return;
+            }
+
+            spinner.style.display = 'block';
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    currentImage = img;
+                    imgWidth = img.width;
+                    imgHeight = img.height;
+                    displayImageInfo(file);
+                    showControls();
+                    calculate();
+                    spinner.style.display = 'none';
+                };
+                img.onerror = function() {
+                    spinner.style.display = 'none';
+                    showError('Error loading image. Please try another file.');
+                };
+                img.src = e.target.result;
+            };
+            reader.onerror = function() {
+                spinner.style.display = 'none';
+                showError('Error reading file. Please try again.');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function showError(msg) {
+            errorMessage.textContent = msg;
+            errorMessage.classList.add('show');
+            setTimeout(function() {
+                errorMessage.classList.remove('show');
+            }, 5000);
+        }
+
+        function displayImageInfo(file) {
+            document.getElementById('imgDimensions').textContent = imgWidth + ' x ' + imgHeight + ' px';
+            document.getElementById('fileSize').textContent = formatFileSize(file.size);
+            document.getElementById('aspectRatio').textContent = calculateAspectRatio(imgWidth, imgHeight);
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            var k = 1024;
+            var sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            var i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function calculateAspectRatio(w, h) {
+            function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
+            var divisor = gcd(w, h);
+            return (w / divisor) + ':' + (h / divisor);
+        }
+
+        function showControls() {
+            uploadSection.style.display = 'none';
+            controlsSection.classList.add('active');
+        }
+
+        function convertUnits(newUnit) {
+            var wInput = document.getElementById('widthInput');
+            var hInput = document.getElementById('heightInput');
+            var presetSizes = document.getElementById('presetSizes');
+            var pixelPresets = document.getElementById('pixelPresets');
+
+            var w = parseFloat(wInput.value) || 0;
+            var h = parseFloat(hInput.value) || 0;
+
+            var inchesW, inchesH;
+            if (currentUnit === 'px') {
+                inchesW = w / selectedDPI;
+                inchesH = h / selectedDPI;
+            } else if (currentUnit === 'cm') {
+                inchesW = w / 2.54;
+                inchesH = h / 2.54;
+            } else if (currentUnit === 'mm') {
+                inchesW = w / 25.4;
+                inchesH = h / 25.4;
+            } else {
+                inchesW = w;
+                inchesH = h;
+            }
+
+            if (newUnit === 'px') {
+                w = Math.round(inchesW * selectedDPI);
+                h = Math.round(inchesH * selectedDPI);
+                wInput.step = 1;
+                hInput.step = 1;
+                presetSizes.style.display = 'none';
+                pixelPresets.classList.add('active');
+            } else {
+                if (newUnit === 'cm') {
+                    w = inchesW * 2.54;
+                    h = inchesH * 2.54;
+                } else if (newUnit === 'mm') {
+                    w = inchesW * 25.4;
+                    h = inchesH * 25.4;
+                } else {
+                    w = inchesW;
+                    h = inchesH;
+                }
+                wInput.step = 0.01;
+                hInput.step = 0.01;
+                presetSizes.style.display = 'flex';
+                pixelPresets.classList.remove('active');
+            }
+
+            wInput.value = newUnit === 'px' ? w : w.toFixed(2);
+            hInput.value = newUnit === 'px' ? h : h.toFixed(2);
+            currentUnit = newUnit;
+            calculate();
+        }
+
+        function calculate() {
+            if (!currentImage) return;
+
+            var printW = parseFloat(document.getElementById('widthInput').value) || 1;
+            var printH = parseFloat(document.getElementById('heightInput').value) || 1;
+
+            var inchesW, inchesH;
+            if (currentUnit === 'px') {
+                inchesW = printW / selectedDPI;
+                inchesH = printH / selectedDPI;
+            } else if (currentUnit === 'cm') {
+                inchesW = printW / 2.54;
+                inchesH = printH / 2.54;
+            } else if (currentUnit === 'mm') {
+                inchesW = printW / 25.4;
+                inchesH = printH / 25.4;
+            } else {
+                inchesW = printW;
+                inchesH = printH;
+            }
+
+            var actualDPI_W = imgWidth / inchesW;
+            var actualDPI_H = imgHeight / inchesH;
+            var actualDPI = Math.min(actualDPI_W, actualDPI_H);
+
+            updateQualityDisplay(actualDPI);
+            updatePrintSizeDisplay(inchesW, inchesH);
+            updatePreviewDimensions(inchesW, inchesH, actualDPI);
+            updateRequiredPixels(inchesW, inchesH);
+        }
+
+        function updateQualityDisplay(actualDPI) {
+            var quality, colorClass, percentage, scaling;
+
+
+
+            if (actualDPI >= selectedDPI) {
+                quality = 'Excellent';
+                colorClass = 'quality-excellent';
+                percentage = 100;
+                scaling = 'No upscaling needed';
+            } else if (actualDPI >= selectedDPI * 0.75) {
+                quality = 'Good';
+                colorClass = 'quality-good';
+                percentage = 75;
+                scaling = 'Upscaling ' + (selectedDPI / actualDPI).toFixed(1) + 'x';
+            } else if (actualDPI >= selectedDPI * 0.5) {
+                quality = 'Fair';
+                colorClass = 'quality-fair';
+                percentage = 50;
+                scaling = 'Upscaling ' + (selectedDPI / actualDPI).toFixed(1) + 'x';
+            } else {
+                quality = 'Poor';
+                colorClass = 'quality-poor';
+                percentage = 25;
+                scaling = 'Upscaling ' + (selectedDPI / actualDPI).toFixed(1) + 'x - pixelation likely';
+            }
+
+            document.getElementById('qualityText').textContent = quality;
+            var bar = document.getElementById('qualityBar');
+            bar.className = 'quality-fill ' + colorClass;
+            bar.style.width = percentage + '%';
+            bar.textContent = quality;
+
+            document.getElementById('selectedDPI').textContent = selectedDPI;
+            document.getElementById('targetDPI').textContent = selectedDPI;
+            document.getElementById('actualDPI').textContent = Math.round(actualDPI);
+            document.getElementById('scalingInfo').textContent = scaling;
+
+            var reqCard = document.getElementById('requiredPixelsCard');
+            if (actualDPI >= selectedDPI) {
+                reqCard.classList.add('success');
+                reqCard.classList.remove('warning');
+            } else {
+                reqCard.classList.add('warning');
+                reqCard.classList.remove('success');
+            }
+        }
+
+        function updateRequiredPixels(inchesW, inchesH) {
+            var reqW = Math.round(inchesW * selectedDPI);
+            var reqH = Math.round(inchesH * selectedDPI);
+            document.getElementById('requiredPixels').textContent = reqW + ' x ' + reqH + ' px';
+        }
+
+        function updatePrintSizeDisplay(inchesW, inchesH) {
+            var text;
+            if (currentUnit === 'px') {
+                var w = parseFloat(document.getElementById('widthInput').value) || 0;
+                var h = parseFloat(document.getElementById('heightInput').value) || 0;
+                text = w.toFixed(0) + ' x ' + h.toFixed(0) + ' px at ' + selectedDPI + ' DPI';
+            } else {
+                var unit = currentUnit === 'in' ? '"' : (currentUnit === 'cm' ? ' cm' : ' mm');
+                var w = currentUnit === 'in' ? inchesW : (currentUnit === 'cm' ? inchesW * 2.54 : inchesW * 25.4);
+                var h = currentUnit === 'in' ? inchesH : (currentUnit === 'cm' ? inchesH * 2.54 : inchesH * 25.4);
+                text = w.toFixed(1) + unit + ' x ' + h.toFixed(1) + unit + ' at ' + selectedDPI + ' DPI';
+            }
+            document.getElementById('printSizeDisplay').textContent = text;
+        }
+
+        // Calculate and store preview dimensions
+        function updatePreviewDimensions(inchesW, inchesH, actualDPI) {
+            if (!currentImage) return;
+
+            var containerHeight = window.innerHeight * 0.8;
+            var containerWidth = Math.min(window.innerWidth * 0.9, 1200);
+
+            // Mobile constraint: limit to 60% of viewport height max
+            var isMobile = window.innerWidth <= 768;
+            if (isMobile) {
+                containerHeight = Math.min(window.innerHeight * 0.6, 500);
+                containerWidth = Math.min(window.innerWidth * 0.85, 600);
+            }
+
+            var userRatio = inchesW / inchesH;
+            var frameWidth, frameHeight;
+
+            var baseSize = isMobile ? 350 : 1000; // Smaller base size for mobile
+            if (userRatio >= 1) {
+                frameWidth = Math.min(baseSize, containerWidth);
+                frameHeight = frameWidth / userRatio;
+            } else {
+                frameHeight = Math.min(baseSize, containerHeight);
+                frameWidth = frameHeight * userRatio;
+            }
+
+            // Mobile minimum sizes
+            var minSize = isMobile ? 250 : 600;
+            if (frameWidth < minSize) { frameWidth = minSize; frameHeight = frameWidth / userRatio; }
+            if (frameHeight < minSize) { frameHeight = minSize; frameWidth = frameHeight * userRatio; }
+
+            // Mobile maximum constraint enforcement
+            if (isMobile) {
+                var maxHeight = window.innerHeight * 0.55; // 55vh max
+                var maxWidth = window.innerWidth * 0.9;    // 90vw max
+
+                if (frameHeight > maxHeight) {
+                    frameHeight = maxHeight;
+                    frameWidth = frameHeight * userRatio;
+                }
+                if (frameWidth > maxWidth) {
+                    frameWidth = maxWidth;
+                    frameHeight = frameWidth / userRatio;
+                }
+            }
+
+            previewFrame.style.width = Math.round(frameWidth) + 'px';
+            previewFrame.style.height = Math.round(frameHeight) + 'px';
+            previewWrapper.style.width = Math.round(frameWidth) + 'px';
+            previewWrapper.style.height = Math.round(frameHeight) + 'px';
+
+            // Store dimensions for canvas rendering
+            previewFrame.dataset.frameWidth = frameWidth;
+            previewFrame.dataset.frameHeight = frameHeight;
+            previewFrame.dataset.inchesW = inchesW;
+            previewFrame.dataset.inchesH = inchesH;
+            previewFrame.dataset.actualDPI = actualDPI;
+
+            // Determine which axis to constrain based on aspect ratios
+            var imageRatio = imgWidth / imgHeight;
+            var frameRatio = frameWidth / frameHeight;
+
+            if (imageRatio > frameRatio) {
+                // Image is wider than frame - lock to height, pan horizontally
+                constrainAxis = 'x';
+            } else {
+                // Image is taller than frame - lock to width, pan vertically
+                constrainAxis = 'y';
+            }
+
+            updatePreviewCanvas();
+        }
+
+        // Render the preview with proper "cover" behavior and panning
+        function updatePreviewCanvas() {
+            if (!currentImage) return;
+
+            var frameWidth = parseFloat(previewFrame.dataset.frameWidth) || previewFrame.offsetWidth;
+            var frameHeight = parseFloat(previewFrame.dataset.frameHeight) || previewFrame.offsetHeight;
+
+            // Safety check for mobile - ensure we have valid dimensions
+            if (!frameWidth || !frameHeight || frameWidth < 50 || frameHeight < 50) {
+                // Retry after a moment if dimensions aren't ready
+                setTimeout(updatePreviewCanvas, 100);
+                return;
+            }
+            var inchesW = parseFloat(previewFrame.dataset.inchesW);
+            var inchesH = parseFloat(previewFrame.dataset.inchesH);
+            var actualDPI = parseFloat(previewFrame.dataset.actualDPI);
+
+            // Setup canvas to match frame size
+            previewCanvas.width = Math.round(frameWidth);
+            previewCanvas.height = Math.round(frameHeight);
+
+            var ctx = previewCanvas.getContext('2d');
+
+            // Enable high quality rendering
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+
+            // Calculate scale to "cover" the frame (fill shortest dimension)
+            var imageRatio = imgWidth / imgHeight;
+            var frameRatio = frameWidth / frameHeight;
+
+            var scale;
+            var drawWidth, drawHeight;
+
+            if (imageRatio > frameRatio) {
+                // Image is wider than frame - scale to fill height, overflow width
+                scale = frameHeight / imgHeight;
+                drawHeight = frameHeight;
+                drawWidth = imgWidth * scale;
+            } else {
+                // Image is taller than frame - scale to fill width, overflow height
+                scale = frameWidth / imgWidth;
+                drawWidth = frameWidth;
+                drawHeight = imgHeight * scale;
+            }
+
+            // Apply zoom
+            drawWidth *= zoomLevel;
+            drawHeight *= zoomLevel;
+
+            // Calculate base position (centered)
+            var baseX = (frameWidth - drawWidth) / 2;
+            var baseY = (frameHeight - drawHeight) / 2;
+
+            // Apply panning (constrained to one axis)
+            var drawX = baseX + panX;
+            var drawY = baseY + panY;
+
+            // Clear and draw
+            ctx.clearRect(0, 0, frameWidth, frameHeight);
+            ctx.drawImage(currentImage, drawX, drawY, drawWidth, drawHeight);
+
+            // Update info text
+            var scalePercent = Math.round((actualDPI / selectedDPI) * 100);
+            var scaling = actualDPI >= selectedDPI ? 
+                'No scaling' : 
+                'Stretched ' + (selectedDPI / actualDPI).toFixed(1) + 'x';
+
+            document.getElementById('frameInfo').textContent = 
+                'Frame: ' + inchesW.toFixed(1) + ' x ' + inchesH.toFixed(1) + ' in | ' +
+                'Image: ' + imgWidth + ' x ' + imgHeight + ' px | ' +
+                'Quality: ' + scalePercent + '% | ' +
+                scaling;
+        }
+
+        function updateZoom() {
+            document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
+            updatePreviewCanvas();
+        }
+
+        function downloadPreview() {
+            if (!currentImage) { alert('No image loaded'); return; }
+
+            var btn = document.getElementById('downloadBtn');
+            btn.disabled = true;
+            btn.textContent = 'Generating...';
+
+            var printW = parseFloat(document.getElementById('widthInput').value) || 8;
+            var printH = parseFloat(document.getElementById('heightInput').value) || 10;
+
+            var inchesW, inchesH;
+            if (currentUnit === 'px') {
+                inchesW = printW / selectedDPI;
+                inchesH = printH / selectedDPI;
+            } else if (currentUnit === 'cm') {
+                inchesW = printW / 2.54;
+                inchesH = printH / 2.54;
+            } else if (currentUnit === 'mm') {
+                inchesW = printW / 25.4;
+                inchesH = printH / 25.4;
+            } else {
+                inchesW = printW;
+                inchesH = printH;
+            }
+
+            var outputWidth = Math.round(inchesW * selectedDPI);
+            var outputHeight = Math.round(inchesH * selectedDPI);
+
+            var canvas = document.createElement('canvas');
+            canvas.width = outputWidth;
+            canvas.height = outputHeight;
+            var ctx = canvas.getContext('2d');
+
+            // Enable high quality for download too
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+
+            ctx.fillStyle = '#f5f5f0';
+            ctx.fillRect(0, 0, outputWidth, outputHeight);
+
+            // Calculate dimensions using same logic as preview
+            var imageRatio = imgWidth / imgHeight;
+            var outputRatio = outputWidth / outputHeight;
+
+            var scale;
+            var drawWidth, drawHeight;
+
+            if (imageRatio > outputRatio) {
+                scale = outputHeight / imgHeight;
+                drawHeight = outputHeight;
+                drawWidth = imgWidth * scale;
+            } else {
+                scale = outputWidth / imgWidth;
+                drawWidth = outputWidth;
+                drawHeight = imgHeight * scale;
+            }
+
+            drawWidth *= zoomLevel;
+            drawHeight *= zoomLevel;
+
+            var frameWidth = parseFloat(previewFrame.dataset.frameWidth);
+            var frameHeight = parseFloat(previewFrame.dataset.frameHeight);
+
+            var baseX = (outputWidth - drawWidth) / 2;
+            var baseY = (outputHeight - drawHeight) / 2;
+
+            var panOffsetX = panX * (outputWidth / frameWidth);
+            var panOffsetY = panY * (outputHeight / frameHeight);
+
+            var drawX = baseX + panOffsetX;
+            var drawY = baseY + panOffsetY;
+
+            ctx.drawImage(currentImage, drawX, drawY, drawWidth, drawHeight);
+
+            var unit = currentUnit === 'in' ? 'in' : (currentUnit === 'cm' ? 'cm' : (currentUnit === 'mm' ? 'mm' : 'px'));
+            var filename = 'print_' + Math.round(printW) + 'x' + Math.round(printH) + unit + '_' + selectedDPI + 'dpi.jpg';
+
+            canvas.toBlob(function(blob) {
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                btn.disabled = false;
+                btn.textContent = '📥 Step 3: Download Print-Ready File';
+            }, 'image/jpeg', 0.95);
+        }
+    </script>
+</body>
+</html>

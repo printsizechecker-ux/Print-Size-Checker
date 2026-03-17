@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <title>Photography & Printing Articles | PrintSizeChecker</title>
+    <meta name="description" content="Explore our guides on image resolution, DPI, and professional photo printing.">
+    <link rel="canonical" href="https://printsizechecker.com/articles.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Photography & Printing Articles | PrintSizeChecker">
+    <meta property="og:description" content="Explore our guides on image resolution, DPI, and professional photo printing.">
+    <meta property="og:url" content="https://printsizechecker.com/articles.html">
+    <meta property="og:site_name" content="PrintSizeChecker">
+    <meta name="twitter:card" content="summary">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "headline": "Photography & Printing Articles",
+      "description": "Explore our guides on image resolution, DPI, and professional photo printing.",
+      "url": "https://printsizechecker.com/articles.html",
+      "publisher": {
+        "@type": "Organization",
+        "name": "PrintSizeChecker",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://printsizechecker.com/logo.png"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://printsizechecker.com/articles.html"
+      }
+    }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RNXTTK0Q6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3RNXTTK0Q6');
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary-blue: #0798f9;
+            --dark-navy: #021731;
+            --text-gray: #4a5568;
+            --border-light: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-navy) 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* Navigation */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            color: white;
+        }
+
+        .logo {
+            font-size: 1.6em;
+            font-weight: 800;
+            text-decoration: none;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+
+        .nav-menu a:hover { opacity: 0.7; color: white; text-decoration: underline; }
+
+        /* Content Area Layout */
+        .page-content {
+            background: white;
+            padding: 60px;
+            border-radius: 24px;
+            margin-bottom: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            gap: 40px;
+        }
+
+        /* Sidebar for Article Links */
+        .article-sidebar {
+            flex: 0 0 300px;
+            border-right: 1px solid var(--border-light);
+            padding-right: 20px;
+        }
+
+        .article-sidebar h2 {
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .article-link-list {
+            list-style: none;
+        }
+
+        .article-link-list li {
+            margin-bottom: 12px;
+        }
+
+        .article-link-list a {
+            text-decoration: none;
+            color: var(--dark-navy);
+            font-size: 0.95em;
+            font-weight: 500;
+            display: block;
+            transition: color 0.2s;
+        }
+
+        .article-link-list a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* Main Content Area */
+        .article-main-body {
+            flex: 1;
+        }
+
+        h1 {
+            color: var(--dark-navy);
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .intro-text {
+            color: var(--text-gray);
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding-bottom: 60px;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95em;
+        }
+
+        .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 1.8em; cursor: pointer; }
+
+        /* Responsive adjustments */
+        @media (max-width: 850px) {
+            .page-content { flex-direction: column; padding: 40px 25px; }
+            .article-sidebar { flex: none; border-right: none; border-bottom: 1px solid var(--border-light); padding-right: 0; padding-bottom: 30px; }
+            .nav-menu { display: none; }
+            .mobile-menu-btn { display: block; }
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <nav class="nav-header">
+                <a href="index.html" class="logo">PrintSizeChecker.com</a>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle Menu">☰</button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="articles.html">Articles</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="page-content">
+            <aside class="article-sidebar">
+                <h2>Browse Topics</h2>
+                <ul class="article-link-list">
+                    <li><a href="resolution-dpi-ppi.html">Resolution, DPI and PPI explained</a></li>
+                    <li><a href="prepare-photos-printing.html">How to Prepare Your Photos for Printing</a></li>
+                    <li><a href="print-home-vs-print-shop.html">Print Your Photos at Home vs a Print Shop</a></li>
+                    <li><a href="stop-paying-adobe-affinity-photo-free.html">Stop Paying Adobe: Affinity Photo Free</a></li>
+                    <li><a href="i-quit-adobe-30-days.html">I Quit Adobe For 30 Days</a></li>
+                    <li><a href="affinity-vs-photoshop.html">Affinity vs Photoshop</a></li>
+                    <li><a href="im-done-with-adobe-one-year-later.html">I'm DONE with Adobe…</a></li>
+                    <li><a href="how-many-ppi-for-large-prints.html">How many PPI do you need to make large prints?</a></li>
+                    <li><a href="pushing-12mp-raw-to-poster-size.html">Pushing 12MP RAW to Poster Size</a></li>
+                    <li><a href="iphone-17-pro-vs-pro-mirrorless-cameras.html">iPhone 17 Pro vs Pro Mirrorless Cameras</a></li>
+                    <li><a href="color-spaces-srgb-adobe-rgb.html">Color Spaces: sRGB vs. Adobe RGB</a></li>
+                    <li><a href="choosing-paper-lustre-glossy-matte.html">Choosing Paper: Lustre, Glossy, Matte</a></li>
+                    <li><a href="how-to-calibrate-your-monitor.html">How to Calibrate Your Monitor</a></li>
+                    <li><a href="ai-upscaling-print-small-files-large.html">AI Upscaling: Print Small Files Large</a></li>
+                    <li><a href="aspect-ratios-why-photos-get-cropped.html">Aspect Ratios: Why Photos Get Cropped</a></li>
+                    <li><a href="best-professional-photo-labs.html">Best Professional Photo Labs</a></li>
+                    <li><a href="how-to-backup-your-photos.html">How to Backup Your Photos</a></li>
+                    <li><a href="darktable-vs-gimp-free-alternatives.html">Darktable vs. GIMP: Free Alternatives</a></li>
+                    <li><a href="metal-vs-acrylic-prints.html">Metal vs. Acrylic Prints</a></li>
+                    <li><a href="reasons-your-prints-are-too-dark.html">5 Reasons Your Prints Are Too Dark</a></li>
+                </ul>
+            </aside>
+
+            <section class="article-main-body">
+                <h1>Expert Printing Guides</h1>
+                <p class="intro-text">Master the art of high-quality photo printing. Select a topic from the list to learn more about resolution, color management, and the best tools for your workflow.</p>
+
+                <div style="background: #f8fafc; padding: 30px; border-radius: 12px; border-left: 5px solid var(--primary-blue);">
+                    <p style="color: var(--text-gray);">Looking for a specific guide? Our collection covers everything from smartphone photography to professional museum-grade printing techniques.</p>
+                </div>
+
+                <div style="display: none; margin-top: 40px; height: 250px; background: #eee; border: 2px dashed #ccc; border-radius: 12px; align-items: center; justify-content: center; color: #999;">
+    AdSense Placeholder
+</div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 PrintSizeChecker.com</p>
+            <p style="margin-top: 10px; font-size: 0.8em;">Designed for Photographers & Designers • No Signup Required</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('navMenu');
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+                menu.style.flexDirection = 'column';
+                menu.style.position = 'absolute';
+                menu.style.top = '80px';
+                menu.style.left = '0';
+                menu.style.right = '0';
+                menu.style.background = '#021731';
+                menu.style.padding = '20px';
+                menu.style.zIndex = '100';
+                menu.style.borderRadius = '12px';
+            }
+        }
+    </script>
+</body>
+</html>

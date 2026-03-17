@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>I Quit Adobe for 30 Days: A Photographer's Survival Guide | PrintSizeChecker</title>
+    <meta name="description" content="I quit Adobe for 30 days and survived. Discover the alternative workflow using Bridge, ACR, Affinity Photo, and open-source tools that could save you $600/year.">
+    <link rel="canonical" href="https://printsizechecker.com/i-quit-adobe-30-days.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="I Quit Adobe for 30 Days: A Photographer's Survival Guide">
+    <meta property="og:description" content="What happens when you stop paying Adobe for 30 days? Real workflow alternatives, transition challenges, and whether you can actually survive without Creative Cloud.">
+    <meta property="og:url" content="https://printsizechecker.com/i-quit-adobe-30-days.html">
+    <meta property="og:site_name" content="PrintSizeChecker">
+    <meta property="og:image" content="https://img.youtube.com/vi/ONLKiIRxvf8/maxresdefault.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "I Quit Adobe for 30 Days: A Photographer's Survival Guide and Workflow Transformation",
+      "description": "A comprehensive 30-day journey quitting Adobe Creative Cloud, exploring alternative workflows with Bridge, ACR, Affinity Photo, GIMP, and open-source tools.",
+      "image": "https://img.youtube.com/vi/ONLKiIRxvf8/maxresdefault.jpg",
+      "author": {
+        "@type": "Organization",
+        "name": "PrintSizeChecker"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "PrintSizeChecker",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://printsizechecker.com/logo.png"
+        }
+      },
+      "datePublished": "2026-03-05",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://printsizechecker.com/i-quit-adobe-30-days.html"
+      }
+    }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RNXTTK0Q6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3RNXTTK0Q6');
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-blue: #0798f9;
+            --dark-navy: #021731;
+            --text-gray: #4a5568;
+            --border-light: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0798f9 0%, #021731 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        .nav-header { display: flex; justify-content: space-between; align-items: center; padding: 30px 0; color: white; }
+        .logo { font-size: 1.8em; font-weight: 800; text-decoration: none; color: white; letter-spacing: -0.5px; }
+        .nav-menu { display: flex; gap: 25px; list-style: none; }
+        .nav-menu a { color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 500; font-size: 0.95em; }
+        .nav-menu a:hover { color: white; text-decoration: underline; }
+
+        .page-content {
+            background: white;
+            padding: 60px;
+            border-radius: 24px;
+            margin-bottom: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            gap: 45px;
+        }
+
+        .article-sidebar { flex: 0 0 280px; border-right: 1px solid var(--border-light); padding-right: 25px; }
+        .article-sidebar h2 { font-size: 0.95em; text-transform: uppercase; letter-spacing: 1px; color: var(--primary-blue); margin-bottom: 25px; }
+        .article-link-list { list-style: none; }
+        .article-link-list li { margin-bottom: 14px; line-height: 1.3; }
+        .article-link-list a { text-decoration: none; color: var(--dark-navy); font-size: 0.9em; font-weight: 500; }
+        .article-link-list a:hover { color: var(--primary-blue); }
+        .active-link { color: var(--primary-blue) !important; font-weight: 700 !important; }
+
+        .article-body { flex: 1; }
+        h1 { color: var(--dark-navy); font-size: 2.6em; line-height: 1.2; margin-bottom: 25px; }
+        h2 { color: var(--dark-navy); margin: 40px 0 15px; font-size: 1.7em; }
+        p { margin-bottom: 20px; color: var(--text-gray); font-size: 1.1em; }
+        ul.content-list { margin-bottom: 25px; padding-left: 20px; color: var(--text-gray); }
+        ul.content-list li { margin-bottom: 12px; }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            margin-bottom: 35px;
+            background-color: #000;
+            cursor: pointer;
+            background-image: url('https://img.youtube.com/vi/ONLKiIRxvf8/maxresdefault.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .video-container::before {
+            content: '▶';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px; height: 80px;
+            background: rgba(7, 152, 249, 0.95);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            z-index: 2;
+            padding-left: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .video-container:hover::before {
+            background: var(--dark-navy);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; }
+
+        .cta-section {
+            background: #f0f9ff;
+            padding: 45px;
+            border-radius: 20px;
+            border: 2px solid var(--primary-blue);
+            text-align: center;
+            margin-top: 50px;
+        }
+        .cta-title { color: var(--dark-navy); font-size: 1.7em; font-weight: 800; margin-bottom: 10px; }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-navy) 100%);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-top: 25px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(7, 152, 249, 0.3);
+        }
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(7, 152, 249, 0.4); }
+
+        footer { text-align: center; padding-bottom: 60px; color: rgba(255,255,255,0.7); font-size: 0.95em; }
+
+        .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 1.8em; cursor: pointer; }
+
+        @media (max-width: 900px) {
+            .page-content { flex-direction: column; padding: 30px; }
+            .article-sidebar { flex: none; border-right: none; border-bottom: 1px solid var(--border-light); padding-bottom: 30px; margin-bottom: 30px; }
+            h1 { font-size: 2em; }
+            .nav-menu { display: none; }
+            .mobile-menu-btn { display: block; }
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <nav class="nav-header">
+                <a href="index.html" class="logo">PrintSizeChecker.com</a>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle Menu">☰</button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="articles.html">Articles</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="page-content">
+            <aside class="article-sidebar">
+                <h2>Browse All Guides</h2>
+                <ul class="article-link-list">
+                    <li><a href="resolution-dpi-ppi.html">Resolution, DPI and PPI explained</a></li>
+                    <li><a href="prepare-photos-printing.html">How to Prepare Your Photos for Printing</a></li>
+                    <li><a href="print-home-vs-print-shop.html">Print Your Photos at Home vs a Print Shop</a></li>
+                    <li><a href="stop-paying-adobe-affinity-photo-free.html">Stop Paying Adobe: Affinity Photo Free</a></li>
+                    <li><a href="i-quit-adobe-30-days.html" class="active-link">I Quit Adobe For 30 Days</a></li>
+                    <li><a href="affinity-vs-photoshop.html">Affinity vs Photoshop</a></li>
+                    <li><a href="im-done-with-adobe-one-year-later.html">I'm DONE with Adobe…</a></li>
+                    <li><a href="how-many-ppi-for-large-prints.html">How many PPI do you need to make large prints?</a></li>
+                    <li><a href="pushing-12mp-raw-to-poster-size.html">Pushing 12MP RAW to Poster Size</a></li>
+                    <li><a href="iphone-17-pro-vs-pro-mirrorless-cameras.html">iPhone 17 Pro vs Pro Mirrorless Cameras</a></li>
+                    <li><a href="color-spaces-srgb-adobe-rgb.html">Color Spaces: sRGB vs. Adobe RGB</a></li>
+                    <li><a href="choosing-paper-lustre-glossy-matte.html">Choosing Paper: Lustre, Glossy, Matte</a></li>
+                    <li><a href="how-to-calibrate-your-monitor.html">How to Calibrate Your Monitor</a></li>
+                    <li><a href="ai-upscaling-print-small-files-large.html">AI Upscaling: Print Small Files Large</a></li>
+                    <li><a href="aspect-ratios-why-photos-get-cropped.html">Aspect Ratios: Why Photos Get Cropped</a></li>
+                    <li><a href="best-professional-photo-labs.html">Best Professional Photo Labs</a></li>
+                    <li><a href="how-to-backup-your-photos.html">How to Backup Your Photos</a></li>
+                    <li><a href="darktable-vs-gimp-free-alternatives.html">Darktable vs. GIMP: Free Alternatives</a></li>
+                    <li><a href="metal-vs-acrylic-prints.html">Metal vs. Acrylic Prints</a></li>
+                    <li><a href="reasons-your-prints-are-too-dark.html">5 Reasons Your Prints Are Too Dark</a></li>
+                </ul>
+            </aside>
+
+            <article class="article-body">
+                <h1>I Quit Adobe for 30 Days: A Photographer's Survival Guide</h1>
+
+                <div class="video-container" id="videoWrapper" onclick="loadVideo()"></div>
+
+                <p>Adobe Creative Cloud has become the default ecosystem for photographers—a seemingly inescapable subscription that drains $120 to $660 annually from your bank account while holding your workflow hostage. But what would actually happen if you simply stopped? Not gradually transitioned, not carefully planned, but walked away cold turkey for 30 days?</p>
+
+                <p>The video chronicle above documents exactly that experiment: one photographer, zero Adobe applications, and a month of discovering whether modern alternatives can genuinely sustain professional work. This guide expands that journey into a comprehensive roadmap for anyone considering their own Adobe exit, covering the psychological hurdles, technical workarounds, and surprising discoveries that emerge when you challenge the monopoly.</p>
+
+                <h2>1. Day 0: The Cancellation and Immediate Consequences</h2>
+                <p>Cancelling Adobe is intentionally cumbersome—a dark pattern designed to maximize retention. You navigate to account management, select your plan, click "Cancel," and then endure multiple screens of retention offers: reduced pricing for three months, free months tacked onto your annual commitment, warnings about losing access to your "benefits." The process feels like breaking up with a clingy partner who refuses to accept the relationship is over.</p>
+                <p><strong>What you immediately lose:</strong> Access to Lightroom Classic's Develop module, Photoshop's layer editing, and any cloud-based features. Your locally stored files remain on your hard drive, but your cloud storage begins a 30-day countdown to deletion. Lightroom Classic continues functioning in a limited capacity—you can organize, export, and print previously edited photos, but the Develop and Map modules lock behind the subscription wall.</p>
+                <p><strong>What you keep:</strong> All your raw files, your folder structures, your exported JPEGs and TIFFs. Adobe cannot confiscate your images. The metadata embedded in your files (keywords, ratings, copyright information) remains intact. Your intellectual property was never hostage—only your editing tools were.</p>
+
+                <h2>2. The Alternative Stack: Building Your New Workflow</h2>
+                <p>Surviving without Adobe requires assembling a new toolchain. No single application replaces the entire Creative Cloud suite, but a combination of specialized tools can exceed Adobe's capabilities in specific areas while costing significantly less—often nothing at all.</p>
+                <p><strong>Bridge + Camera Raw: The Adobe Lifeboat</strong><br>
+                Ironically, the most stable transition path uses two Adobe applications that remain free. Adobe Bridge (the file browser) and Adobe Camera Raw (the raw processor) cost nothing and provide 80% of Lightroom's functionality without the subscription. Bridge offers superior file management to Lightroom's proprietary catalog system—you see your actual folder structure, not a database abstraction. Camera Raw provides identical raw processing to Lightroom's Develop module, including the same algorithms and sliders.</p>
+                <p><strong>The workflow:</strong> Import photos via Bridge (simple copy from card to hard drive), cull using star ratings and color labels, process raw files in Camera Raw, and save finished images to your organized folder structure. No catalogs to corrupt, no "missing file" references, no monthly fees. As one convert noted: "Being unyoked from the tyranny of having to do everything within Lightroom is very liberating."</p>
+
+                <h2>3. The First Week: Muscle Memory Rebellion</h2>
+                <p>The initial days expose how deeply Adobe's keyboard shortcuts and interface patterns have embedded in your subconscious. You press "D" expecting to enter Develop mode and nothing happens. You reach for the spot removal tool with the wrong modifier key. You search for adjustment brushes that live in different panels. Your efficiency collapses as you relearn basic tasks.</p>
+                <p>This frustration is temporary but real. Studies of software transitions suggest 21 days to establish new muscle memory. The first week feels like operating through molasses. Every edit takes three times longer. You question your decision constantly. You hover over the "Resubscribe" button at 2 AM while wrestling with an unfamiliar interface.</p>
+                <p><strong>The psychological shift:</strong> Adobe's subscription model creates learned helplessness—we believe we need these specific tools because we've never been forced to function without them. The first week challenges that assumption. You discover that your photography skills transcend your software. Composition, exposure, and artistic vision remain yours; only the manipulation tools have changed.</p>
+
+                <h2>4. The Alternative Deep Dive: Affinity, GIMP, and Darktable</h2>
+                <p>As the second week begins, you explore the broader ecosystem of Adobe alternatives—each with distinct strengths and philosophical approaches.</p>
+                <p><strong>Affinity Photo:</strong> Now completely free under Canva ownership, Affinity provides the closest Photoshop equivalent. The layer system, masking capabilities, and retouching tools match Adobe's professional standards. The "Personas" concept—separate workspaces for raw processing, photo editing, liquify, and tone mapping—initially confuses but eventually streamlines workflow. The absence of AI features (generative fill, neural filters) forces return to traditional techniques: careful selection, manual cloning, considered composition. Many photographers report their work improves without AI shortcuts.</p>
+                <p><strong>GIMP (GNU Image Manipulation Program):</strong> The venerable open-source alternative carries three decades of development. The interface feels dated, the learning curve steepens, but the capability astonishes. Python scripting extends functionality infinitely. Plugins replicate most Photoshop filters. The price—zero dollars—justifies patience. For photographers needing only periodic advanced editing (complex composites, detailed retouching), GIMP satisfies without subscription anxiety.</p>
+                <p><strong>Darktable:</strong> The open-source Lightroom alternative attracts photographers who reject both Adobe's subscription and proprietary file management. Darktable's "lighttable" view replaces Lightroom's Library; the "darkroom" view replaces Develop. The tool set astonishes: 62 modules covering everything from basic exposure to advanced color calibration. The filmic RGB module surpasses Lightroom's tone curve for challenging dynamic range. The price—free, always, with no cloud dependency—appeals to privacy-conscious photographers.</p>
+
+                <h2>5. The Midpoint Crisis: Missing Features and Workarounds</h2>
+                <p>Days 14–21 expose the genuine gaps in alternative workflows. These are not marketing limitations but real functional absences requiring adaptation.</p>
+                <p><strong>AI-Powered Selection:</strong> Photoshop's Select Subject and Select Sky use machine learning to isolate elements instantly. Alternatives require manual selection: quick masks, color ranges, careful brushing. The time investment increases significantly for complex cutouts—hair against busy backgrounds, translucent fabrics, detailed foliage. Workarounds emerge: shoot against cleaner backgrounds, use physical backdrops in-studio, accept longer editing times for complex composites.</p>
+                <p><strong>Content-Aware Fill:</strong> Photoshop's intelligent inpainting removes distractions seamlessly. Alternatives offer clone stamping, healing brushes, and manual reconstruction. The results require more skill and patience but often exceed Content-Aware's occasionally bizarre AI decisions (repeating patterns, inappropriate textures). You learn to shoot cleaner frames, to spend seconds removing distractions in-camera rather than minutes in post.</p>
+                <p><strong>Cloud Synchronization:</strong> Adobe's ecosystem syncs across devices, maintains edit history in the cloud, enables mobile editing. Alternatives require manual file management: Dropbox, Syncthing, or physical drives. The inconvenience is real for photographers who depend on mobile workflows or collaborative editing. Solutions emerge: Capture One for tethered studio work, local NAS storage for redundancy, accepted limitations for mobile editing.</p>
+
+                <h2>6. The Productivity Recovery: Week Three Breakthrough</h2>
+                <p>Something shifts around day 21. The new interfaces stop feeling foreign. Your fingers remember the new shortcuts. Workflows that initially required conscious effort become automatic. You stop translating Adobe terminology and start thinking in the native language of your new tools.</p>
+                <p><strong>Unexpected benefits emerge:</strong> Bridge's file management proves faster than Lightroom's catalog for large batches. Affinity's live filters enable non-destructive editing that surpasses Photoshop's smart objects. Darktable's parametric masks offer selection precision impossible in Lightroom. You realize Adobe's dominance created complacency—the alternatives were always capable; you simply never needed to discover their capabilities.</p>
+                <p><strong>Financial clarity arrives:</strong> You calculate the savings: $9.99/month for Photography Plan becomes $119.88/year, $599.40 over five years, $1,198.80 over a decade. For professional photographers billing thousands monthly, this is negligible. For hobbyists, emerging professionals, and students, this represents camera equipment, printing budgets, educational resources. The psychological burden of perpetual payment lifts.</p>
+
+                <h2>7. The Professional Viability Test: Real Client Work</h2>
+                <p>The ultimate test arrives: can you deliver professional-quality work using only alternatives? The answer, surprisingly, is yes—with qualifications.</p>
+                <p><strong>Portrait Photography:</strong> Bridge handles culling and organization. Camera Raw processes raw files identically to Lightroom. Affinity Photo manages retouching—frequency separation, dodge and burn, skin smoothing. The workflow satisfies commercial portrait clients. The only limitation: batch processing speed falls slightly behind Lightroom's export engine for high-volume events.</p>
+                <p><strong>Landscape Photography:</strong> Darktable's advanced color calibration and filmic RGB module exceed Lightroom's capabilities for challenging dynamic range. Focus stacking, exposure blending, and panorama stitching work flawlessly in Affinity or GIMP. The limitation: no AI sky replacement—composites require manual masking, which often produces superior edge quality anyway.</p>
+                <p><strong>Product and Commercial:</strong> Tethered shooting requires Capture One (which surpasses Lightroom in this domain anyway). Compositing and detailed retouching function perfectly in Affinity or GIMP. The limitation: color-critical work requires manual profile management rather than Adobe's integrated Color Management.</p>
+
+                <h2>8. The Long-Term Viability: Sustainability and Community</h2>
+                <p>Thirty days proves short-term survival; long-term viability requires evaluating the alternative ecosystem's sustainability.</p>
+                <p><strong>Affinity (Canva):</strong> Now free indefinitely with corporate backing from Canva. The business model—free core software, paid AI features—ensures continued development. The risk: Canva could alter terms, but the installed base of millions makes this unlikely. The software works offline, perpetually, regardless of corporate decisions.</p>
+                <p><strong>Darktable:</strong> Open-source with 15+ years of continuous development. The community of contributors ensures survival regardless of commercial viability. The risk: slower feature development than commercial software, but stability and longevity exceed proprietary alternatives.</p>
+                <p><strong>GIMP:</strong> Three decades of development, funded by donations and volunteer contribution. The interface modernizes slowly, but the core capability remains industry-standard. The risk: never achieving Photoshop's polish, but remaining functional and free forever.</p>
+                <p><strong>Bridge + Camera Raw:</strong> Adobe's free offerings could change terms, but the applications are mature and stable. Even if discontinued, existing installations function indefinitely without cloud dependency.</p>
+
+                <h2>9. The Return Decision: To Adobe or Not to Adobe</h2>
+                <p>Day 30 arrives. You face the decision: return to Adobe's familiar ecosystem or commit to the alternative workflow. The choice depends on your specific needs.</p>
+                <p><strong>Return to Adobe if:</strong> You depend on AI features (Generative Fill, Neural Filters) for productivity; you collaborate extensively with Adobe-centric teams; you require mobile editing synchronization; you value Adobe's integrated ecosystem over cost savings; you have institutional subscriptions (education, corporate) that eliminate personal expense.</p>
+                <p><strong>Stay with Alternatives if:</strong> You primarily need raw processing and layer editing (Bridge + Camera Raw + Affinity satisfies); you reject subscription models on principle; you value file system control over database management; you work independently without collaboration requirements; you prefer investing savings in hardware or education.</p>
+                <p><strong>The hybrid approach:</strong> Many photographers settle here—maintaining Bridge and Camera Raw for raw processing (free), subscribing to Photoshop only during intensive project months, using Affinity for routine work. This "Adobe vacation" model maximizes capability while minimizing subscription duration.</p>
+
+                <h2>10. The Bigger Picture: Software Independence</h2>
+                <p>The 30-day experiment reveals something larger than software comparison: the value of workflow independence. Adobe's ecosystem, while powerful, creates dependency. Your catalog becomes a proprietary database. Your muscle memory locks to specific interfaces. Your financial commitment extends indefinitely.</p>
+                <p>Alternatives require more effort, more learning, more conscious decision-making. But they return control—over your files, your finances, your workflow evolution. You become software-agnostic, capable of adapting to whatever tools the market offers.</p>
+                <p>The photographers who thrive long-term are not those wedded to specific applications, but those who understand image-making fundamentals: exposure, composition, color theory, light behavior. Software changes; these principles persist. The 30-day Adobe quit is not just about saving money—it is about reconnecting with the craft beneath the interface, proving that your vision transcends your tools.</p>
+                <p>Whether you return to Adobe or embrace alternatives, you return changed: more aware of workflow options, more conscious of subscription costs, more confident in your ability to adapt. The experiment succeeds not by finding the "best" software, but by proving that no single company owns your creative capability.</p>
+
+                <section class="cta-section">
+                    <div class="cta-title">Ready to optimize your images for print?</div>
+                    <p>Whether you use Adobe, Affinity, or open-source tools, ensure your files are print-ready with our resolution checker.</p>
+                    <a href="index.html" class="cta-button">🚀 Check My Print Resolution Now</a>
+                </section>
+            </article>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 PrintSizeChecker.com</p>
+            <p style="margin-top: 10px; font-size: 0.8em;">Professional Printing Guides & DPI Calculators</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('navMenu');
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+                menu.style.flexDirection = 'column';
+                menu.style.position = 'absolute';
+                menu.style.top = '80px';
+                menu.style.left = '0';
+                menu.style.right = '0';
+                menu.style.background = '#021731';
+                menu.style.padding = '20px';
+                menu.style.zIndex = '100';
+                menu.style.borderRadius = '12px';
+            }
+        }
+
+        function loadVideo() {
+            const wrapper = document.getElementById('videoWrapper');
+            wrapper.innerHTML = '<iframe src="https://www.youtube.com/embed/ONLKiIRxvf8?autoplay=1&rel=0" title="I Quit Adobe For 30 Days" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+            wrapper.style.cursor = 'default';
+        }
+    </script>
+</body>
+</html>

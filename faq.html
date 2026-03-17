@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <title>FAQ: Image Resolution, DPI, and Print Quality Guide | PrintSizeChecker</title>
+    <meta name="description" content="Find answers to common questions about photo printing, DPI vs PPI, and how to prepare high-resolution files for print labs. Get perfect prints every time.">
+    <meta name="keywords" content="printing FAQ, what is 300 DPI, PPI vs DPI, check print quality online, photo printing guide, image resolution for print">
+    <link rel="canonical" href="https://printsizechecker.com/faq.html">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3RNXTTK0Q6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-3RNXTTK0Q6');
+</script>
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://printsizechecker.com/faq.html">
+    <meta property="og:title" content="Photo Printing & Resolution FAQ - PrintSizeChecker">
+    <meta property="og:description" content="Everything you need to know about DPI, resolution, and preparing your images for professional printing.">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is the difference between DPI and PPI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PPI (Pixels Per Inch) refers to the number of pixels displayed per inch of a digital screen. DPI (Dots Per Inch) refers to the number of physical ink dots a printer drops onto a piece of paper. In digital photography, PPI determines the print quality and detail density."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is 300 DPI necessary for all prints?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "300 DPI is the industry standard for high-quality handheld prints (like 4x6 or 8x10 photos). However, for large prints like posters or billboards viewed from a distance, 150 DPI or even 72 DPI can be acceptable."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Are my photos uploaded to your server?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. PrintSizeChecker.com processes all images locally in your browser using JavaScript. Your files are never uploaded, stored, or seen by anyone, ensuring 100% privacy."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Why does my photo look blurry when printed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Blurry prints are usually caused by low resolution. If you try to print a small digital file at a large size, there aren't enough pixels to maintain detail, resulting in pixelation. Our tool helps you check this before you print."
+        }
+      }]
+    }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary-blue: #0798f9;
+            --dark-navy: #021731;
+            --text-gray: #4a5568;
+            --border-light: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-navy) 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* Navigation */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            color: white;
+        }
+
+        .logo {
+            font-size: 1.6em;
+            font-weight: 800;
+            text-decoration: none;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9em;
+            transition: opacity 0.2s;
+        }
+
+        .nav-menu a:hover { opacity: 0.7; color: white; text-decoration: underline; }
+
+        /* Content Area */
+        .page-content {
+            background: white;
+            padding: 60px;
+            border-radius: 24px;
+            margin-bottom: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            color: var(--dark-navy);
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 1.2em;
+            margin-bottom: 50px;
+        }
+
+        /* FAQ Styling */
+        .faq-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .faq-item:last-child { border-bottom: none; }
+
+        .faq-question {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: var(--dark-navy);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .faq-answer {
+            color: var(--text-gray);
+            font-size: 1.1em;
+            line-height: 1.7;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 30px;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 1px;
+        }
+
+        footer {
+            text-align: center;
+            padding-bottom: 60px;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95em;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8em;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .page-content { padding: 40px 25px; }
+            h1 { font-size: 2em; }
+            .nav-menu { display: none; }
+            .mobile-menu-btn { display: block; }
+            .nav-header { position: relative; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <nav class="nav-header">
+                <a href="index.html" class="logo">PrintSizeChecker.com</a>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle Menu">☰</button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="articles.html">Articles</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="page-content">
+            <a href="index.html" class="back-btn">← Use the Image Checker</a>
+            
+            <h1>Frequently Asked Questions</h1>
+            <p class="subtitle">Everything you need to know about preparing images for perfect prints.</p>
+
+            <div class="faq-section">
+                
+                <div class="faq-item">
+                    <span class="faq-question">What is the difference between DPI and PPI?</span>
+                    <p class="faq-answer">While often used interchangeably, <strong>PPI (Pixels Per Inch)</strong> refers to the digital resolution of an image, while <strong>DPI (Dots Per Inch)</strong> refers to the physical ink density of a printer. For most users, PPI is what you need to worry about when checking your file quality.</p>
+                </div>
+
+                <div class="faq-item">
+                    <span class="faq-question">What is considered a "Good" print resolution?</span>
+                    <p class="faq-answer">For handheld items like photo albums and postcards, <strong>300 PPI</strong> is the gold standard for crisp, professional results. For wall art viewed from a few feet away, <strong>150–200 PPI</strong> is usually sufficient. Anything below 100 PPI may appear pixelated or soft.</p>
+                </div>
+
+                <div class="faq-item">
+                    <span class="faq-question">How do I know what size I can print my photo?</span>
+                    <p class="faq-answer">Simply upload your image to our <a href="index.html" style="color: var(--primary-blue);">home page</a>. Our tool reads the pixel dimensions and calculates the quality for various standard print sizes instantly.</p>
+                </div>
+
+                <div class="faq-item">
+                    <span class="faq-question">Are my photos uploaded to your server?</span>
+                    <p class="faq-answer">Absolutely not. Your privacy is our priority. All image processing happens <strong>entirely on your device</strong> within your web browser. We never see, store, or transmit your photos.</p>
+                </div>
+
+                <div class="faq-item">
+                    <span class="faq-question">Can I use this for smartphone photos?</span>
+                    <p class="faq-answer">Yes! Modern smartphones take very high-resolution photos, but they are often shot in a specific aspect ratio (like 4:3). Our tool helps you crop them to standard print sizes (like 4:6 or 5:7) without losing quality.</p>
+                </div>
+
+                <div class="faq-item">
+                    <span class="faq-question">Does this tool support RAW files?</span>
+                    <p class="faq-answer">Currently, we support standard web formats including <strong>JPG, PNG, and WebP</strong>. We recommend exporting your RAW files to a high-quality JPG before checking them for final print preparation.</p>
+                </div>
+
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 PrintSizeChecker.com</p>
+            <p style="margin-top: 10px; font-size: 0.8em;">Designed for Photographers & Designers • No Signup Required</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('navMenu');
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+                menu.style.flexDirection = 'column';
+                menu.style.position = 'absolute';
+                menu.style.top = '80px';
+                menu.style.left = '0';
+                menu.style.right = '0';
+                menu.style.background = '#021731';
+                menu.style.padding = '20px';
+                menu.style.zIndex = '100';
+                menu.style.borderRadius = '12px';
+            }
+        }
+    </script>
+</body>
+</html>
