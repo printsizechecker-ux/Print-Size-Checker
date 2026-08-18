@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Directs search engines to your sitemap
+Sitemap: https://printsizechecker.com/sitemap.xml

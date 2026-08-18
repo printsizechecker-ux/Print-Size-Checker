@@ -39,7 +39,7 @@
           "url": "https://printsizechecker.com/logo.png"
         }
       },
-      "datePublished": "2026-03-11",
+      "datePublished": "2026-05-11",
       "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://printsizechecker.com/reasons-your-prints-are-too-dark.html"
@@ -54,9 +54,12 @@
       gtag('js', new Date());
       gtag('config', 'G-3RNXTTK0Q6');
     </script>
-
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3596842099139749"
+     crossorigin="anonymous"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body { overflow-x: hidden; width: 100%; position: relative; }
         :root {
             --primary-blue: #0798f9;
             --dark-navy: #021731;
@@ -66,19 +69,57 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: linear-gradient(135deg, #0798f9 0%, #021731 100%);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-navy) 100%);
             min-height: 100vh;
             color: #333;
             line-height: 1.7;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; width: 100%; overflow-x: hidden; }
 
-        .nav-header { display: flex; justify-content: space-between; align-items: center; padding: 30px 0; color: white; }
-        .logo { font-size: 1.8em; font-weight: 800; text-decoration: none; color: white; letter-spacing: -0.5px; }
-        .nav-menu { display: flex; gap: 25px; list-style: none; }
-        .nav-menu a { color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 500; font-size: 0.95em; }
+                /* Navigation */
+                /* Navigation */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            color: white;
+            position: relative;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            margin-right: auto;
+        }
+        .nav-menu {
+            display: flex;
+            gap: 18px;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-menu li { display: inline; }
+        .nav-menu a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            font-size: 0.95em;
+        }
         .nav-menu a:hover { color: white; text-decoration: underline; }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            z-index: 1002;
+            position: relative;
+        }
 
         .page-content {
             background: white;
@@ -86,20 +127,11 @@
             border-radius: 24px;
             margin-bottom: 40px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            display: flex;
-            gap: 45px;
-        }
+            }
 
-        .article-sidebar { flex: 0 0 280px; border-right: 1px solid var(--border-light); padding-right: 25px; }
-        .article-sidebar h2 { font-size: 0.95em; text-transform: uppercase; letter-spacing: 1px; color: var(--primary-blue); margin-bottom: 25px; }
-        .article-link-list { list-style: none; }
-        .article-link-list li { margin-bottom: 14px; line-height: 1.3; }
-        .article-link-list a { text-decoration: none; color: var(--dark-navy); font-size: 0.9em; font-weight: 500; }
-        .article-link-list a:hover { color: var(--primary-blue); }
-        .active-link { color: var(--primary-blue) !important; font-weight: 700 !important; }
 
-        .article-body { flex: 1; }
-        h1 { color: var(--dark-navy); font-size: 2.6em; line-height: 1.2; margin-bottom: 25px; }
+        .article-body { width: 100%; max-width: 100%; }
+        h1 { color: var(--dark-navy); font-size: 2.2em; line-height: 1.2; margin-bottom: 10px; }
         h2 { color: var(--dark-navy); margin: 40px 0 15px; font-size: 1.7em; }
         p { margin-bottom: 20px; color: var(--text-gray); font-size: 1.1em; }
         ul.content-list { margin-bottom: 25px; padding-left: 20px; color: var(--text-gray); }
@@ -175,12 +207,122 @@
 
         .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 1.8em; cursor: pointer; }
 
-        @media (max-width: 900px) {
-            .page-content { flex-direction: column; padding: 30px; }
-            .article-sidebar { flex: none; border-right: none; border-bottom: 1px solid var(--border-light); padding-bottom: 30px; margin-bottom: 30px; }
-            h1 { font-size: 2em; }
-            .nav-menu { display: none; }
+        
+    
+        /* Footer */
+        .main-footer {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+        }
+        .footer-content { max-width: 800px; margin: 0 auto; }
+        .footer-brand { font-size: 1.5em; font-weight: bold; margin-bottom: 10px; color: white; }
+        .footer-tagline { color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.95em; }
+        .footer-links {
+            display: flex; justify-content: center; flex-wrap: wrap;
+            gap: 20px; margin: 25px 0; padding: 20px 0;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .footer-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9em; transition: color 0.2s; }
+        .footer-links a:hover { color: white; text-decoration: underline; }
+        .footer-legal { font-size: 0.85em; color: rgba(255,255,255,0.6); margin-top: 20px; }
+        .footer-legal a { color: rgba(255,255,255,0.8); text-decoration: none; }
+        .footer-features {
+            display: flex; justify-content: center; gap: 30px;
+            margin-top: 15px; font-size: 0.85em;
+            color: rgba(255,255,255,0.7); flex-wrap: wrap;
+        }
+        /* Author byline */
+        .article-byline {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 30px; padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-light); flex-wrap: wrap;
+        }
+        .author-avatar {
+            width: 44px; height: 44px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-navy));
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: bold; font-size: 1.1em; flex-shrink: 0;
+        }
+        .author-info { display: flex; flex-direction: column; }
+        .author-name { font-weight: 600; color: var(--dark-navy); font-size: 0.95em; }
+        .publish-date { color: var(--text-gray); font-size: 0.85em; }
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none; position: absolute;
+                top: 60px; left: 0; right: 0;
+                background: #021731; flex-direction: column;
+                padding: 10px 0; gap: 0; z-index: 1001;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                border-radius: 0 0 16px 16px;
+                margin: 0 20px; width: calc(100% - 40px);
+                max-height: 70vh; overflow-y: auto; list-style: none;
+            }
+            .nav-menu.active { display: flex; }
+            .nav-menu li { border-bottom: 1px solid rgba(255,255,255,0.1); display: block; }
+            .nav-menu li:last-child { border-bottom: none; }
+            .nav-menu a { display: block; padding: 12px 20px; color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 500; font-size: 1em; }
+            .nav-menu a:hover { color: white; background: rgba(255,255,255,0.05); }
             .mobile-menu-btn { display: block; }
+            .nav-header { position: relative; padding: 15px 0; flex-direction: row; justify-content: space-between; align-items: center; }
+            .logo { font-size: 1.2em; position: relative; left: auto; transform: none; margin: 0; white-space: nowrap; }
+            h1 { font-size: 1.7em; }
+            .footer-links { flex-direction: column; gap: 10px; }
+            .footer-features { flex-direction: column; gap: 10px; align-items: center; }
+        }
+        @media (max-width: 480px) {
+            .container { padding: 10px; }
+            .nav-header { padding: 10px 0; }
+            .page-content { padding: 25px 15px; }
+        }
+    
+        .related-guides {
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 2px solid #e2e8f0;
+        }
+        .related-guides h2 {
+            margin-top: 0;
+        }
+        .related-guides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .related-guide-card {
+            display: block;
+            padding: 18px 20px;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .related-guide-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-color: #0798f9;
+        }
+        .related-guide-label {
+            display: block;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #0798f9;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .related-guide-title {
+            display: block;
+            font-weight: 600;
+            color: #021731;
+            line-height: 1.4;
         }
     </style>
 
@@ -188,50 +330,32 @@
 <body>
 
     <div class="container">
-        <header>
-            <nav class="nav-header">
+        <div class="nav-header">
                 <a href="index.html" class="logo">PrintSizeChecker.com</a>
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle Menu">☰</button>
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
-                    <li><a href="articles.html">Articles</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="terms.html">Terms of Use</a></li>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                </ul>
-            </nav>
-        </header>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">☰</button>
+                 <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Print Size Calculator</a></li>
+                <li><a href="border-tool.html">Add White Border Tool</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="terms.html">Terms</a></li>
+                <li><a href="privacy.html">Privacy</a></li>
+            </ul>
+            </div>
 
         <main class="page-content">
-            <aside class="article-sidebar">
-                <h2>Browse All Guides</h2>
-                <ul class="article-link-list">
-                    <li><a href="resolution-dpi-ppi.html">Resolution, DPI and PPI explained</a></li>
-                    <li><a href="prepare-photos-printing.html">How to Prepare Your Photos for Printing</a></li>
-                    <li><a href="print-home-vs-print-shop.html">Print Your Photos at Home vs a Print Shop</a></li>
-                    <li><a href="stop-paying-adobe-affinity-photo-free.html">Stop Paying Adobe: Affinity Photo Free</a></li>
-                    <li><a href="i-quit-adobe-30-days.html">I Quit Adobe For 30 Days</a></li>
-                    <li><a href="affinity-vs-photoshop.html">Affinity vs Photoshop</a></li>
-                    <li><a href="im-done-with-adobe-one-year-later.html">I'm DONE with Adobe…</a></li>
-                    <li><a href="how-many-ppi-for-large-prints.html">How many PPI do you need to make large prints?</a></li>
-                    <li><a href="pushing-12mp-raw-to-poster-size.html">Pushing 12MP RAW to Poster Size</a></li>
-                    <li><a href="iphone-17-pro-vs-pro-mirrorless-cameras.html">iPhone 17 Pro vs Pro Mirrorless Cameras</a></li>
-                    <li><a href="color-spaces-srgb-adobe-rgb.html">Color Spaces: sRGB vs. Adobe RGB</a></li>
-                    <li><a href="choosing-paper-lustre-glossy-matte.html">Choosing Paper: Lustre, Glossy, Matte</a></li>
-                    <li><a href="how-to-calibrate-your-monitor.html">How to Calibrate Your Monitor</a></li>
-                    <li><a href="ai-upscaling-print-small-files-large.html">AI Upscaling: Print Small Files Large</a></li>
-                    <li><a href="aspect-ratios-why-photos-get-cropped.html">Aspect Ratios: Why Photos Get Cropped</a></li>
-                    <li><a href="best-professional-photo-labs.html">Best Professional Photo Labs</a></li>
-                    <li><a href="how-to-backup-your-photos.html">How to Backup Your Photos</a></li>
-                    <li><a href="darktable-vs-gimp-free-alternatives.html">Darktable vs. GIMP: Free Alternatives</a></li>
-                    <li><a href="metal-vs-acrylic-prints.html">Metal vs. Acrylic Prints</a></li>
-                    <li><a href="reasons-your-prints-are-too-dark.html" class="active-link">5 Reasons Your Prints Are Too Dark</a></li>
-                </ul>
-            </aside>
-
-            <article class="article-body">
+<article class="article-body">
                 <h1>5 Reasons Your Prints Are Too Dark (And How to Fix Them)</h1>
+                <div class="article-byline">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="540 160 80 80" width="44" height="44" style="border-radius:50%; display:block; flex-shrink:0;"><defs><clipPath id="avS"><circle cx="580" cy="200" r="40"/></clipPath></defs><circle cx="580" cy="200" r="40" fill="#0d2a4a"/><ellipse cx="580" cy="230" rx="32" ry="22" fill="#1a3a5c" clip-path="url(#avS)"/><polygon points="566,218 580,226 575,240 552,240" fill="#f0f4f8" clip-path="url(#avS)"/><polygon points="594,218 580,226 585,240 608,240" fill="#e8edf3" clip-path="url(#avS)"/><rect x="575" y="210" width="10" height="16" rx="3" fill="#c8956a" clip-path="url(#avS)"/><ellipse cx="580" cy="192" rx="20" ry="22" fill="#d4a47a" clip-path="url(#avS)"/><ellipse cx="580" cy="175" rx="21" ry="15" fill="#2c1a0e" clip-path="url(#avS)"/><ellipse cx="580" cy="183" rx="20" ry="10" fill="#2c1a0e" clip-path="url(#avS)"/><ellipse cx="562" cy="190" rx="5" ry="9" fill="#2c1a0e" clip-path="url(#avS)"/><ellipse cx="598" cy="190" rx="5" ry="9" fill="#2c1a0e" clip-path="url(#avS)"/><ellipse cx="574" cy="196" rx="4.5" ry="3.5" fill="white" clip-path="url(#avS)"/><circle cx="574" cy="196" r="2.5" fill="#2a1008" clip-path="url(#avS)"/><ellipse cx="586" cy="196" rx="4.5" ry="3.5" fill="white" clip-path="url(#avS)"/><circle cx="586" cy="196" r="2.5" fill="#2a1008" clip-path="url(#avS)"/><circle cx="580" cy="205" r="2" fill="#bf8860" clip-path="url(#avS)"/><path d="M576 210 Q580 214 584 210" fill="none" stroke="#a0704a" stroke-width="1.5" stroke-linecap="round" clip-path="url(#avS)"/><circle cx="580" cy="200" r="40" fill="none" stroke="#0798f9" stroke-width="2.5"/></svg>
+                    <div class="author-info">
+                        <span class="author-name">Written by <strong>Marcus Webb</strong></span>
+                        <span class="publish-date">Published May 11, 2026 · 10 min read</span>
+                    </div>
+                </div>
+
 
                 <div class="video-container" id="videoWrapper" onclick="loadVideo()"></div>
 
@@ -298,33 +422,89 @@
                     <p>Ensure your images are properly prepared with correct resolution and settings for perfect print brightness.</p>
                     <a href="index.html" class="cta-button">🚀 Check My Print Settings</a>
                 </section>
-            </article>
+            
+                
+                <div class="author-bio-section" style="margin-top:40px; padding:28px; background:linear-gradient(135deg,#f7fafc 0%,#e6f3ff 100%); border-radius:14px; border:1px solid #e2e8f0;">
+                    <div style="display:flex; align-items:flex-start; gap:18px;">
+                        <div style="flex-shrink:0;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="326 126 148 148" width="80" height="80" style="border-radius:50%; display:block;"><defs><clipPath id="avM"><circle cx="400" cy="200" r="74"/></clipPath></defs><circle cx="400" cy="200" r="74" fill="#0d2a4a"/><ellipse cx="400" cy="268" rx="55" ry="38" fill="#1a3a5c" clip-path="url(#avM)"/><polygon points="378,234 400,248 392,280 362,280" fill="#f0f4f8" clip-path="url(#avM)"/><polygon points="422,234 400,248 408,280 438,280" fill="#e8edf3" clip-path="url(#avM)"/><polygon points="394,248 406,248 403,280 397,280" fill="#0798f9" clip-path="url(#avM)"/><rect x="392" y="216" width="16" height="26" rx="5" fill="#c8956a" clip-path="url(#avM)"/><ellipse cx="400" cy="181" rx="34" ry="38" fill="#d4a47a" clip-path="url(#avM)"/><ellipse cx="400" cy="152" rx="36" ry="26" fill="#2c1a0e" clip-path="url(#avM)"/><ellipse cx="400" cy="165" rx="35" ry="17" fill="#2c1a0e" clip-path="url(#avM)"/><ellipse cx="370" cy="172" rx="9" ry="16" fill="#2c1a0e" clip-path="url(#avM)"/><ellipse cx="430" cy="172" rx="9" ry="16" fill="#2c1a0e" clip-path="url(#avM)"/><ellipse cx="368" cy="183" rx="6" ry="9" fill="#c8906a" clip-path="url(#avM)"/><ellipse cx="432" cy="183" rx="6" ry="9" fill="#c8906a" clip-path="url(#avM)"/><path d="M381 171 Q388 168 395 171" fill="none" stroke="#2c1a0e" stroke-width="2.5" stroke-linecap="round" clip-path="url(#avM)"/><path d="M405 171 Q412 168 419 171" fill="none" stroke="#2c1a0e" stroke-width="2.5" stroke-linecap="round" clip-path="url(#avM)"/><ellipse cx="388" cy="180" rx="7.5" ry="5.5" fill="white" clip-path="url(#avM)"/><circle cx="388" cy="180" r="3.5" fill="#3a2010" clip-path="url(#avM)"/><circle cx="389.5" cy="179" r="1.2" fill="white" clip-path="url(#avM)"/><ellipse cx="412" cy="180" rx="7.5" ry="5.5" fill="white" clip-path="url(#avM)"/><circle cx="412" cy="180" r="3.5" fill="#3a2010" clip-path="url(#avM)"/><circle cx="413.5" cy="179" r="1.2" fill="white" clip-path="url(#avM)"/><path d="M400 186 Q397 194 394 197 Q400 200 406 197 Q403 194 400 186" fill="#bf8860" clip-path="url(#avM)"/><path d="M392 204 Q400 212 408 204" fill="none" stroke="#a0704a" stroke-width="2" stroke-linecap="round" clip-path="url(#avM)"/><path d="M366,234 Q400,228 434,234" fill="none" stroke="#0798f9" stroke-width="3" stroke-linecap="round" clip-path="url(#avM)"/><circle cx="400" cy="200" r="74" fill="none" stroke="#0798f9" stroke-width="3"/></svg></div>
+                        <div style="flex:1;">
+                            <p style="font-size:0.8em; text-transform:uppercase; letter-spacing:1px; color:#0798f9; font-weight:700; margin-bottom:4px;">Written by</p>
+                            <p style="font-size:1.15em; font-weight:700; color:#021731; margin-bottom:8px;">Marcus Webb</p>
+                            <p style="font-size:0.95em; color:#4a5568; line-height:1.7; margin-bottom:10px;">Marcus Webb is a photographer and developer with over a decade of experience in professional print workflows. He built PrintSizeChecker after too many wasted print orders &#x2014; and writes every guide on this site from direct personal experience. <a href="about.html" style="color:#0798f9; font-weight:600;">Read more about Marcus &#x2192;</a></p>
+                            <div style="display:flex; flex-wrap:wrap; gap:8px;"><span style="background:white; border:1px solid #e2e8f0; border-radius:20px; padding:4px 12px; font-size:0.82em; color:#021731; font-weight:500;">&#x1F4F7; Photographer</span><span style="background:white; border:1px solid #e2e8f0; border-radius:20px; padding:4px 12px; font-size:0.82em; color:#021731; font-weight:500;">&#x1F5A8; Print Specialist</span><span style="background:white; border:1px solid #e2e8f0; border-radius:20px; padding:4px 12px; font-size:0.82em; color:#021731; font-weight:500;">&#x1F4BB; Developer</span></div>
+                        </div>
+                    </div>
+                </div>
+                <section class="related-guides">
+                    <h2>Related Guides</h2>
+                    <div class="related-guides-grid">
+                    <a href="print-home-vs-print-shop.html" class="related-guide-card">
+                        <span class="related-guide-label">Guide</span>
+                        <span class="related-guide-title">Print Your Photos at Home vs a Print Shop</span>
+                    </a>
+                    <a href="choosing-paper-lustre-glossy-matte.html" class="related-guide-card">
+                        <span class="related-guide-label">Guide</span>
+                        <span class="related-guide-title">Choosing Paper: Lustre, Glossy, Matte</span>
+                    </a>
+                    <a href="metal-vs-acrylic-prints.html" class="related-guide-card">
+                        <span class="related-guide-label">Guide</span>
+                        <span class="related-guide-title">Metal vs. Acrylic Prints</span>
+                    </a>
+                    </div>
+                </section>
+</article>
         </main>
 
-        <footer>
-            <p>&copy; 2026 PrintSizeChecker.com</p>
-            <p style="margin-top: 10px; font-size: 0.8em;">Professional Printing Guides & DPI Calculators</p>
+                <footer class="main-footer">
+            <div class="footer-content">
+                <div class="footer-brand">PrintSizeChecker.com</div>
+                <div class="footer-tagline">The only tool you need to check print quality AND prepare files for any print lab.</div>
+                <div class="footer-links">
+                    <a href="index.html">Print Size Calculator</a>
+                    <a href="border-tool.html">Add White Border Tool</a>
+                    <a href="about.html">About Us</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="articles.html">Articles</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                </div>
+                <div class="footer-features">
+                    <span>✓ 100% Free</span>
+                    <span>✓ No Signup Required</span>
+                    <span>✓ No Watermarks</span>
+                    <span>✓ Private &amp; Secure (Client-Side Processing)</span>
+                </div>
+                <div class="footer-legal">
+                    <p>&copy; 2026 PrintSizeChecker.com. All rights reserved.</p>
+                    <p style="margin-top: 10px;">
+                        <a href="privacy.html">Privacy Policy</a>  | 
+                        <a href="terms.html">Terms of Use</a>  | 
+                        <a href="mailto:printsizechecker@gmail.com">Contact: printsizechecker@gmail.com</a>
+                    </p>
+                </div>
+            </div>
         </footer>
     </div>
 
-    <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('navMenu');
-            if (menu.style.display === 'flex') {
-                menu.style.display = 'none';
-            } else {
-                menu.style.display = 'flex';
-                menu.style.flexDirection = 'column';
-                menu.style.position = 'absolute';
-                menu.style.top = '80px';
-                menu.style.left = '0';
-                menu.style.right = '0';
-                menu.style.background = '#021731';
-                menu.style.padding = '20px';
-                menu.style.zIndex = '100';
-                menu.style.borderRadius = '12px';
+        <script>
+        document.getElementById('mobileMenuBtn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+        document.querySelectorAll('.nav-menu a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                document.getElementById('navMenu').classList.remove('active');
+            });
+        });
+        document.addEventListener('click', function(e) {
+            const navMenu = document.getElementById('navMenu');
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            if (navMenu && navMenu.classList.contains('active') &&
+                !navMenu.contains(e.target) && e.target !== mobileBtn) {
+                navMenu.classList.remove('active');
             }
-        }
+        });
 
         function loadVideo() {
             const wrapper = document.getElementById('videoWrapper');

@@ -1,0 +1,2520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrintSizeChecker Admin Dashboard</title>
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Login Screen */
+        .login-screen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #021731 0%, #0798f9 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .login-box {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+        }
+
+        .login-box h1 {
+            color: #021731;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+
+        .login-box p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.95em;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: #0798f9;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0798f9, #021731);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(7, 152, 249, 0.4);
+        }
+
+        .login-error {
+            color: #ef476f;
+            margin-top: 15px;
+            font-size: 0.9em;
+            display: none;
+        }
+
+        /* Dashboard Layout */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 260px;
+            background: #021731;
+            color: white;
+            padding: 25px 0;
+            overflow-y: auto;
+            z-index: 100;
+            transition: transform 0.3s;
+        }
+
+        .sidebar-brand {
+            padding: 0 25px 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-brand h2 {
+            font-size: 1.3em;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-brand p {
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0 15px;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.2s;
+            font-size: 0.95em;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .sidebar-nav a:hover, .sidebar-nav a.active {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .sidebar-nav a.active {
+            background: #0798f9;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 25px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #0798f9, #00d084);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .user-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .user-details .email {
+            font-size: 0.85em;
+            opacity: 0.9;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-details .time {
+            font-size: 0.75em;
+            opacity: 0.6;
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 10px;
+            background: rgba(239, 71, 111, 0.2);
+            color: #ef476f;
+            border: 1px solid rgba(239, 71, 111, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 71, 111, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 260px;
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .page-title h1 {
+            font-size: 1.8em;
+            color: #021731;
+            margin-bottom: 5px;
+        }
+
+        .page-title p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #00d084;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .live-badge .pulse {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: #0798f9;
+            color: #0798f9;
+        }
+
+        .filter-btn.active {
+            background: #0798f9;
+            color: white;
+            border-color: #0798f9;
+        }
+
+        .filter-select {
+            padding: 10px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 0.9em;
+            cursor: pointer;
+            min-width: 120px;
+            background: white;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #0798f9;
+        }
+
+        .date-picker {
+            padding: 10px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+
+        .clear-btn {
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.85em;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .clear-btn:hover {
+            background: #e9ecef;
+        }
+
+        .report-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .report-btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85em;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .report-btn.csv {
+            background: linear-gradient(135deg, #00d084, #00a86b);
+            color: white;
+        }
+
+        .report-btn.json {
+            background: linear-gradient(135deg, #0798f9, #021731);
+            color: white;
+        }
+
+        .report-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .stat-card .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.85em;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .stat-card .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3em;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2.2em;
+            font-weight: 800;
+            color: #021731;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .stat-sub {
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        .stat-card.blue .stat-icon { background: #e6f3ff; }
+        .stat-card.green .stat-icon { background: #e6fff0; }
+        .stat-card.yellow .stat-icon { background: #fff8e6; }
+        .stat-card.red .stat-icon { background: #ffe6e6; }
+        .stat-card.purple .stat-icon { background: #f0e6ff; }
+        .stat-card.gray .stat-icon { background: #f0f0f0; }
+        .stat-card.orange .stat-icon { background: #fff0e6; }
+        .stat-card.teal .stat-icon { background: #e6fffa; }
+        .stat-card.pink .stat-icon { background: #ffe6f3; }
+        .stat-card.indigo .stat-icon { background: #e6e6ff; }
+
+        /* Content Sections */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .content-grid.full {
+            grid-template-columns: 1fr;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-header h3 {
+            font-size: 1.1em;
+            color: #021731;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-header .badge {
+            background: #e6f3ff;
+            color: #0798f9;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        /* Scrollable Table Container */
+        .table-container {
+            max-height: 500px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .table-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .table-container::-webkit-scrollbar-track {
+            background: #f8f9fa;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 4px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: #bbb;
+        }
+
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table.data-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: #f8f9fa;
+        }
+
+        table.data-table th {
+            padding: 14px 20px;
+            text-align: left;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #666;
+            font-weight: 700;
+            border-bottom: 2px solid #e9ecef;
+            white-space: nowrap;
+        }
+
+        table.data-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.9em;
+            color: #444;
+            vertical-align: middle;
+        }
+
+        table.data-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .dim-cell {
+            font-weight: 600;
+            color: #021731;
+        }
+
+        .size-badge {
+            display: inline-block;
+            background: #e6f3ff;
+            color: #0798f9;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .quality-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .quality-excellent { background: #d4edda; color: #155724; }
+        .quality-good { background: #fff3cd; color: #856404; }
+        .quality-fair { background: #f8d7da; color: #721c24; }
+        .quality-poor { background: #f5c6cb; color: #721c24; }
+
+        .location-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #f0f0f0;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            color: #555;
+        }
+
+        .click-type-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 700;
+        }
+        .click-type-badge.ai { background: #e6f3ff; color: #0798f9; }
+        .click-type-badge.kofi { background: #ff6b6b; color: white; }
+
+        .empty-state {
+            padding: 60px 20px;
+            text-align: center;
+            color: #888;
+        }
+
+        .empty-state .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        /* Popular Sizes List */
+        .sizes-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .size-item {
+            padding: 15px 25px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .size-item:last-child {
+            border-bottom: none;
+        }
+
+        .size-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .size-name {
+            font-weight: 600;
+            color: #021731;
+            font-size: 0.9em;
+        }
+
+        .size-count {
+            background: #e6f3ff;
+            color: #0798f9;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .size-bar {
+            background: #f0f0f0;
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .size-bar-fill {
+            background: linear-gradient(90deg, #0798f9, #00d084);
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        /* Hourly Chart */
+        .hourly-chart {
+            padding: 25px;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            height: 180px;
+            gap: 3px;
+            margin-bottom: 10px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: #e9ecef;
+            border-radius: 3px 3px 0 0;
+            min-height: 4px;
+            transition: all 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .chart-bar.has-data {
+            background: linear-gradient(to top, #0798f9, #00d084);
+        }
+
+        .chart-bar:hover {
+            opacity: 0.8;
+        }
+
+        .chart-bar .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #021731;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.75em;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            margin-bottom: 5px;
+        }
+
+        .chart-bar:hover .tooltip {
+            opacity: 1;
+        }
+
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75em;
+            color: #888;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            background: #021731;
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            font-size: 1.3em;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        
+        .panel-header.collapsible { cursor: pointer; user-select: none; }
+        .panel-header.collapsible:hover { background: linear-gradient(135deg, #eef2f5 0%, #f8f9fa 100%); }
+        .panel-header.collapsible .chevron { transition: transform 0.25s ease; }
+        .panel-header.collapsible.collapsed .chevron { transform: rotate(-90deg); }
+        .panel-body {
+            transition: max-height 0.3s ease, opacity 0.25s ease, padding 0.25s ease;
+            max-height: 5000px;
+            opacity: 1;
+            overflow: hidden;
+        }
+        .panel-body.collapsed {
+            max-height: 0;
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    
+        
+        .content-grid.equal {
+            grid-template-columns: 1fr 1fr;
+        }
+    
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 80px 20px 20px;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .report-btns {
+                width: 100%;
+            }
+
+            .report-btn {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stat-card .stat-value {
+                font-size: 1.6em;
+            }
+
+            table.data-table th,
+            table.data-table td {
+                padding: 10px 12px;
+                font-size: 0.8em;
+            }
+
+            .location-tag {
+                display: none;
+            }
+        }
+    </style>
+
+
+
+</head>
+<body>
+
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-box">
+            <h1>🔐 Admin Dashboard</h1>
+            <p>PrintSizeChecker Analytics</p>
+            <input type="email" id="adminEmail" class="login-input" placeholder="admin@example.com" value="">
+            <input type="password" id="adminPassword" class="login-input" placeholder="Password">
+            <button class="login-btn" onclick="loginAdmin()">Sign In</button>
+            <p class="login-error" id="loginError">Invalid email or password</p>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+
+        <!-- Mobile Toggle -->
+        <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <h2>📊 PrintSizeChecker</h2>
+                <p>Analytics Dashboard</p>
+            </div>
+
+            <nav>
+                <ul class="sidebar-nav">
+                    <li>
+                        <a href="javascript:void(0)" data-section="overview" class="active" onclick="scrollToSection('overview')">
+                            <span>📈</span> Overview
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" data-section="pageviews" onclick="scrollToSection('pageviews')">
+                            <span>👁️</span> Page View Locations
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" data-section="downloads" onclick="scrollToSection('downloads')">
+                            <span>📥</span> Recent Downloads
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" data-section="uploads" onclick="scrollToSection('uploads')">
+                            <span>📤</span> Recent Uploads
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0)" data-section="sizes" onclick="scrollToSection('sizes')">
+                            <span>🏆</span> Popular Sizes
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" data-section="hourly" onclick="scrollToSection('hourly')">
+                            <span>⏰</span> Hourly Activity
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" data-section="borderTool" onclick="scrollToSection('borderTool')">
+                            <span>⬜</span> Border Tool Stats
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">A</div>
+                    <div class="user-details">
+                        <div class="email" id="userEmail">admin</div>
+                        <div class="time" id="melbourneTime">-</div>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logoutAdmin()">🚪 Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Top Bar -->
+            <div class="top-bar" id="overview">
+                <div class="page-title">
+                    <h1>Dashboard Overview</h1>
+                    <p>Real-time analytics for PrintSizeChecker.com</p>
+                </div>
+                <div class="live-badge">
+                    <span class="pulse"></span>
+                    LIVE
+                </div>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <button class="filter-btn active" id="btn-today" onclick="loadStats('today')">Today</button>
+                    <button class="filter-btn" id="btn-yesterday" onclick="loadStats('yesterday')">Yesterday</button>
+                    <button class="filter-btn" id="btn-all" onclick="loadStats('all')">All Time</button>
+
+                    <div style="width:1px; height:30px; background:#e9ecef; margin:0 5px;"></div>
+
+                    <select class="filter-select" id="yearSelect" onchange="loadCustomStats()">
+                        <option value="">Year...</option>
+                    </select>
+
+                    <select class="filter-select" id="monthSelect" onchange="loadCustomStats()">
+                        <option value="">Month...</option>
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+
+                    <input type="date" class="date-picker" id="datePicker" onchange="loadDateStats()">
+
+                    <button class="clear-btn" onclick="clearCustomStats()">Clear</button>
+                </div>
+
+                <div class="report-btns">
+                    <button class="report-btn csv" onclick="downloadReport('csv')">📊 CSV</button>
+                    <button class="report-btn json" onclick="downloadReport('json')">📋 JSON</button>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card blue">
+                    <div class="stat-header">
+                        <span class="stat-label">👀 Page Views</span>
+                        <div class="stat-icon">👁️</div>
+                    </div>
+                    <div class="stat-value" id="statPageViews">-</div>
+                    <div class="stat-sub">Total visitors</div>
+                </div>
+
+                <div class="stat-card orange">
+                    <div class="stat-header">
+                        <span class="stat-label">📈 Upload Rate</span>
+                        <div class="stat-icon">📤</div>
+                    </div>
+                    <div class="stat-value" id="statUploadRate">-</div>
+                    <div class="stat-sub">Visitors who uploaded</div>
+                </div>
+
+                <div class="stat-card gray">
+                    <div class="stat-header">
+                        <span class="stat-label">👻 Bounce Rate</span>
+                        <div class="stat-icon">🏃</div>
+                    </div>
+                    <div class="stat-value" id="statBounceRate">-</div>
+                    <div class="stat-sub">Left without uploading</div>
+                </div>
+
+                <div class="stat-card green">
+                    <div class="stat-header">
+                        <span class="stat-label">📤 Total Uploads</span>
+                        <div class="stat-icon">🖼️</div>
+                    </div>
+                    <div class="stat-value" id="statUploads">-</div>
+                    <div class="stat-sub">Images processed</div>
+                </div>
+
+                <div class="stat-card purple">
+                    <div class="stat-header">
+                        <span class="stat-label">📥 Total Downloads</span>
+                        <div class="stat-icon">💾</div>
+                    </div>
+                    <div class="stat-value" id="statDownloads">-</div>
+                    <div class="stat-sub">Print-ready files</div>
+                </div>
+
+                <div class="stat-card yellow">
+                    <div class="stat-header">
+                        <span class="stat-label">🎯 Conversion Rate</span>
+                        <div class="stat-icon">🎯</div>
+                    </div>
+                    <div class="stat-value" id="statConversion">-</div>
+                    <div class="stat-sub">Download/Upload ratio</div>
+                </div>
+            </div>
+
+            <!-- Page View Locations -->
+            <div class="content-grid full" id="pageviews">
+                <div class="panel">
+                    <div class="panel-header collapsible" onclick="togglePanel(this)" style="cursor:pointer;">
+                        <h3><span>👁️</span> Page View Locations</h3>
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <span class="badge" id="pageviewsBadge">0</span>
+                            <span class="chevron" style="font-size:0.75em;color:#6c757d;transition:transform 0.25s;">▼</span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Location</th>
+                                        <th>Page</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pageviewsBody">
+                                    <tr>
+                                        <td colspan="3">
+                                            <div class="empty-state">
+                                                <div class="icon">📭</div>
+                                                <p>No page views in this period</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Downloads & Uploads -->
+            <div class="content-grid equal" id="downloads">
+                <!-- Recent Downloads -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3><span>📥</span> Recent Downloads</h3>
+                        <span class="badge" id="downloadsBadge">0</span>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Dimensions</th>
+                                    <th>Quality</th>
+                                    <th>Size</th>
+                                    <th>Location</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentDownloadsBody">
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="empty-state">
+                                            <div class="icon">📭</div>
+                                            <p>No downloads in this period</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Recent Uploads -->
+                <div class="panel" id="uploads">
+                    <div class="panel-header">
+                        <h3><span>📤</span> Recent Uploads</h3>
+                        <span class="badge" id="uploadsBadge">0</span>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Dimensions</th>
+                                    <th>Ratio</th>
+                                    <th>Size</th>
+                                    <th>Location</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentUploadsBody">
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="empty-state">
+                                            <div class="icon">📭</div>
+                                            <p>No uploads in this period</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Popular Sizes & Hourly -->
+            <div class="content-grid">
+                <!-- Popular Sizes -->
+                <div class="panel" id="sizes">
+                    <div class="panel-header">
+                        <h3><span>🏆</span> Most Popular Print Sizes</h3>
+                        <span class="badge" id="sizesBadge">0</span>
+                    </div>
+                    <div class="sizes-list" id="popularSizes">
+                        <div class="empty-state">
+                            <div class="icon">📊</div>
+                            <p>No data available</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hourly Activity -->
+                <div class="panel" id="hourly">
+                    <div class="panel-header">
+                        <h3><span>⏰</span> Hourly Distribution</h3>
+                    </div>
+                    <div class="hourly-chart">
+                        <div class="chart-bars" id="hourlyChart">
+                            <!-- Bars generated by JS -->
+                        </div>
+                        <div class="chart-labels">
+                            <span>00:00</span>
+                            <span>06:00</span>
+                            <span>12:00</span>
+                            <span>18:00</span>
+                            <span>23:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Border Tool Stats Grid -->
+            <div class="top-bar" id="borderTool" style="margin-top: 40px;">
+                <div class="page-title">
+                    <h1>🖼️ Border Tool Analytics</h1>
+                    <p>Track usage of the Add White Border tool</p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card teal">
+                    <div class="stat-header">
+                        <span class="stat-label">⬜ Border Tool Views</span>
+                        <div class="stat-icon">👁️</div>
+                    </div>
+                    <div class="stat-value" id="statBorderViews">-</div>
+                    <div class="stat-sub">Page visits to border tool</div>
+                </div>
+
+                <div class="stat-card" style="background:white;border-radius:16px;padding:25px;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:transform 0.2s;">
+                    <div class="stat-header">
+                        <span class="stat-label">📤 Border Uploads</span>
+                        <div class="stat-icon" style="width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3em;background:#e6fff0;">📤</div>
+                    </div>
+                    <div class="stat-value" id="statBorderUploads" style="font-size:2.2em;font-weight:800;color:#021731;margin-bottom:5px;">-</div>
+                    <div class="stat-sub" style="font-size:0.8em;color:#888;">Images uploaded to border tool</div>
+                </div>
+
+                <div class="stat-card pink">
+                    <div class="stat-header">
+                        <span class="stat-label">⬇ Border Downloads</span>
+                        <div class="stat-icon">💾</div>
+                    </div>
+                    <div class="stat-value" id="statBorderDownloads">-</div>
+                    <div class="stat-sub">Images exported with borders</div>
+                </div>
+
+                <div class="stat-card indigo">
+                    <div class="stat-header">
+                        <span class="stat-label">🎯 Conversion Rate</span>
+                        <div class="stat-icon">📈</div>
+                    </div>
+                    <div class="stat-value" id="statBorderConversion">-</div>
+                    <div class="stat-sub">Download / View ratio</div>
+                </div>
+
+                <div class="stat-card orange">
+                    <div class="stat-header">
+                        <span class="stat-label">📐 Inside Mode</span>
+                        <div class="stat-icon">⬜</div>
+                    </div>
+                    <div class="stat-value" id="statBorderInside">-</div>
+                    <div class="stat-sub">Inside border mode usage</div>
+                </div>
+
+                <div class="stat-card blue">
+                    <div class="stat-header">
+                        <span class="stat-label">📐 Outside Mode</span>
+                        <div class="stat-icon">📐</div>
+                    </div>
+                    <div class="stat-value" id="statBorderOutside">-</div>
+                    <div class="stat-sub">Outside border mode usage</div>
+                </div>
+
+                <div class="stat-card green">
+                    <div class="stat-header">
+                        <span class="stat-label">🎨 Image Fit ON</span>
+                        <div class="stat-icon">🖼️</div>
+                    </div>
+                    <div class="stat-value" id="statBorderFit">-</div>
+                    <div class="stat-sub">Auto-fit enabled downloads</div>
+                </div>
+            </div>
+
+            <!-- Border Tool Recent Activity -->
+            <div class="content-grid full" id="borderActivity">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3><span>⬜</span> Border Tool Activity</h3>
+                        <span class="badge" id="borderActivityBadge">0</span>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Event</th>
+                                    <th>Mode/Format</th>
+                                    <th>Size</th>
+                                    <th>DPI/File</th>
+                                    <th>Location</th>
+                                </tr>
+                            </thead>
+                            <tbody id="borderActivityBody">
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="empty-state">
+                                            <div class="icon">📭</div>
+                                            <p>No border tool activity in this period</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Border Tool Popular Settings -->
+            <div class="content-grid">
+                <div class="panel" id="borderPopular">
+                    <div class="panel-header">
+                        <h3><span>🏆</span> Popular Border Settings</h3>
+                        <span class="badge" id="borderSettingsBadge">0</span>
+                    </div>
+                    <div class="sizes-list" id="borderPopularSettings">
+                        <div class="empty-state">
+                            <div class="icon">📊</div>
+                            <p>No data available</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel" id="borderFormats">
+                    <div class="panel-header">
+                        <h3><span>📋</span> Export Format Distribution</h3>
+                    </div>
+                    <div class="sizes-list" id="borderFormatDistribution">
+                        <div class="empty-state">
+                            <div class="icon">📊</div>
+                            <p>No data available</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        // MELBOURNE TIME HELPERS
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        function getMelbourneDate(date = new Date()) {
+            return date.toLocaleDateString('en-CA', { 
+                timeZone: 'Australia/Melbourne',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            });
+        }
+
+        function getMelbourneYear() {
+            return new Date().toLocaleDateString('en-CA', { 
+                timeZone: 'Australia/Melbourne',
+                year: 'numeric'
+            });
+        }
+
+        function getMelbourneMonth() {
+            return new Date().toLocaleDateString('en-CA', { 
+                timeZone: 'Australia/Melbourne',
+                year: 'numeric',
+                month: '2-digit'
+            });
+        }
+
+        function getMelbourneYesterday() {
+            const now = new Date();
+            const yesterday = new Date(now);
+            yesterday.setDate(yesterday.getDate() - 1);
+            return yesterday.toLocaleDateString('en-CA', { 
+                timeZone: 'Australia/Melbourne',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            });
+        }
+
+        function getMelbourneHour() {
+            return parseInt(new Date().toLocaleTimeString('en-AU', { 
+                timeZone: 'Australia/Melbourne',
+                hour: '2-digit',
+                hour12: false 
+            }));
+        }
+
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        // FIREBASE CONFIGURATION
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        let db, auth;
+        try {
+            const firebaseConfig = {
+                apiKey: "AIzaSyB27yvxRaRaRZHKNM5uLB2msCHwmqeXD5Q",
+                authDomain: "printsizechecker-analytics.firebaseapp.com",
+                projectId: "printsizechecker-analytics",
+                storageBucket: "printsizechecker-analytics.firebasestorage.app",
+                messagingSenderId: "493656656959",
+                appId: "1:493656656959:web:89aba7d7d3e69633b7fc8a",
+                measurementId: "G-58KG7PKZRZ"
+            };
+
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.firestore();
+            auth = firebase.auth();
+            console.log('Firebase initialized successfully');
+        } catch (e) {
+            console.warn('Firebase initialization failed:', e);
+            db = { collection: () => ({ add: () => Promise.resolve(), where: () => ({ get: () => Promise.resolve({size: 0, forEach: () => {}}), onSnapshot: () => () => {} }), orderBy: () => ({ limit: () => ({ get: () => Promise.resolve({size: 0, forEach: () => {}}), onSnapshot: () => () => {} }) }) }) };
+            auth = { onAuthStateChanged: () => {}, signInWithEmailAndPassword: () => Promise.reject(), signOut: () => Promise.resolve() };
+        }
+
+        let statsUnsubscribers = [];
+        let currentStatsData = {
+            pageViews: 0,
+            uploads: 0,
+            downloads: 0,
+            period: 'today',
+            popularSizes: [],
+            recentDownloads: [],
+            recentUploads: [],
+            recentPageViews: [],
+            borderViews: 0,
+            borderDownloads: 0,
+            borderActivity: [],
+            borderPopularSettings: [],
+            borderFormatDist: []
+        };
+        let currentUploadData = [];
+        let currentDownloadData = [];
+        let currentPageViewData = [];
+        let currentBorderToolData = [];
+
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        // LOGIN / AUTH
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        function loginAdmin() {
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    showDashboard(userCredential.user.email);
+                })
+                .catch((error) => {
+                    document.getElementById('loginError').style.display = 'block';
+                });
+        }
+
+        function showDashboard(email) {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+
+            document.getElementById('userEmail').textContent = email;
+            document.getElementById('userAvatar').textContent = email.charAt(0).toUpperCase();
+
+            updateMelbourneTime();
+            populateYearDropdown();
+            loadStats('today');
+        }
+
+        function logoutAdmin() {
+            unsubscribeFromStats();
+            auth.signOut();
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('adminEmail').value = '';
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('loginError').style.display = 'none';
+        }
+
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                showDashboard(user.email);
+            }
+        });
+
+        // Enter key on password field
+        document.getElementById('adminPassword').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') loginAdmin();
+        });
+
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        // SIDEBAR & NAVIGATION
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // Update active nav using data-section attribute
+            document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+            document.querySelector(`.sidebar-nav a[data-section="${id}"]`)?.classList.add('active');
+
+            // Close mobile sidebar
+            if (window.innerWidth <= 1024) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        // MELBOURNE TIME DISPLAY
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        function updateMelbourneTime() {
+            const now = new Date();
+            const melbourneTime = new Intl.DateTimeFormat('en-AU', {
+                timeZone: 'Australia/Melbourne',
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                timeZoneName: 'short'
+            }).format(now);
+            const el = document.getElementById('melbourneTime');
+            if (el) el.textContent = melbourneTime;
+        }
+        setInterval(updateMelbourneTime, 1000);
+        updateMelbourneTime();
+
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        // STATS & FILTERS
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        function populateYearDropdown() {
+            const yearSelect = document.getElementById('yearSelect');
+            if (!yearSelect) return;
+            const currentYear = parseInt(getMelbourneYear());
+
+            while (yearSelect.options.length > 1) {
+                yearSelect.remove(1);
+            }
+
+            for (let year = 2026; year <= 2036; year++) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                if (year === currentYear) option.selected = true;
+                yearSelect.appendChild(option);
+            }
+
+            const datePicker = document.getElementById('datePicker');
+            if (datePicker) datePicker.max = getMelbourneDate();
+        }
+
+        function resetButtonStyles() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+        }
+
+        async function loadStats(period) {
+            unsubscribeFromStats();
+
+            const yearSelect = document.getElementById('yearSelect');
+            const monthSelect = document.getElementById('monthSelect');
+            const datePicker = document.getElementById('datePicker');
+            if (yearSelect) yearSelect.value = "";
+            if (monthSelect) monthSelect.value = "";
+            if (datePicker) datePicker.value = "";
+
+            resetButtonStyles();
+            document.getElementById(`btn-${period}`)?.classList.add('active');
+
+            let startDate, endDate, periodLabel;
+
+            if (period === 'today') {
+                startDate = getMelbourneDate();
+                endDate = startDate;
+                periodLabel = 'Today';
+            } else if (period === 'yesterday') {
+                startDate = getMelbourneYesterday();
+                endDate = startDate;
+                periodLabel = 'Yesterday';
+            } else if (period === 'all') {
+                startDate = '2026-01-01';
+                endDate = '2036-12-31';
+                periodLabel = 'All Time';
+            }
+
+            currentStatsData.period = period;
+            await executeStatsQuery(startDate, endDate, periodLabel);
+        }
+
+        async function loadCustomStats() {
+            const year = document.getElementById('yearSelect').value;
+            const month = document.getElementById('monthSelect').value;
+            if (!year && !month) return;
+
+            unsubscribeFromStats();
+            resetButtonStyles();
+            const datePicker = document.getElementById('datePicker');
+            if (datePicker) datePicker.value = "";
+
+            let startDate, endDate, periodLabel;
+
+            if (year && month) {
+                startDate = `${year}-${month}-01`;
+                const lastDay = new Date(year, month, 0).getDate();
+                endDate = `${year}-${month}-${lastDay}`;
+                periodLabel = `${getMonthName(month)} ${year}`;
+            } else if (year) {
+                startDate = `${year}-01-01`;
+                endDate = `${year}-12-31`;
+                periodLabel = `Year ${year}`;
+            } else {
+                const currentYear = getMelbourneYear();
+                startDate = `${currentYear}-${month}-01`;
+                const lastDay = new Date(currentYear, month, 0).getDate();
+                endDate = `${currentYear}-${month}-${lastDay}`;
+                periodLabel = `${getMonthName(month)} ${currentYear}`;
+            }
+
+            currentStatsData.period = periodLabel;
+            await executeStatsQuery(startDate, endDate, periodLabel);
+        }
+
+        async function loadDateStats() {
+            const datePicker = document.getElementById('datePicker');
+            if (!datePicker || !datePicker.value) return;
+
+            const selectedDate = datePicker.value;
+            unsubscribeFromStats();
+            resetButtonStyles();
+
+            const yearSelect = document.getElementById('yearSelect');
+            const monthSelect = document.getElementById('monthSelect');
+            if (yearSelect) yearSelect.value = "";
+            if (monthSelect) monthSelect.value = "";
+
+            currentStatsData.period = selectedDate;
+            await executeStatsQuery(selectedDate, selectedDate, selectedDate);
+        }
+
+        function clearCustomStats() {
+            const yearSelect = document.getElementById('yearSelect');
+            const monthSelect = document.getElementById('monthSelect');
+            const datePicker = document.getElementById('datePicker');
+            if (yearSelect) yearSelect.value = "";
+            if (monthSelect) monthSelect.value = "";
+            if (datePicker) datePicker.value = "";
+            unsubscribeFromStats();
+            loadStats('today');
+        }
+
+        function getMonthName(monthNum) {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                           'July', 'August', 'September', 'October', 'November', 'December'];
+            return months[parseInt(monthNum) - 1];
+        }
+
+        function unsubscribeFromStats() {
+            statsUnsubscribers.forEach(unsub => unsub());
+            statsUnsubscribers = [];
+        }
+
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        // CORE QUERY EXECUTION
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        async function executeStatsQuery(startDate, endDate, periodLabel) {
+            try {
+                unsubscribeFromStats();
+
+                let uploadQuery = db.collection('uploads')
+                    .where('date', '>=', startDate).where('date', '<=', endDate);
+                let downloadQuery = db.collection('downloads')
+                    .where('date', '>=', startDate).where('date', '<=', endDate);
+                let pageViewQuery = db.collection('pageViews')
+                    .where('date', '>=', startDate).where('date', '<=', endDate);
+                let borderToolQuery = db.collection('borderToolEvents')
+                    .where('date', '>=', startDate).where('date', '<=', endDate);
+                if (periodLabel === 'All Time') {
+                    uploadQuery = db.collection('uploads').orderBy('timestamp', 'desc')
+                    downloadQuery = db.collection('downloads').orderBy('timestamp', 'desc')
+                    pageViewQuery = db.collection('pageViews').orderBy('timestamp', 'desc')
+                    borderToolQuery = db.collection('borderToolEvents').orderBy('timestamp', 'desc')
+                }
+
+                const uploadUnsub = uploadQuery.onSnapshot(snapshot => {
+                    currentUploadData = [];
+                    snapshot.forEach(doc => currentUploadData.push({ id: doc.id, ...doc.data() }));
+                    updateStatsUI();
+                }, err => console.error('Upload listener error:', err));
+
+                const downloadUnsub = downloadQuery.onSnapshot(snapshot => {
+                    currentDownloadData = [];
+                    snapshot.forEach(doc => currentDownloadData.push({ id: doc.id, ...doc.data() }));
+                    updateStatsUI();
+                }, err => console.error('Download listener error:', err));
+
+                const pageViewUnsub = pageViewQuery.onSnapshot(snapshot => {
+                    currentPageViewData = [];
+                    snapshot.forEach(doc => currentPageViewData.push({ id: doc.id, ...doc.data() }));
+                    updateStatsUI();
+                }, err => console.error('PageView listener error:', err));
+
+                const borderToolUnsub = borderToolQuery.onSnapshot(snapshot => {
+                    currentBorderToolData = [];
+                    snapshot.forEach(doc => currentBorderToolData.push({ id: doc.id, ...doc.data() }));
+                    updateStatsUI();
+                }, err => console.error('Border tool listener error:', err));
+
+                statsUnsubscribers = [uploadUnsub, downloadUnsub, pageViewUnsub, borderToolUnsub];
+                console.log('Live mode activated for period:', periodLabel);
+
+            } catch (error) {
+                console.error("Error setting up stats listeners:", error);
+            }
+        }
+
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        // UI UPDATE
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        function updateStatsUI() {
+            const uploads = currentUploadData.length;
+            const downloads = currentDownloadData.length;
+            const pageViews = currentPageViewData.length;
+
+            currentStatsData.pageViews = pageViews;
+            currentStatsData.uploads = uploads;
+            currentStatsData.downloads = downloads;
+
+            let convertedViews = currentPageViewData.filter(d => d.converted).length;
+
+            const uploadRate = pageViews > 0 ? ((uploads/pageViews)*100).toFixed(1) + '%' : '0%';
+            const conversionRate = uploads > 0 ? ((downloads/uploads)*100).toFixed(1) + '%' : '0%';
+            const bounceRate = pageViews > 0 ? (((pageViews - convertedViews)/pageViews)*100).toFixed(1) + '%' : '0%';
+
+            let totalSize = 0;
+            let totalPixels = 0;
+            const sizeMap = {};
+            const hourMap = new Array(24).fill(0);
+            const recentDownloads = [];
+            const recentUploads = [];
+            const recentClicks = [];
+
+            currentDownloadData.forEach(data => {
+                totalSize += data.estimatedFileSizeMB || 0;
+                totalPixels += (data.outputPixels?.width || 0) * (data.outputPixels?.height || 0);
+                const sizeKey = `${Math.round(data.printDimensions.width)}${data.printDimensions.unit} × ${Math.round(data.printDimensions.height)}${data.printDimensions.unit} @ ${data.printDimensions.dpi}DPI`;
+                sizeMap[sizeKey] = (sizeMap[sizeKey] || 0) + 1;
+                if (data.hour !== undefined) hourMap[data.hour]++;
+
+                let timeStr = '-';
+                if (data.timestamp) {
+                    if (data.timestamp.toDate) {
+                        const date = data.timestamp.toDate();
+                        timeStr = new Intl.DateTimeFormat('en-AU', {
+                            timeZone: 'Australia/Melbourne',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }).format(date);
+                    } else {
+                        timeStr = new Date(data.timestamp).toLocaleTimeString('en-AU', {
+                            timeZone: 'Australia/Melbourne',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                    }
+                }
+                recentDownloads.push({
+                    date: data.date,
+                    time: timeStr,
+                    size: data.estimatedFileSizeMB,
+                    dims: sizeKey,
+                    quality: data.quality || 'Unknown',
+                    location: data.location || { country: '-', city: '-' }
+                });
+            });
+
+            currentUploadData.forEach(data => {
+                let timeStr = '-';
+                if (data.timestamp) {
+                    if (data.timestamp.toDate) {
+                        const date = data.timestamp.toDate();
+                        timeStr = new Intl.DateTimeFormat('en-AU', {
+                            timeZone: 'Australia/Melbourne',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }).format(date);
+                    } else {
+                        timeStr = new Date(data.timestamp).toLocaleTimeString('en-AU', {
+                            timeZone: 'Australia/Melbourne',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                    }
+                }
+                recentUploads.push({
+                    date: data.date,
+                    time: timeStr,
+                    size: data.fileSizeMB,
+                    dimensions: `${data.width}×${data.height}`,
+                    aspectRatio: data.aspectRatio,
+                    location: data.location || { country: '-', city: '-' }
+                });
+            });
+
+            recentDownloads.sort((a, b) => {
+                if (a.date !== b.date) return b.date.localeCompare(a.date);
+                return b.time.localeCompare(a.time);
+            });
+            recentUploads.sort((a, b) => {
+                if (a.date !== b.date) return b.date.localeCompare(a.date);
+                return b.time.localeCompare(a.time);
+            });
+            // Process Page Views with locations
+            const recentPageViews = [];
+            currentPageViewData.forEach(data => {
+                let timeStr = '-';
+                if (data.timestamp) {
+                    if (data.timestamp.toDate) {
+                        const date = data.timestamp.toDate();
+                        timeStr = new Intl.DateTimeFormat('en-AU', {
+                            timeZone: 'Australia/Melbourne',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }).format(date);
+                    } else {
+                        timeStr = new Date(data.timestamp).toLocaleTimeString('en-AU', {
+                            timeZone: 'Australia/Melbourne',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                    }
+                }
+                recentPageViews.push({
+                    date: data.date,
+                    time: timeStr,
+                    page: data.page || 'index',
+                    location: data.location || { country: '-', city: '-' }
+                });
+            });
+
+            recentPageViews.sort((a, b) => {
+                if (a.date !== b.date) return b.date.localeCompare(a.date);
+                return b.time.localeCompare(a.time);
+            });
+
+            recentClicks.sort((a, b) => {
+                if (a.date !== b.date) return b.date.localeCompare(a.date);
+                return b.time.localeCompare(a.time);
+            });
+
+            currentStatsData.recentDownloads = recentDownloads.slice(0, 100);
+            currentStatsData.recentUploads = recentUploads.slice(0, 100);
+            currentStatsData.recentClicks = recentClicks.slice(0, 100);
+            currentStatsData.recentPageViews = recentPageViews.slice(0, 100);
+            currentStatsData.popularSizes = Object.entries(sizeMap).sort((a,b) => b[1] - a[1]).slice(0, 20);
+
+            const avgSize = downloads > 0 ? (totalSize/downloads).toFixed(1) + ' MB' : '-';
+            const avgPixels = downloads > 0 ? Math.round(totalPixels/downloads).toLocaleString() : '-';
+
+            const setText = (id, text) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = text;
+            };
+
+            setText('statPageViews', pageViews.toLocaleString());
+            setText('statUploadRate', uploadRate);
+            setText('statBounceRate', bounceRate);
+            setText('statUploads', uploads.toLocaleString());
+            setText('statDownloads', downloads.toLocaleString());
+            setText('statConversion', conversionRate);
+                                                
+            // Update badges
+            const downloadsBadge = document.getElementById('downloadsBadge');
+            if (downloadsBadge) downloadsBadge.textContent = recentDownloads.length;
+            const uploadsBadge = document.getElementById('uploadsBadge');
+            if (uploadsBadge) uploadsBadge.textContent = recentUploads.length;
+            const sizesBadge = document.getElementById('sizesBadge');
+            if (sizesBadge) sizesBadge.textContent = currentStatsData.popularSizes.length;
+            const pageviewsBadge = document.getElementById('pageviewsBadge');
+            if (pageviewsBadge) pageviewsBadge.textContent = recentPageViews.length;
+
+            // Update Downloads Table
+            const downloadsBody = document.getElementById('recentDownloadsBody');
+            if (downloadsBody) {
+                if (recentDownloads.length === 0) {
+                    downloadsBody.innerHTML = `
+                        <tr><td colspan="5">
+                            <div class="empty-state"><div class="icon">📭</div><p>No downloads in this period</p></div>
+                        </td></tr>`;
+                } else {
+                    downloadsBody.innerHTML = recentDownloads.map(r => {
+                        const qualityClass = r.quality === 'Excellent' ? 'quality-excellent' : 
+                                           r.quality === 'Good' ? 'quality-good' : 
+                                           r.quality === 'Fair' ? 'quality-fair' : 'quality-poor';
+                        return `<tr>
+                            <td><strong>${r.time}</strong><br><small style="color:#888;">${r.date}</small></td>
+                            <td class="dim-cell">${r.dims}</td>
+                            <td><span class="quality-badge ${qualityClass}">${r.quality}</span></td>
+                            <td><span class="size-badge">${r.size} MB</span></td>
+                            <td><span class="location-tag">📍 ${r.location.city}, ${r.location.country}</span></td>
+                        </tr>`;
+                    }).join('');
+                }
+            }
+
+            // Update Uploads Table
+            const uploadsBody = document.getElementById('recentUploadsBody');
+            if (uploadsBody) {
+                if (recentUploads.length === 0) {
+                    uploadsBody.innerHTML = `
+                        <tr><td colspan="5">
+                            <div class="empty-state"><div class="icon">📭</div><p>No uploads in this period</p></div>
+                        </td></tr>`;
+                } else {
+                    uploadsBody.innerHTML = recentUploads.map(r => `
+                        <tr>
+                            <td><strong>${r.time}</strong><br><small style="color:#888;">${r.date}</small></td>
+                            <td class="dim-cell">${r.dimensions}</td>
+                            <td>${r.aspectRatio}</td>
+                            <td><span class="size-badge">${r.size} MB</span></td>
+                            <td><span class="location-tag">📍 ${r.location.city}, ${r.location.country}</span></td>
+                        </tr>
+                    `).join('');
+                }
+            }
+
+            // Update Page Views Table
+            const pageviewsBody = document.getElementById('pageviewsBody');
+            if (pageviewsBody) {
+                if (recentPageViews.length === 0) {
+                    pageviewsBody.innerHTML = `
+                        <tr><td colspan="3">
+                            <div class="empty-state"><div class="icon">📭</div><p>No page views in this period</p></div>
+                        </td></tr>`;
+                } else {
+                    pageviewsBody.innerHTML = recentPageViews.map(r => `
+                        <tr>
+                            <td><strong>${r.time}</strong><br><small style="color:#888;">${r.date}</small></td>
+                            <td><span class="location-tag">📍 ${r.location.city}, ${r.location.country}</span></td>
+                            <td><span class="size-badge">${r.page}</span></td>
+                        </tr>
+                    `).join('');
+                }
+            }
+
+            // Update Popular Sizes
+            const popularSizesEl = document.getElementById('popularSizes');
+            if (popularSizesEl) {
+                if (currentStatsData.popularSizes.length === 0) {
+                    popularSizesEl.innerHTML = `
+                        <div class="empty-state"><div class="icon">📊</div><p>No data available</p></div>`;
+                } else {
+                    const maxCount = currentStatsData.popularSizes[0][1];
+                    popularSizesEl.innerHTML = currentStatsData.popularSizes.map(([size, count], index) => {
+                        const percentage = (count / maxCount * 100).toFixed(1);
+                        return `
+                        <div class="size-item">
+                            <div class="size-info">
+                                <span class="size-name">${index + 1}. ${size}</span>
+                                <span class="size-count">${count}</span>
+                            </div>
+                            <div class="size-bar">
+                                <div class="size-bar-fill" style="width: ${percentage}%"></div>
+                            </div>
+                        </div>`;
+                    }).join('');
+                }
+            }
+
+            // Update Hourly Chart
+            const hourlyChart = document.getElementById('hourlyChart');
+            if (hourlyChart) {
+                const maxHour = Math.max(...hourMap, 1);
+                hourlyChart.innerHTML = hourMap.map((count, hour) => `
+                    <div class="chart-bar ${count > 0 ? 'has-data' : ''}" 
+                         style="height: ${maxHour > 0 ? (count/maxHour*100) : 0}%" 
+                         title="${hour}:00 - ${count} downloads">
+                        <div class="tooltip">${hour}:00 - ${count} downloads</div>
+                    </div>
+                `).join('');
+            }
+
+            
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+            // BORDER TOOL STATS
+            
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+            const borderViews = currentBorderToolData.filter(d => d.type === 'pageView').length;
+            const borderUploads = currentBorderToolData.filter(d => d.type === 'upload').length;
+            const borderDownloads = currentBorderToolData.filter(d => d.type === 'download').length;
+            const borderConversion = borderViews > 0 ? ((borderDownloads / borderViews) * 100).toFixed(1) + '%' : '0%';
+
+            const borderDownloadData = currentBorderToolData.filter(d => d.type === 'download');
+            const insideCount = borderDownloadData.filter(d => d.borderMode === 'inside').length;
+            const outsideCount = borderDownloadData.filter(d => d.borderMode === 'outside').length;
+            const fitCount = borderDownloadData.filter(d => d.imageFit === true).length;
+
+            currentStatsData.borderViews = borderViews;
+            currentStatsData.borderDownloads = borderDownloads;
+
+            setText('statBorderViews', borderViews.toLocaleString());
+            setText('statBorderUploads', borderUploads.toLocaleString());
+            setText('statBorderDownloads', borderDownloads.toLocaleString());
+            setText('statBorderConversion', borderConversion);
+            setText('statBorderInside', insideCount.toLocaleString());
+            setText('statBorderOutside', outsideCount.toLocaleString());
+            setText('statBorderFit', fitCount.toLocaleString());
+
+            // Process border tool activity
+            const borderActivity = [];
+            const settingMap = {};
+            const formatMap = {};
+
+            currentBorderToolData.forEach(data => {
+                let timeStr = '-';
+                if (data.timestamp) {
+                    if (data.timestamp.toDate) {
+                        const date = data.timestamp.toDate();
+                        timeStr = new Intl.DateTimeFormat('en-AU', {
+                            timeZone: 'Australia/Melbourne',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }).format(date);
+                    } else {
+                        timeStr = new Date(data.timestamp).toLocaleTimeString('en-AU', {
+                            timeZone: 'Australia/Melbourne',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                    }
+                }
+
+                let eventType, modeFmt, sizeVal, dpiFile;
+                if (data.type === 'pageView') {
+                    eventType = '👁️ Page View';
+                    modeFmt = '-';
+                    sizeVal = '-';
+                    dpiFile = '-';
+                } else if (data.type === 'upload') {
+                    eventType = '📤 Upload';
+                    modeFmt = data.fileType || '-';
+                    sizeVal = data.fileSizeMB ? `${data.fileSizeMB} MB` : '-';
+                    dpiFile = data.fileName || '-';
+                } else {
+                    eventType = '⬇ Download';
+                    modeFmt = `${data.borderMode || '-'} | ${data.exportFormat || '-'}`;
+                    sizeVal = data.outputWidth && data.outputHeight ? `${data.outputWidth}×${data.outputHeight} ${data.unit || 'in'}` : '-';
+                    dpiFile = data.exportDpi || '-';
+                }
+
+                borderActivity.push({
+                    date: data.date,
+                    time: timeStr,
+                    event: eventType,
+                    modeFmt: modeFmt,
+                    size: sizeVal,
+                    dpiFile: dpiFile,
+                    location: data.location || { country: '-', city: '-' }
+                });
+
+                if (data.type === 'download') {
+                    const settingKey = `${data.borderMode || 'unknown'} | ${data.exportFormat || 'jpg'} | ${data.exportDpi || 300}DPI`;
+                    settingMap[settingKey] = (settingMap[settingKey] || 0) + 1;
+
+                    const fmt = data.exportFormat || 'jpg';
+                    formatMap[fmt] = (formatMap[fmt] || 0) + 1;
+                }
+            });
+
+            borderActivity.sort((a, b) => {
+                if (a.date !== b.date) return b.date.localeCompare(a.date);
+                return b.time.localeCompare(a.time);
+            });
+
+            currentStatsData.borderActivity = borderActivity.slice(0, 100);
+            currentStatsData.borderPopularSettings = Object.entries(settingMap).sort((a, b) => b[1] - a[1]).slice(0, 10);
+            currentStatsData.borderFormatDist = Object.entries(formatMap).sort((a, b) => b[1] - a[1]);
+
+            // Update Border Activity Table
+            const borderActivityBadge = document.getElementById('borderActivityBadge');
+            if (borderActivityBadge) borderActivityBadge.textContent = borderActivity.length;
+
+            const borderActivityBody = document.getElementById('borderActivityBody');
+            if (borderActivityBody) {
+                if (borderActivity.length === 0) {
+                    borderActivityBody.innerHTML = `
+                        <tr><td colspan="7">
+                            <div class="empty-state"><div class="icon">📭</div><p>No border tool activity in this period</p></div>
+                        </td></tr>`;
+                } else {
+                    borderActivityBody.innerHTML = borderActivity.map(r => `
+                        <tr>
+                            <td><strong>${r.time}</strong><br><small style="color:#888;">${r.date}</small></td>
+                            <td>${r.event}</td>
+                            <td><span class="size-badge">${r.modeFmt}</span></td>
+                            <td class="dim-cell">${r.size}</td>
+                            <td>${r.dpiFile}</td>
+                            <td><span class="location-tag">📍 ${r.location.city}, ${r.location.country}</span></td>
+                        </tr>
+                    `).join('');
+                }
+            }
+
+            // Update Border Popular Settings
+            const borderSettingsBadge = document.getElementById('borderSettingsBadge');
+            if (borderSettingsBadge) borderSettingsBadge.textContent = currentStatsData.borderPopularSettings.length;
+
+            const borderPopularSettingsEl = document.getElementById('borderPopularSettings');
+            if (borderPopularSettingsEl) {
+                if (currentStatsData.borderPopularSettings.length === 0) {
+                    borderPopularSettingsEl.innerHTML = `
+                        <div class="empty-state"><div class="icon">📊</div><p>No data available</p></div>`;
+                } else {
+                    const maxSettingCount = currentStatsData.borderPopularSettings[0][1];
+                    borderPopularSettingsEl.innerHTML = currentStatsData.borderPopularSettings.map(([setting, count], index) => {
+                        const percentage = (count / maxSettingCount * 100).toFixed(1);
+                        return `
+                        <div class="size-item">
+                            <div class="size-info">
+                                <span class="size-name">${index + 1}. ${setting}</span>
+                                <span class="size-count">${count}</span>
+                            </div>
+                            <div class="size-bar">
+                                <div class="size-bar-fill" style="width: ${percentage}%"></div>
+                            </div>
+                        </div>`;
+                    }).join('');
+                }
+            }
+
+            // Update Format Distribution
+            const borderFormatDistEl = document.getElementById('borderFormatDistribution');
+            if (borderFormatDistEl) {
+                if (currentStatsData.borderFormatDist.length === 0) {
+                    borderFormatDistEl.innerHTML = `
+                        <div class="empty-state"><div class="icon">📊</div><p>No data available</p></div>`;
+                } else {
+                    const maxFmtCount = currentStatsData.borderFormatDist[0][1];
+                    borderFormatDistEl.innerHTML = currentStatsData.borderFormatDist.map(([fmt, count], index) => {
+                        const percentage = (count / maxFmtCount * 100).toFixed(1);
+                        const fmtLabel = fmt.toUpperCase();
+                        const fmtIcon = fmt === 'jpg' ? '🖼️' : '📋';
+                        return `
+                        <div class="size-item">
+                            <div class="size-info">
+                                <span class="size-name">${fmtIcon} ${fmtLabel}</span>
+                                <span class="size-count">${count}</span>
+                            </div>
+                            <div class="size-bar">
+                                <div class="size-bar-fill" style="width: ${percentage}%"></div>
+                            </div>
+                        </div>`;
+                    }).join('');
+                }
+            }
+        }
+
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        // REPORT DOWNLOADS
+        
+        function togglePanel(header) {
+            const body = header.nextElementSibling;
+            if (!body || !body.classList.contains('panel-body')) return;
+            const isCollapsed = body.classList.contains('collapsed');
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                body.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    
+        // ==========================================
+        function downloadReport(format) {
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const filename = `printsizechecker-report-${currentStatsData.period}-${timestamp}`;
+
+            if (format === 'json') {
+                const reportData = {
+                    generatedAt: new Date().toISOString(),
+                    period: currentStatsData.period,
+                    stats: {
+                        pageViews: currentStatsData.pageViews,
+                        uploads: currentStatsData.uploads,
+                        downloads: currentStatsData.downloads,
+                        conversionRate: currentStatsData.uploads > 0 ? ((currentStatsData.downloads/currentStatsData.uploads)*100).toFixed(1) + '%' : '0%'
+                    },
+                    popularSizes: currentStatsData.popularSizes,
+                    recentDownloads: currentStatsData.recentDownloads,
+                    recentUploads: currentStatsData.recentUploads,
+                    recentPageViews: currentStatsData.recentPageViews,
+                    borderTool: {
+                        views: currentStatsData.borderViews,
+                        downloads: currentStatsData.borderDownloads,
+                        conversionRate: currentStatsData.borderViews > 0 ? ((currentStatsData.borderDownloads/currentStatsData.borderViews)*100).toFixed(1) + '%' : '0%',
+                        activity: currentStatsData.borderActivity,
+                        popularSettings: currentStatsData.borderPopularSettings,
+                        formatDistribution: currentStatsData.borderFormatDist
+                    }
+                };
+
+                const blob = new Blob([JSON.stringify(reportData, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${filename}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+            } else if (format === 'csv') {
+                let csv = 'PrintSizeChecker Analytics Report\n';
+                csv += `Period,${currentStatsData.period}\n`;
+                csv += `Generated,${new Date().toLocaleString('en-AU', { timeZone: 'Australia/Melbourne' })} (Melbourne Time)\n\n`;
+                csv += 'Summary Statistics\n';
+                csv += `Page Views,${currentStatsData.pageViews}\n`;
+                csv += `Uploads,${currentStatsData.uploads}\n`;
+                csv += `Downloads,${currentStatsData.downloads}\n`;
+                csv += `Conversion Rate,${currentStatsData.uploads > 0 ? ((currentStatsData.downloads/currentStatsData.uploads)*100).toFixed(1) : 0}%\n\n`;
+
+                csv += 'Popular Print Sizes\n';
+                csv += 'Rank,Size,Count\n';
+                currentStatsData.popularSizes.forEach(([size, count], index) => {
+                    csv += `${index + 1},"${size}",${count}\n`;
+                });
+                csv += '\n';
+
+                csv += 'Recent Downloads\n';
+                csv += 'Date,Time,Dimensions,Quality,Size(MB),City,Country\n';
+                currentStatsData.recentDownloads.forEach(r => {
+                    csv += `${r.date},${r.time},"${r.dims}",${r.quality},${r.size},${r.location.city},${r.location.country}\n`;
+                });
+                csv += '\n';
+
+                csv += 'Recent Uploads\n';
+                csv += 'Date,Time,Dimensions,Aspect Ratio,Size(MB),City,Country\n';
+                currentStatsData.recentUploads.forEach(r => {
+                    csv += `${r.date},${r.time},"${r.dimensions}",${r.aspectRatio},${r.size},${r.location.city},${r.location.country}\n`;
+                });
+                csv += '\n';
+
+                csv += 'Page View Locations\n';
+                csv += 'Date,Time,Page,City,Country\n';
+                currentStatsData.recentPageViews.forEach(r => {
+                    csv += `${r.date},${r.time},${r.page},${r.location.city},${r.location.country}\n`;
+                });
+                csv += '\n';
+
+                csv += 'Border Tool Activity\n';
+                csv += 'Date,Time,Event,Mode,Format,Size,DPI,City,Country\n';
+                currentStatsData.borderActivity.forEach(r => {
+                    const eventClean = r.event.replace(/[^a-zA-Z0-9 ]/g, '').trim();
+                    csv += `${r.date},${r.time},${eventClean},${r.mode},${r.format},${r.size},${r.dpi},${r.location.city},${r.location.country}\n`;
+                });
+                csv += '\n';
+
+                csv += 'Border Tool Popular Settings\n';
+                csv += 'Rank,Setting,Count\n';
+                currentStatsData.borderPopularSettings.forEach(([setting, count], index) => {
+                    csv += `${index + 1},"${setting}",${count}\n`;
+                });
+
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${filename}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        }
+    </script>
+</body>
+</html>

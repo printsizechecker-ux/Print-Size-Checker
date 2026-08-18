@@ -1,0 +1,10 @@
+# Backup files from update scripts
+*.backup
+*.py
+
+# Mac OS metadata
+._*
+.DS_Store
+
+# Temp files
+*.txt
