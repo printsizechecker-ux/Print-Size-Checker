@@ -1,4 +1,5 @@
 const articlesList = [
+    { title: "We Analysed Thousands of Real Print Checks. Here's What People Get Wrong.", url: "print-quality-statistics" },
     { title: "Can You Print AI-Generated Images? A Practical Guide", url: "can-you-print-ai-generated-images" },
     { title: "AI Image Print Resolution Guide: Exact Specs for Every Tool", url: "ai-image-print-resolution-guide" },
     { title: "Best Image Resolution for Large Canvas Prints Without Losing Quality", url: "Best-Image-Resolution-for-Large-Canvas-prints" },
